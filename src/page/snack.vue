@@ -186,17 +186,20 @@ export default {
                     headAfter = [r, (c += 1)];
                     break;
             }
+            //判断蛇头是否在自己身上
+            if (this.judgeHeadInSelfBody()) {
+                this.gameOver();
+                return;
+            }
             const [_right, _bottom] = checkerArea;
             //蛇头等于四个边界的时候游戏结束
             if (
-                headAfter[0] == 0 ||
-                headAfter[1] == 0 ||
+                headAfter[0] < 0 ||
+                headAfter[1] < 0 ||
                 headAfter[0] == _right ||
                 headAfter[1] == _bottom
             ) {
-                clearInterval(this.moveTimer);
-                alert("游戏结束");
-                this.reload();
+                this.gameOver();
                 return;
             }
             if (this.isAteFood()) {
@@ -210,6 +213,17 @@ export default {
             }
             snack.unshift(headAfter);
             this.drawSnack();
+        },
+
+        /**
+         * 游戏结束
+         * @param {null}
+         * @return {void}
+         */
+        gameOver() {
+            clearInterval(this.moveTimer);
+            alert("游戏结束");
+            this.reload();
         },
 
         /**
@@ -302,6 +316,24 @@ export default {
                         food.className = "food";
                         return;
                     }
+                }
+            }
+        },
+
+        /**
+         * 判断蛇头是否在自己身上
+         * @param {null}
+         * @return {void}
+         */
+        judgeHeadInSelfBody() {
+            //拷贝数组
+            const body = JSON.parse(JSON.stringify(this.snack));
+            //删除数组第一项并返回蛇头坐标
+            const [x, y] = body.shift(1);
+            for (let i = 0; i < body.length; i++) {
+                const [a, b] = body[i];
+                if (a == x && b == y) {
+                    return true;
                 }
             }
         },
