@@ -109,7 +109,7 @@ export default {
             this.moveTimer = setInterval(() => {
                 this.snackMove();
                 this.wait = true;
-            }, 200);
+            }, 50);
         },
 
         /**
@@ -169,7 +169,7 @@ export default {
          * @return {void}
          */
         snackMove() {
-            const { direction, snack } = this;
+            const { direction, snack, checkerArea } = this;
             let [r, c] = snack[0]; //第r行的第c个
             let headAfter = [];
             switch (direction) {
@@ -186,7 +186,14 @@ export default {
                     headAfter = [r, (c += 1)];
                     break;
             }
-            if (headAfter[0] < 0 || headAfter[1] < 0) {
+            const [_right, _bottom] = checkerArea;
+            //蛇头等于四个边界的时候游戏结束
+            if (
+                headAfter[0] == 0 ||
+                headAfter[1] == 0 ||
+                headAfter[0] == _right ||
+                headAfter[1] == _bottom
+            ) {
                 clearInterval(this.moveTimer);
                 alert("游戏结束");
                 this.reload();
@@ -242,12 +249,12 @@ export default {
                 for (let i = row + 1; i < row + l; i++) {
                     body.push([i, col]);
                     //4.0 定义蛇移动的方向
-                    this.direction = "left";
+                    this.direction = "up";
                 }
             } else {
                 for (let i = col + 1; i < col + l; i++) {
                     body.push([row, i]);
-                    this.direction = "up";
+                    this.direction = "left";
                 }
             }
             this.snack = [head, ...body];
