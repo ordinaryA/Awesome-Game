@@ -19,7 +19,7 @@
 }
 
 .snack_bg {
-  background: url('../img/geometry.png')
+  background: url('../img/snack/geometry.png')
 }
 
 .content {
@@ -97,4 +97,15 @@
 .paper_li:hover {
   background: #ddd;
   text-indent: .8em;
+}
+
+.score_father {
+  position: relative;
+}
+
+.score {
+  width: 300px;
+  position: absolute;
+  top: 200px;
+  right: 20px;
 }
