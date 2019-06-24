@@ -42,7 +42,7 @@
                     class="sm-12 md-9 col"
                     v-first="{name:'translateRight',duration:'0.5s',delay:'0.8s',offset:'0'}"
                 >
-                    <div class="paper">
+                    <div class="paper score_father">
                         <div class="row child-borders cont_btn">
                             <span
                                 class="paper-btn"
@@ -79,11 +79,14 @@
                                     v-show="isStop"
                                 >
                                     <img
-                                        src="../../assets/img/stop.png"
+                                        src="../../assets/img/snack/stop.png"
                                         alt=""
                                     >
                                 </div>
                             </transition>
+                        </div>
+                        <div class="score">
+                            <div>{{`当前得分：${score}分`}}</div>
                         </div>
                     </div>
                 </div>
@@ -101,9 +104,10 @@ export default {
     mixins: [$animate],
     data() {
         return {
+            checkerArea: [50, 50], //棋盘横纵格子数
+            currentMode: "classicMode", //当前游戏魔模式
             sidebar, //侧边栏
             buttonList, //按钮栏
-            checkerArea: [50, 50], //棋盘横纵格子数
             liStyle: {}, //棋盘样式
             snackLength: 4, //蛇的初始长度
             boardBorder: true, //棋盘边框
@@ -113,7 +117,8 @@ export default {
             moveTimer: undefined, //蛇移动的定时器
             isStop: true, //是否暂停
             wait: true, //等待方向更改完成才能再次修改方向
-            speed: 200 //蛇速度
+            speed: 200, //蛇速度
+            score: 0 //当前得分
         };
     },
     computed: {
@@ -189,15 +194,15 @@ export default {
             let type = "";
             switch (speed) {
                 case "normal":
-                    this.speed = 200;
+                    this.speed = 80;
                     type = "primary";
                     break;
                 case "hard":
-                    this.speed = 120;
+                    this.speed = 60;
                     type = "warning";
                     break;
                 case "crazy":
-                    this.speed = 40;
+                    this.speed = 30;
                     type = "danger";
                     break;
             }
@@ -306,29 +311,21 @@ export default {
          * @return {void}
          */
         restartGame() {
+            this.score = 0;
             this.isStop = true;
             clearInterval(this.moveTimer);
             //1.0 清空蛇和食物
-            const head = document.getElementsByClassName("snack_head")[0];
-            const body = document.getElementsByClassName("snack_body");
-            const food = document.getElementsByClassName("food");
-            if (head) head.classList.remove("snack_head");
-            if (food) {
-                for (let i = 0; i < food.length; i++) {
-                    food[i].classList.remove("food");
-                }
-            }
-            if (body) {
-                for (let i = 0; i < body.length; i++) {
-                    body[i].classList.remove("snack_body");
-                }
+            const liArr = document.getElementsByTagName("li");
+            for (let i = 0, l = liArr.length; i < l; i++) {
+                const li = liArr[i];
+                li.className = "";
             }
             //2.0 生成蛇的二维数组
             this.createSnack();
             //3.0 画出一条蛇
             this.drawSnack();
             //4.0 随机生成食物
-            // this.createFood();
+            this.createFood();
         },
 
         /**
@@ -397,21 +394,21 @@ export default {
          * @return {void}
          */
         snackMove() {
-            const { direction, snack, checkerArea } = this;
+            const { direction, snack, currentMode } = this;
             let [r, c] = snack[0]; //第r行的第c个
             let headAfter = [];
             switch (direction) {
                 case "up":
-                    headAfter = [(r -= 1), c];
+                    headAfter = [r - 1, c];
                     break;
                 case "down":
-                    headAfter = [(r += 1), c];
+                    headAfter = [r + 1, c];
                     break;
                 case "left":
-                    headAfter = [r, (c -= 1)];
+                    headAfter = [r, c - 1];
                     break;
                 case "right":
-                    headAfter = [r, (c += 1)];
+                    headAfter = [r, c + 1];
                     break;
             }
             //判断蛇头是否在自己身上
@@ -419,28 +416,73 @@ export default {
                 this.gameOver();
                 return;
             }
-            const [_right, _bottom] = checkerArea;
-            //蛇头等于四个边界的时候游戏结束
-            if (
-                headAfter[0] < 0 ||
-                headAfter[1] < 0 ||
-                headAfter[0] == _right ||
-                headAfter[1] == _bottom
-            ) {
-                this.gameOver();
-                return;
+            //判断蛇头在当前游戏模式失败则游戏结束
+            const res = this[currentMode](headAfter);
+            switch (currentMode) {
+                //经典模式
+                case "classicMode":
+                    if (!res) {
+                        this.gameOver();
+                        return;
+                    }
+                    break;
+                //自由模式
+                case "freeMode":
+                    headAfter = res;
+                    break;
             }
             if (this.isAteFood()) {
                 //吃到食物则重新生成一个食物
                 this.createFood();
             } else {
                 //未到食物则删除获取最后一个元素坐标
+                console.log(this.$refs);
                 const [row, col] = snack.pop();
+                console.log([row, col]);
                 const li = this.$refs[`li_${row}`][col];
                 li.className = "";
             }
             snack.unshift(headAfter);
             this.drawSnack();
+        },
+
+        /**
+         * 经典模式
+         * @param {array}
+         * @return {boolean}
+         */
+        classicMode([row, col]) {
+            const [R, C] = this.checkerArea;
+            if (row < 0 || col < 0 || row == R || col == C) {
+                return false;
+            } else {
+                return true;
+            }
+        },
+
+        /**
+         * 自由模式
+         * @param {array}
+         * @return {array}
+         */
+        freeMode([row, col]) {
+            let [R, C] = this.checkerArea;
+            R -= 1;
+            C -= 1;
+            let snackHead = [row, col];
+            if (row < 0) {
+                snackHead = [R, col];
+            }
+            if (col < 0) {
+                snackHead = [row, C];
+            }
+            if (row > R) {
+                snackHead = [0, col];
+            }
+            if (col > C) {
+                snackHead = [row, 0];
+            }
+            return snackHead;
         },
 
         /**
@@ -450,6 +492,7 @@ export default {
          */
         gameOver() {
             clearInterval(this.moveTimer);
+            this.score = 0;
             this.restartGame();
             this.HiAlert({
                 type: "danger",
@@ -466,6 +509,7 @@ export default {
             const [foodRow, foodCol] = this.food;
             const [headRow, headCol] = this.snack[0];
             if (foodRow == headRow && foodCol == headCol) {
+                this.score++;
                 return true;
             } else {
                 return false;
@@ -506,7 +550,7 @@ export default {
         },
 
         /**
-         * 创建一条蛇
+         * 画一条蛇
          * @param {null}
          * @return {void}
          */
