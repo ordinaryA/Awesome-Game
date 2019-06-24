@@ -1,0 +1,129 @@
+.w1440 {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.cl {
+  zoom: 1;
+}
+
+.cl:after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+/* Alert弹窗动画 */
+.alanAlert-enter-active {
+  animation: alertIn .3s;
+}
+
+.alanAlert-leave-active {
+  animation: alertOut .3s;
+}
+
+@keyframes alertIn {
+
+  0% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes alertOut {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}
+
+
+
+/* 从左往右进入 */
+.translateLeft {
+  animation: translateLeft .3s;
+}
+
+.translateLeft-enter-active {
+  animation: translateLeft .3s;
+}
+
+.translateLeft-leave-active {
+  animation: translateLeft .3s reverse;
+}
+
+@keyframes translateLeft {
+  0% {
+    transform: translateX(-60px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 从右往左进入 */
+.translateRight {
+  animation: translateRight .5s;
+}
+
+.translateRight-enter-active {
+  animation: translateRight .3s;
+}
+
+.translateRight-leave-active {
+  animation: translateRight .3s reverse;
+}
+
+@keyframes translateRight {
+  0% {
+    transform: translateX(60px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+/* 从下往上进入 */
+.translateTop {
+  animation: translateTop .5s;
+}
+
+.translateTop-enter-active {
+  animation: translateTop .3s;
+}
+
+.translateTop-leave-active {
+  animation: translateTop .3s reverse;
+}
+
+@keyframes translateTop {
+  0% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
