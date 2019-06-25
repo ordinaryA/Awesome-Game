@@ -345,7 +345,8 @@ export default {
             this.isStop = true;
             clearInterval(this.moveTimer);
             //1.0 清空蛇和食物
-            const liArr = document.getElementsByTagName("li");
+            const { layout } = this.$refs;
+            const liArr = layout.querySelectorAll("li");
             for (let i = 0, l = liArr.length; i < l; i++) {
                 const li = liArr[i];
                 li.className = "";
