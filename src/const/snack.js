@@ -2,12 +2,18 @@ const sidebar = [{
     title: '游戏模式 (Game Modes)',
     children: [{
         label: '经典 (Classic)',
+        type: 'mode',
+        mode: 'classicMode',
       },
       {
         label: '冒险 (Adventure)',
+        type: 'mode',
+        mode: 'adventureMode'
       },
       {
         label: '自由 (Freedom)',
+        type: 'mode',
+        mode: 'freeMode',
       },
     ]
   },

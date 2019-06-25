@@ -182,7 +182,37 @@ export default {
                 case "difficulty":
                     this.chooseDifficulty(item);
                     break;
+                case "mode":
+                    this.chooseMode(item);
+                    break;
             }
+        },
+
+        /**
+         * 选择模式
+         * @param {object}
+         * @return {void}
+         */
+        chooseMode({ type, mode, label }) {
+            let tip = `已切换为${label}`;
+            let alertType = "success";
+            switch (mode) {
+                case "classicMode":
+                    this.currentMode = mode;
+                    break;
+                case "freeMode":
+                    this.currentMode = mode;
+                    break;
+                case "adventureMode":
+                    tip = `暂未开放`;
+                    alertType = "warning";
+                    break;
+            }
+            this.restartGame();
+            this.HiAlert({
+                type: alertType,
+                content: tip
+            });
         },
 
         /**
