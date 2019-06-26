@@ -19,7 +19,7 @@
 }
 
 .snack_bg {
-  background: url('../img/snack/geometry.png')
+  background: url('../img/snack/geometry.png');
 }
 
 .content {
@@ -108,4 +108,9 @@
   position: absolute;
   top: 200px;
   right: 20px;
+}
+
+.noScroll {
+  height: 100vh;
+  overflow: hidden;
 }

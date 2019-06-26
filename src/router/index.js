@@ -8,5 +8,5 @@ export default new Router({
     path: '/',
     name: 'snack',
     component: resolve => require(['../page/snack/index'], resolve)
-  }]
+  }, ]
 })
