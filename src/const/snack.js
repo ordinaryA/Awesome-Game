@@ -76,7 +76,7 @@ const buttonList = [{
     type: 'stop'
   },
   {
-    label: 'test',
+    label: 'TEST BUTTON',
     type: 'alert'
   }
 ]

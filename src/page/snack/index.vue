@@ -1,6 +1,6 @@
 <template>
     <div class="snack_bg">
-        <div class="w1440">
+        <div class="w1440 noScroll">
             <div class="row site">
                 <div
                     class="sm-12 md-3 col sidebar"
@@ -85,7 +85,10 @@
                                 </div>
                             </transition>
                         </div>
-                        <div class="score">
+                        <div
+                            class="score"
+                            v-first="{name:'translateTop',duration:'0.5s',delay:'1.9s',offset:'0'}"
+                        >
                             <div>{{`当前得分：${score}分`}}</div>
                         </div>
                     </div>
@@ -283,7 +286,7 @@ export default {
         snackAlert() {
             this.HiAlert({
                 type: "warning",
-                content: "this!!!"
+                content: "This is just a test button"
             });
         },
 
@@ -467,9 +470,7 @@ export default {
                 this.createFood();
             } else {
                 //未到食物则删除获取最后一个元素坐标
-                console.log(this.$refs);
                 const [row, col] = snack.pop();
-                console.log([row, col]);
                 const li = this.$refs[`li_${row}`][col];
                 li.className = "";
             }
@@ -501,20 +502,30 @@ export default {
             R -= 1;
             C -= 1;
             let snackHead = [row, col];
+            //蛇头到达上边界时 蛇头坐标变为棋盘下边界
             if (row < 0) {
                 snackHead = [R, col];
             }
+            //蛇头到达左边界时 蛇头坐标变为棋盘右边界
             if (col < 0) {
                 snackHead = [row, C];
             }
+            //蛇头到达下边界时 蛇头坐标变为棋盘上边界
             if (row > R) {
                 snackHead = [0, col];
             }
+            //蛇头到达右边界时 蛇头坐标变为棋盘左边界
             if (col > C) {
                 snackHead = [row, 0];
             }
             return snackHead;
         },
+
+        /**
+         * 冒险模式
+         * @param {array}
+         * @return {array}
+         */
 
         /**
          * 游戏结束
