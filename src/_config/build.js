@@ -1,5 +1,6 @@
 import _ from "lodash";
 import '@/assets/css/alan.css'
+import '@/assets/css/paper.css'
 import 'animate.css';
 
 // this上挂载的方法
