@@ -1,0 +1,106 @@
+.snack_bg {
+  background: url('../img/snack/geometry.png');
+}
+
+.sidebar_h3 {
+  text-align: center;
+  margin: 0 0 15px 0;
+}
+
+.paper_li {
+  cursor: pointer;
+  margin: 5px 0;
+  transition: .3s;
+}
+
+.paper_li:hover {
+  background: #ddd;
+  text-indent: .8em;
+}
+
+.cont_btn .paper-btn {
+  margin: 0 1rem;
+}
+
+.normal_board {
+  width: 202px;
+}
+
+.hard_board {
+  width: 402px;
+}
+
+.crazy_board {
+  width: 802px;
+}
+
+.board {
+  border: 1px solid #888;
+  margin: 10px auto;
+}
+
+.sigleCheck {
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #eee;
+  float: left;
+  user-select: none;
+}
+
+.sigleCheck:hover {
+  opacity: .8;
+}
+
+.null {
+  background: #dedede;
+}
+
+.number {
+  background: #dedede;
+  font-weight: bold;
+}
+
+.mine {
+  background: url('../img/sweep/mine.png') no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.mineNot {
+  background: url('../img/sweep/mineNot.png') no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.mineError {
+  background: url('../img/sweep/mineError.png') no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.isCheck {
+  background: #888;
+}
+
+.isTip {
+  background: rgb(204, 204, 190);
+}
+
+.flag {
+  background: url('../img/sweep/flag.png') no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.mine_img {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  vertical-align: middle;
+}
+
+.right_top {
+  padding-left: 110px;
+}
+
+.mine_tip {
+  padding-left: 30px;
+}

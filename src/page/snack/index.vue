@@ -10,7 +10,7 @@
                         <h3
                             class="sidebar-title sidebar_h3"
                             v-first="{name:'translateTop',duration:'0.5s',delay:'0.8s',offset:'0'}"
-                        >贪吃蛇 Gluttonous Snake</h3>
+                        >贪恰蛇 Gluttonous Snake</h3>
                         <div class="row">
                             <div
                                 class="collapsible full-width"
@@ -126,7 +126,8 @@ export default {
     },
     computed: {
         /**
-         * @return 二维数组
+         * 二维数组
+         * @return {array}
          */
         formattCheck() {
             const [a, b] = this.checkerArea;
@@ -142,7 +143,8 @@ export default {
         },
 
         /**
-         * @return 棋盘样式
+         * 棋盘样式
+         * @return {object}
          */
         handleLiStyle() {
             let { liStyle, boardBorder } = this;

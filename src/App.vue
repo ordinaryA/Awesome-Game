@@ -2,11 +2,13 @@
     <div id="app">
         <router-view v-if="isRefresh" />
         <Alert />
+        <Fixed />
     </div>
 </template>
 
 <script>
 import Alert from "./components/alert";
+import Fixed from "./components/fixed";
 import { mapState } from "vuex";
 export default {
     name: "App",
@@ -31,7 +33,8 @@ export default {
         }
     },
     components: {
-        Alert
+        Alert,
+        Fixed
     }
 };
 </script>
