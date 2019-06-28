@@ -16,6 +16,10 @@
   clear: both;
 }
 
+.collapsible.full-width {
+  width: 100%;
+}
+
 /* Alert弹窗动画 */
 .alanAlert-enter-active {
   animation: alertIn .3s;
