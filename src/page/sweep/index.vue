@@ -247,18 +247,7 @@ export default {
             const { boardData, minePos } = this;
             boardData.map(item => {
                 let count = 0; //记录当前格子周边雷的数量
-                const [x, y] = item.pos; //中心坐标
-                const sudoku = [
-                    //获取九宫格数据
-                    [x - 1, y - 1], //左上
-                    [x, y - 1], //中上
-                    [x + 1, y - 1], //右上
-                    [x - 1, y], //中左
-                    [x + 1, y], //中右
-                    [x - 1, y + 1], //左下
-                    [x, y + 1], //中下
-                    [x + 1, y + 1] //右下
-                ];
+                const sudoku = this.requestPos(item.pos);
                 sudoku.map(sudo => {
                     minePos.map(mine => {
                         //相同则记录一次雷的数量
@@ -513,6 +502,7 @@ export default {
          * @return {array}
          */
         requestPos([x, y]) {
+            const [maxX, maxY] = this.boardSize;
             const arr = [
                 //获取九宫格数据
                 [x - 1, y - 1], //左上
@@ -524,7 +514,16 @@ export default {
                 [x, y + 1], //中下
                 [x + 1, y + 1] //右下
             ];
-            return arr;
+            //1.0 处理边界问题
+            for (let i = 0; i < arr.length; i++) {
+                const [posX, posY] = arr[i];
+                if (posX < 0 || posY < 0 || posX >= maxX || posY >= maxY) {
+                    arr[i] = undefined;
+                }
+            }
+            //2.0 过滤数组
+            const filterArr = _.compact(arr);
+            return filterArr;
         },
 
         /**
@@ -567,7 +566,7 @@ export default {
         userSetContext() {
             this.HiAlert({
                 type: "warning",
-                content: "暂未开放···"
+                content: "努力开发中···"
             });
         },
 
