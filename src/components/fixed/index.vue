@@ -1,18 +1,21 @@
 <template>
-    <div>
-        <div class="fix_contain">
-            <div
-                v-for="(item,idx) in iconList"
-                :key="idx"
-                @click="toTarget(item)"
+    <div
+        class="fix_contain"
+        v-drag
+    >
+        <div
+            class="which_one"
+            v-for="(item,idx) in iconList"
+            :key="idx"
+            @click="toTarget(item)"
+        >
+            <svg
+                class="fixed_icon"
+                aria-hidden="true"
             >
-                <svg
-                    class="fixed_icon"
-                    aria-hidden="true"
-                >
-                    <use :xlink:href="`#${item.icon}`"></use>
-                </svg>
-            </div>
+                <use :xlink:href="`#${item.icon}`"></use>
+            </svg>
+            <div class="fix_tip">{{item.tip}}</div>
         </div>
     </div>
 </template>
@@ -24,8 +27,8 @@ export default {
     data() {
         return {
             iconList: [
-                { icon: "icon-she", url: "/" },
-                { icon: "icon-leishen", url: "sweep" }
+                { icon: "icon-she", url: "/", tip: "贪恰蛇" },
+                { icon: "icon-leishen", url: "sweep", tip: "扫雷" }
             ]
         };
     },
@@ -47,21 +50,32 @@ export default {
 </script>
 
 <style scoped>
-.fixed_icon {
-    width: 6em;
-    height: 6em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-    transition: 0.3s;
-}
-.fixed_icon:hover {
-    transform: scale(1.1);
-}
 .fix_contain {
+    padding: 0px 10px;
+    cursor: move;
     background: rgba(0, 0, 0, 0.7);
     position: fixed;
     top: 50px;
     left: 40px;
+}
+.which_one{
+    margin: 20px 0;
+}
+.fixed_icon {
+    width: 4em;
+    height: 4em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.fixed_icon:hover {
+    transform: scale(1.1);
+}
+.fix_tip {
+    text-align: center;
+    font-size: 12px;
+    color: rgb(214, 196, 185);
 }
 </style>
