@@ -1,4 +1,4 @@
-# 用Vue写个贪吃蛇玩玩~~~
+# 用Vue写点游戏玩玩~~~
 
 ![awesome](https://github.com/ordinaryA/snack/blob/master/supply/mai.jpg)
 
