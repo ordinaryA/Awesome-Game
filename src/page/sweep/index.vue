@@ -121,7 +121,11 @@ export default {
                     count++;
                 }
             });
-            return mineCount - count;
+            const res = mineCount - count;
+            if (res == 0) {
+                this.HiImg({ type: "win" });
+            }
+            return res;
         }
     },
     methods: {
@@ -328,10 +332,6 @@ export default {
             const errorArr = [pos];
             //1.0 只传入当前点击的坐标
             this.gameOver({ errorArr });
-            this.HiAlert({
-                type: "danger",
-                content: "游戏失败"
-            });
         },
 
         /**
@@ -391,10 +391,6 @@ export default {
                     this.handleSpace(pos);
                 } else {
                     this.gameOver({ notArr, errorArr });
-                    this.HiAlert({
-                        type: "danger",
-                        content: "游戏失败"
-                    });
                 }
             }
         },
@@ -419,6 +415,11 @@ export default {
                 const idx = this.calcIdx(errorArr[i]);
                 boardData[idx].type = "mineError";
             }
+            this.HiAlert({
+                type: "danger",
+                content: "游戏失败"
+            });
+            this.HiImg({ type: "fail" });
         },
 
         /**

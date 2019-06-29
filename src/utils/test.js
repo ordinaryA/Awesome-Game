@@ -18,10 +18,9 @@ const Deep = obj => JSON.parse(JSON.stringify(obj));
 const current = () => Number(new Date()) / 1000;
 
 /**
- * 封装后alert方法
+ * alert方法
  * @param {object}
  * @return {void}
- * @item 
  */
 const HiAlert = item => {
   COMMIT('handleAlert', item)
@@ -34,11 +33,35 @@ const HiAlert = item => {
   */
 }
 
+/**
+ * 显示图片结果
+ * @param {object}
+ * @return {void}
+ */
+const HiImg = item => {
+  if (item.isShow == 'hide') {
+    COMMIT({
+      showCartoon: {
+        type: 'fail',
+        isShow: false
+      }
+    })
+  } else {
+    COMMIT({
+      showCartoon: {
+        ...item,
+        isShow: true
+      }
+    })
+  }
+}
+
 
 const FUNCTION = {
   Deep,
   current,
   HiAlert,
+  HiImg
 }
 
 export default FUNCTION;
