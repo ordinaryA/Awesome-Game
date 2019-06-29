@@ -4,6 +4,6 @@
 
 ## 在线Demo
 
--贪吃蛇 ：[http://www.almx.top/snack](http://www.almx.top/snack)
--扫雷 ：[http://www.almx.top/sweep](http://www.almx.top/sweep)
+- 贪吃蛇 ：[http://www.almx.top/snack](http://www.almx.top/snack)
+- 扫雷 ：[http://www.almx.top/sweep](http://www.almx.top/sweep)
 ![awesome](https://github.com/ordinaryA/snack/blob/master/supply/snack.png)
