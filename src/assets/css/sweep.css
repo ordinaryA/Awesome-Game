@@ -76,6 +76,11 @@
   background-size: 100% 100%;
 }
 
+.mineSuccess {
+  background: url('../img/sweep/mineSuccess.png') no-repeat center center;
+  background-size: 100% 100%;
+}
+
 .isCheck {
   background: #888;
 }
