@@ -542,6 +542,7 @@ export default {
                 type: "danger",
                 content: "游戏结束！"
             });
+            this.HiImg({ type: "fail" });
         },
 
         /**

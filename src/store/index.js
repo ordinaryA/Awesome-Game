@@ -8,6 +8,8 @@ const store = new Vuex.Store({
     alertQueue: [], //alert队列
     alertId: 0, //alert唯一键值
     alertClearTimer: null, //alert唯一显示的延时器 
+    //漫画组件参数
+    cartoon: {}, //漫画组件参数
   },
   getters: {},
   mutations: {
@@ -39,6 +41,15 @@ const store = new Vuex.Store({
           state.alertQueue.shift(1);
         }, 2000)
       }
+    },
+
+    /*
+     * 显示暴漫图片
+     * @param {object} state
+     * @param {Boolean} data
+     */
+    showCartoon(state, data) {
+      state.cartoon = data
     }
   },
   actions: {}
