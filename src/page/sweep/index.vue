@@ -123,7 +123,7 @@ export default {
             });
             const res = mineCount - count;
             if (res == 0) {
-                this.HiImg({ type: "win" });
+                this.gameWin();
             }
             return res;
         }
@@ -144,6 +144,28 @@ export default {
                     this.userSetContext(item);
                     break;
             }
+        },
+
+        /**
+         * 游戏胜利
+         * @param {null}
+         * @return {void}
+         */
+        gameWin() {
+            const { boardData } = this;
+            boardData.map(item => {
+                item.isCheck = true;
+                item.isTip = false;
+                item.isFlag = false;
+                if (item.type == "mine") {
+                    item.type = "mineSuccess";
+                }
+            });
+            this.HiAlert({
+                type: "success",
+                content: "你赢了！！！"
+            });
+            this.HiImg({ type: "win" });
         },
 
         /**
@@ -409,7 +431,7 @@ export default {
             });
             for (let i = 0; i < notArr.length; i++) {
                 const idx = this.calcIdx(notArr[i]);
-                boardData[idx].type = "mineNot";
+                boardData[idx].type = "mineSuccess";
             }
             for (let i = 0; i < errorArr.length; i++) {
                 const idx = this.calcIdx(errorArr[i]);
