@@ -28,7 +28,8 @@ export default {
         return {
             iconList: [
                 { icon: "icon-she", url: "/", tip: "贪恰蛇" },
-                { icon: "icon-leishen", url: "sweep", tip: "扫雷" }
+                { icon: "icon-leishen", url: "sweep", tip: "扫雷" },
+                { icon: "icon-juzuiniao", url: "bird", tip: "小鸟" }
             ]
         };
     },
@@ -58,7 +59,7 @@ export default {
     top: 50px;
     left: 40px;
 }
-.which_one{
+.which_one {
     margin: 20px 0;
 }
 .fixed_icon {

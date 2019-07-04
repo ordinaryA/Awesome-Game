@@ -171,6 +171,7 @@ export default {
     },
     destroyed() {
         clearInterval(this.moveTimer);
+        document.onkeydown = null;
     },
     methods: {
         /**
