@@ -40,6 +40,7 @@ export default {
          * @return {null}
          */
         toTarget({ url }) {
+            document.onkeydown = null;
             if (url == PATH()) {
                 this.reload();
             } else {
