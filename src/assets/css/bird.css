@@ -5,7 +5,7 @@
   width: 700px;
   height: 700px;
   border: 1px solid #666;
-  background: url('../img/bird/bird_bg.jpg') no-repeat;
+  background: url('../img/bird/birdBg.png') no-repeat;
   background-size: cover;
   margin: 20px auto;
   position: relative;
