@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h3 class="spaceTip">空格键（Space）</h3>
         <div
             class="bird_box"
             ref="birdBox"
