@@ -1,24 +1,55 @@
-.spaceTip{
+.bird_bg {
+  background: url('../img/snack/geometry.png');
+  height: 100vh;
+  padding-top: 50px;
+}
+
+.bird_paper {
+  width: 850px;
+  margin: 0 auto;
+  padding: 40px;  
+}
+
+.spaceTip {
+  font-size: 30px;
+  padding-top: 20px;
   text-align: center;
 }
-.bird_box {
-  width: 700px;
-  height: 700px;
-  border: 1px solid #666;
-  background: url('../img/bird/birdBg.png') no-repeat;
-  background-size: cover;
+
+@keyframes birdBgMove {
+  0% {
+    background-position: 0;
+  }
+
+  100% {
+    background-position: 100%;
+  }
+}
+
+.game_layout {
+  width: 750px;
+  height: 530px;
   margin: 20px auto;
+}
+
+.land {
+  height: 50px;
+  background: url('../img/bird/land.png');
+}
+
+.bird_box {
+  height: 480px;
+  background: url('../img/bird/sky.png') no-repeat;
+  background-position: center center;
   position: relative;
-  animation: birdBgMove 3s infinite linear;
+  animation: birdBgMove 4s infinite linear;
+  overflow: hidden;
 }
 
 .bird {
   width: 30px;
   height: 30px;
-  /* background: #000; */
   position: absolute;
-  top: 50px;
-  left: 195px;
 }
 
 .birdJump {
@@ -37,7 +68,7 @@
 }
 
 .birdRoate {
-  animation: birdRotate 2s;
+  animation: birdRotate 1.3s;
 }
 
 @keyframes birdRotate {
@@ -78,12 +109,29 @@
   }
 }
 
-@keyframes birdBgMove {
-  0% {
-    background-position: 0%;
-  }
+.pipFar {
+  width: 52px;
+  height: 100%;
+  position: absolute;
+  user-select: none;
+}
 
-  100% {
-    background-position: 100%;
-  }
+.pipe {
+  position: absolute;
+  left: 0;
+  border: 0;
+}
+
+.success_img {
+  border: 0;
+  position: absolute;
+}
+
+.bird_h3 {
+  padding-top: 150px;
+  font-size: 50px;
+  color: rgb(50, 56, 53);
+  line-height: 100px;
+  text-align: center;
+  letter-spacing: 10px;
 }

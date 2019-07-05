@@ -1,5 +1,6 @@
 .snack_bg {
   background: url('../img/snack/geometry.png');
+  height: 100vh;
 }
 
 .sidebar_h3 {

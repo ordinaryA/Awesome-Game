@@ -21,6 +21,10 @@
 }
 
 /* Alert弹窗动画 */
+.alanAlertIn {
+  animation: alertIn .3s;
+}
+
 .alanAlert-enter-active {
   animation: alertIn .3s;
 }
