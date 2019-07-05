@@ -1,6 +1,6 @@
 # 用Vue写点游戏玩玩~~~
 
-![awesome](https://github.com/ordinaryA/snack/blob/master/supply/mai.jpg)
+![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/mai.jpg)
 
 ## 在线Demo
 
