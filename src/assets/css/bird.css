@@ -1,13 +1,15 @@
 .bird_bg {
   background: url('../img/snack/geometry.png');
   height: 100vh;
-  padding-top: 50px;
 }
 
-.bird_paper {
-  width: 850px;
-  margin: 0 auto;
-  padding: 40px;  
+.sidebar_h3 {
+  text-align: center;
+}
+
+.noScroll {
+  height: 100vh;
+  overflow: hidden;
 }
 
 .spaceTip {
@@ -27,7 +29,7 @@
 }
 
 .game_layout {
-  width: 750px;
+  width: 1000px;
   height: 530px;
   margin: 20px auto;
 }
@@ -39,7 +41,7 @@
 
 .bird_box {
   height: 480px;
-  background: url('../img/bird/sky.png') no-repeat;
+  background: url('../img/bird/sky.png');
   background-position: center center;
   position: relative;
   animation: birdBgMove 4s infinite linear;
@@ -134,4 +136,13 @@
   line-height: 100px;
   text-align: center;
   letter-spacing: 10px;
+}
+
+.scoreTip {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.birdScoreSpan{
+  padding: 10px;
 }

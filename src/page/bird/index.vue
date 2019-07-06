@@ -1,95 +1,155 @@
 <template>
     <div class="bird_bg">
-        <div
-            class="paper bird_paper"
-            v-first="{name:'translateRight',duration:'0.4s',delay:'0.5s',offset:'0'}"
-        >
-            <div
-                class="spaceTip"
-                v-first="{name:'translateRight',duration:'0.4s',delay:'0.7s',offset:'0'}"
-            >空格键开始或跳跃（Space） 当前得分（Count）：{{successCount}} </div>
-            <div
-                class="game_layout"
-                v-first="{name:'translateRight',duration:'0.4s',delay:'0.9s',offset:'0'}"
-            >
+        <div class="w1440 noScroll">
+            <div class="row site">
                 <div
-                    class="bird_box"
-                    ref="birdBox"
+                    class="sm-12 md-3 col sidebar"
+                    v-first="{name:'translateLeft',duration:'0.5s',delay:'0.5s',offset:'0'}"
                 >
-                    <transition name="alanAlert">
-                        <div
-                            class="bird_h3"
-                            v-if="!isStart"
-                        >
-                            <span v-first="{name:'translateTop',duration:'0.5s',delay:'1.4s',offset:'0'}">Game Start!!!</span><br>
-                            <span v-first="{name:'translateTop',duration:'0.5s',delay:'1.6s',offset:'0'}">Just do it!Foolish guys!</span>
+                    <div class="paper">
+                        <h3
+                            class="sidebar-title sidebar_h3"
+                            v-first="{name:'translateTop',duration:'0.5s',delay:'0.8s',offset:'0'}"
+                        >管道小鸟 Flappy Bird </h3>
+                        <div class="row">
+                            <div
+                                class="collapsible full-width"
+                                v-for="(item,idx) in sidebar"
+                                :key="idx"
+                                v-first="{name:'translateTop',duration:'0.5s',delay:`${1+idx*0.2}s`,offset:'0'}"
+                            >
+                                <input
+                                    :id="`collapsible-${item.title}`"
+                                    type="radio"
+                                    name="collapsible"
+                                >
+                                <label :for="`collapsible-${item.title}`">{{item.title}}</label>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li
+                                            class="paper_li"
+                                            v-for="(child,cIdx) in item.children"
+                                            :key="cIdx"
+                                            @click="sideBarMethod(child)"
+                                        >{{child.label}}</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </transition>
-                    <transition name="alanAlert">
-                        <img
-                            v-show="successTip.isShow"
-                            :style="successAttr"
-                            class="success_img"
-                            src="../../assets/img/bird/success.png"
-                            alt=""
-                        >
-                    </transition>
-                    <div
-                        :class="{'birdRoate':sports == 'fall','birdJump':sports == 'jump'}"
-                        class="bird"
-                        ref="bird"
-                        :style="birdAttr"
-                    >
-
-                        <div class="birdWing"></div>
-                    </div>
-                    <div
-                        class="pipFar"
-                        v-for="(item,idx) in pipeArr"
-                        :key="idx"
-                        :style="{right:item.right + 'px'}"
-                    >
-                        <img
-                            class="pipe"
-                            :src="item.topPipeSrc"
-                            :style="{top:item.topPipeTop + 'px'}"
-                            alt=""
-                        >
-                        <img
-                            class="pipe"
-                            :src="item.bottomPipeSrc"
-                            :style="{top:item.bottomPipeTop + 'px'}"
-                            alt=""
-                        >
                     </div>
                 </div>
-                <div
-                    class="land"
-                    v-first="{name:'alanAlertIn',duration:'0.5s',delay:'1.1s',offset:'0'}"
-                ></div>
+                <div class="sm-12 md-9 col">
+                    <div
+                        class="paper"
+                        v-first="{name:'translateRight',duration:'0.4s',delay:'0.5s',offset:'0'}"
+                    >
+                        <div
+                            class="spaceTip"
+                            v-first="{name:'translateRight',duration:'0.4s',delay:'0.7s',offset:'0'}"
+                        >{{`空格键开始或跳跃（Space） 当前得分（Count）：${successCount}分`}} </div>
+                        <div
+                            class="scoreTip"
+                            v-first="{name:'translateRight',duration:'0.4s',delay:'0.8s',offset:'0'}"
+                        >
+                            <span
+                                class="birdScoreSpan"
+                                v-for="(item,idx) in birdScore"
+                                :key="idx"
+                                v-first="{name:'translateRight',duration:'0.5s',delay:`${0.9+idx*0.2}s`,offset:'0'}"
+                            >{{item}}</span>
+                        </div>
+                        <div
+                            class="game_layout"
+                            v-first="{name:'translateRight',duration:'0.4s',delay:'0.9s',offset:'0'}"
+                        >
+                            <div
+                                class="bird_box"
+                                ref="birdBox"
+                            >
+                                <transition name="alanAlert">
+                                    <div
+                                        class="bird_h3"
+                                        v-if="!isStart"
+                                    >
+                                        <span v-first="{name:'translateTop',duration:'0.5s',delay:'1.4s',offset:'0'}">Game Start!!!</span><br>
+                                        <span v-first="{name:'translateTop',duration:'0.5s',delay:'1.6s',offset:'0'}">Just do it!Foolish guys!</span>
+                                    </div>
+                                </transition>
+                                <transition name="alanAlert">
+                                    <img
+                                        v-show="successTip.isShow"
+                                        :style="successAttr"
+                                        class="success_img"
+                                        src="../../assets/img/bird/success.png"
+                                        alt=""
+                                    >
+                                </transition>
+                                <div
+                                    :class="{'birdRoate':sports == 'fall','birdJump':sports == 'jump'}"
+                                    class="bird"
+                                    ref="bird"
+                                    :style="birdAttr"
+                                >
+
+                                    <div class="birdWing"></div>
+                                </div>
+                                <div
+                                    class="pipFar"
+                                    v-for="(item,idx) in pipeArr"
+                                    :key="idx"
+                                    :style="{right:item.right + 'px'}"
+                                >
+                                    <img
+                                        class="pipe"
+                                        :src="item.topPipeSrc"
+                                        :style="{top:item.topPipeTop + 'px'}"
+                                        alt=""
+                                    >
+                                    <img
+                                        class="pipe"
+                                        :src="item.bottomPipeSrc"
+                                        :style="{top:item.bottomPipeTop + 'px'}"
+                                        alt=""
+                                    >
+                                </div>
+                            </div>
+                            <div
+                                class="land"
+                                v-first="{name:'alanAlertIn',duration:'0.5s',delay:'1.1s',offset:'0'}"
+                            ></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+import { sidebar } from "../../const/bird";
 import { $animate } from "../../mixins";
+import { COMMIT } from "../../utils";
 export default {
     mixins: [$animate],
     data() {
         return {
+            sidebar, //侧边栏
+            currentMode: "normal", //当前难度
             birdData: {
                 top: 50,
-                right: 600
+                right: 700
             }, //鸟对象
             AS: 500, //加速度
             TS: 0, //上抛速度
+            jumpPower: 1, //跳跃力度
             sports: "null", //记录运动状态
             downTime: 0, //记录时间
             isStart: false, //是否开始
             timerNum: 20, //计时器时间
             moveTimer: null, //飞行计时器
             pipeArr: [], //管道的集合
+            pipeMoveDistance: 2, //管道移动距离
             pipeDist: 100, //每组管道之间的距离
             pipeTimer: null, //管道定时器
             pipeDistance: 200, //每组管道之间间隔的距离
@@ -120,9 +180,64 @@ export default {
                 top: this.successTip.top + "px",
                 right: this.successTip.right + "px"
             };
-        }
+        },
+        ...mapState(["birdBestScore"]),
+        ...mapGetters(["birdScore"])
     },
     methods: {
+        /**
+         * 侧边栏事件
+         * @param {object}
+         * @return {void}
+         */
+        sideBarMethod(item) {
+            const { type } = item;
+            switch (type) {
+                case "difficulty":
+                    this.chooseDifficulty(item);
+                    break;
+            }
+        },
+
+        /**
+         * 选择难度
+         * @param {object}
+         * @return {void}
+         */
+        chooseDifficulty({ speed, label }) {
+            let type = "";
+            this.currentMode = speed;
+            switch (speed) {
+                case "normal":
+                    this.jumpPower = 1;
+                    this.pipeMoveDistance = 2;
+                    this.pipeDistance = 200;
+                    type = "primary";
+                    break;
+                case "hard":
+                    this.jumpPower = 1.1;
+                    this.pipeMoveDistance = 3;
+                    this.pipeDistance = 150;
+                    type = "warning";
+                    break;
+                case "crazy":
+                    this.jumpPower = 1.2;
+                    this.pipeMoveDistance = 3;
+                    this.pipeDistance = 100;
+                    type = "danger";
+                    break;
+            }
+            clearInterval(this.pipeTimer);
+            clearInterval(this.moveTimer);
+            this.isStart = false;
+            this.downTime = 0;
+            this.pipeArr = [];
+            this.HiAlert({
+                type,
+                content: `难度已切换为${label}`
+            });
+        },
+
         /**
          * 绑定空格键
          * @param {null}
@@ -185,10 +300,11 @@ export default {
          * @return {void}
          */
         birdJump() {
+            const { jumpPower } = this;
             //1.0 初始化记录的下落时间
             this.downTime = 0;
             //2.0 设置上抛速度
-            this.TS = 200;
+            this.TS = 200 * jumpPower;
             //3.0 重新执行运动函数
             this.birdMove();
         },
@@ -200,7 +316,7 @@ export default {
          */
         pipeMove() {
             const { birdBox } = this.$refs;
-            const { pipeArr, pipeDistance } = this;
+            const { pipeArr, pipeDistance, pipeMoveDistance } = this;
             const birdWidth = birdBox.offsetWidth;
             clearInterval(this.pipeTimer);
             this.pipeTimer = setInterval(() => {
@@ -216,7 +332,7 @@ export default {
                 //3.0 移动管道
                 for (let i = 0; i < pipeArr.length; i++) {
                     const item = pipeArr[i];
-                    item.right += 2;
+                    item.right += pipeMoveDistance;
                 }
                 //4.0 判断小鸟是否通过管道
                 for (let i = 0; i < pipeArr.length; i++) {
@@ -254,6 +370,7 @@ export default {
             const { top: birdtop, right: birdRight } = birdData;
             const pipeWidth = 52;
             const pipeHeight = 420;
+            const birdHeight = 30;
             //1.0 先判断是否已经通过
             if (birdRight <= right) {
                 return "isSuccess";
@@ -262,8 +379,8 @@ export default {
             if (birdRight <= right + pipeWidth && birdRight > right) {
                 //3.0 判断鸟是否触碰到上下边界或更多
                 if (
-                    birdtop <= topPipeTop + pipeHeight ||
-                    birdtop >= bottomPipeTop
+                    birdtop + 5 <= topPipeTop + pipeHeight ||
+                    birdtop + birdHeight - 5 >= bottomPipeTop
                 ) {
                     return "isFail";
                 }
@@ -297,14 +414,24 @@ export default {
         gameOver() {
             clearInterval(this.pipeTimer);
             clearInterval(this.moveTimer);
+            const { successCount, currentMode } = this;
             this.isStart = false;
             this.downTime = 0;
             this.pipeArr = [];
-            this.HiAlert({
-                type: "danger",
-                content: "你挂了"
-            });
-            this.HiImg({ type: "fail" });
+            if (successCount > this.birdBestScore[currentMode]) {
+                COMMIT({ birdRecord: [currentMode, successCount] });
+                this.HiAlert({
+                    type: "success",
+                    content: "恭喜你打破了记录！！！"
+                });
+                this.HiImg({ type: "win" });
+            } else {
+                this.HiAlert({
+                    type: "danger",
+                    content: "你挂了"
+                });
+                this.HiImg({ type: "fail" });
+            }
         },
 
         /**
@@ -317,6 +444,7 @@ export default {
             this.createPipe();
             this.pipeMove();
             this.birdMove();
+            this.successCount = 0;
             this.isStart = true;
         },
 
