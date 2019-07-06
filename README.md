@@ -42,4 +42,10 @@ const pipe = {
 接下来就好办了，写一个动画让背景和小鸟动起来，设置定时器让管道动起来，一切就完成啦！
 
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/snackDemo.png)
+## 生成一条贪吃的蛇 🐍
+- 我们需要定义一个二维数组来存放蛇头与蛇身的坐标
+- 蛇头：```[~~(Math.random() * (棋盘宽度 - 蛇长 - 1) + 1),~~(Math.random() * (棋盘高度 - 蛇长 - 1) + 1)];```
+- 蛇身：通过蛇头的坐标随机向上或向下遍历坐标可得到
+- 蛇的数据结构：最终得到类似右边的二维数组 [[10,10],[10,11],[10,12],[10,13],[10,14]]
+
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweepDemo.png)
