@@ -38,7 +38,7 @@ const pipe = {
 当小鸟成功飞过管道时，记录当前管道的```isCross```字段，已被小鸟通过。
 
 ### 完成
-接下来就好办了，写一个动画让背景和小鸟动起来，设置定时器让管道动起来，一切就完成啦！
+>接下来就好办了，写一个动画让背景和小鸟动起来，设置定时器让管道动起来，一切就完成啦！
 
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/snackDemo.png)
 ## 生成一条贪吃的蛇 🐍与它的食物 🎂
@@ -56,5 +56,5 @@ const pipe = {
 4. 当蛇'吃到'食物时，则不删除蛇的尾项;
 
 ## 大功告成
-  接下来我们可以给贪吃蛇🐍加上一些因(花)吹(里)斯(胡)汀(哨)的功能！（由于笔者实在太懒，贪吃蛇目前已经断更了。。。）
+>接下来我们可以给贪吃蛇🐍加上一些因(花)吹(里)斯(胡)汀(哨)的功能！（由于笔者实在太懒，贪吃蛇目前已经断更了。。。）
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweepDemo.png)
