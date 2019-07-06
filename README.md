@@ -26,6 +26,7 @@ const pipe = {
 ```
 ## 思考
 我认为比较关键的点：
+- 鸟的下落速度与上抛速度 （表示已经全部还给了物理老师 全靠度娘 (┬＿┬)）
 - 遍历管道集合时，当最后一项距离右边界一定距离则```push```一个管道对象，```unshift```掉首项
 - 当小鸟通过一组上下管道后，则该对象新增记录，遍历时存在则跳过
 - 边界值的判断与误差值
@@ -36,6 +37,9 @@ const pipe = {
 - 失败
 - 成功
 当小鸟成功飞过管道时，记录当前管道的```isCross```字段，已被小鸟通过。
+
+### 完成
+接下来就好办了，写一个动画让背景和小鸟动起来，设置定时器让管道动起来，一切就完成啦！
 
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/snackDemo.png)
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweepDemo.png)
