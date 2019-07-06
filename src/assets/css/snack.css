@@ -84,17 +84,6 @@
   margin: 0 1rem;
 }
 
-.paper_li {
-  cursor: pointer;
-  margin: 5px 0;
-  transition: .3s;
-}
-
-.paper_li:hover {
-  background: #ddd;
-  text-indent: .8em;
-}
-
 .score_father {
   position: relative;
 }

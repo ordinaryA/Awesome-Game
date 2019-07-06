@@ -8,17 +8,6 @@
   margin: 0 0 15px 0;
 }
 
-.paper_li {
-  cursor: pointer;
-  margin: 5px 0;
-  transition: .3s;
-}
-
-.paper_li:hover {
-  background: #ddd;
-  text-indent: .8em;
-}
-
 .cont_btn .paper-btn {
   margin: 0 1rem;
 }
