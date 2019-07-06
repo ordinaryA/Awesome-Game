@@ -4,7 +4,7 @@
 
 ## 在线Demo
 
-- 管道小鸟 ：[在线测试](http://www.almx.top/awesome/#/)
+- 管道小鸟 ：[在线试玩](http://www.almx.top/awesome/#/)
 - 贪吃蛇 ：[在线试玩](http://www.almx.top/awesome/#/snack)
 - 扫雷 ：[在线试玩](http://www.almx.top/awesome/#/sweep)
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/birdDemo.png)
