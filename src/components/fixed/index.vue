@@ -27,9 +27,9 @@ export default {
     data() {
         return {
             iconList: [
-                { icon: "icon-she", url: "/", tip: "贪恰蛇" },
+                { icon: "icon-juzuiniao", url: "/", tip: "小鸟" },
+                { icon: "icon-she", url: "snack", tip: "贪恰蛇" },
                 { icon: "icon-leishen", url: "sweep", tip: "扫雷" },
-                { icon: "icon-juzuiniao", url: "bird", tip: "小鸟" }
             ]
         };
     },
