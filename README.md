@@ -103,7 +103,7 @@ const pipe = {
 5. 为避免递归的过程中重复递归某一坐标，则给每个棋格对象添加是否递归过的布尔值，通过判断则可避免重复递归
 6. 最后会得到扩展开的边界都为数字格的棋盘；
 
-![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex3.png)
+![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex4.png)
 
 ## 旗子
 - 需要给所有雷类型的格子插上旗子来获得胜利
