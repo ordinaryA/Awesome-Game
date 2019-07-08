@@ -537,15 +537,11 @@ export default {
                 [x, y + 1], //中下
                 [x + 1, y + 1] //右下
             ];
-            //1.0 处理边界问题
-            for (let i = 0; i < arr.length; i++) {
-                const [posX, posY] = arr[i];
-                if (posX < 0 || posY < 0 || posX >= maxX || posY >= maxY) {
-                    arr[i] = undefined;
-                }
-            }
-            //2.0 过滤数组
-            const filterArr = _.compact(arr);
+            //1.0 过滤掉边界外的坐标
+            const filterArr = arr.filter(
+                ([posX, posY]) =>
+                    !(posX < 0 || posY < 0 || posX >= maxX || posY >= maxY)
+            );
             return filterArr;
         },
 
