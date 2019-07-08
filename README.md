@@ -2,6 +2,10 @@
 
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/mai.jpg)
 
+### 求个赞
+掘金地址：[https://juejin.im/post/5d22b3ade51d4577770e73f1](https://juejin.im/post/5d22b3ade51d4577770e73f1)
+  
+
 ## 在线Demo
 - 扫雷 ：[在线试玩](http://www.almx.top/awesome/#/sweep)
 - 管道小鸟 ：[在线试玩](http://www.almx.top/awesome/#/)
