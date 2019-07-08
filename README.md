@@ -104,6 +104,7 @@ const pipe = {
 6. 最后会得到扩展开的边界都为数字格的棋盘；
 
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex4.png)
+>emmmm 不要在意画风。
 
 ## 旗子
 - 需要给所有雷类型的格子插上旗子来获得胜利
