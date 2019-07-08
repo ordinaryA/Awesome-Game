@@ -3,9 +3,10 @@
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/mai.jpg)
 
 ## 在线Demo
+- 扫雷 ：[在线试玩](http://www.almx.top/awesome/#/sweep)
 - 管道小鸟 ：[在线试玩](http://www.almx.top/awesome/#/)
 - 贪吃蛇 ：[在线试玩](http://www.almx.top/awesome/#/snack)
-- 扫雷 ：[在线试玩](http://www.almx.top/awesome/#/sweep)
+
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/birdDemo.png)
 ## 鸟对象与管道集合
 ```
@@ -107,5 +108,15 @@ const pipe = {
 >emmmm 不要在意画风。
 
 ## 旗子
-- 需要给所有雷类型的格子插上旗子来获得胜利
-- 点击数字格子时判断九宫格内的旗子是否正确排雷
+1. 需要给所有雷类型的格子插上旗子来获得胜利
+2. 点击数字格子时判断九宫格内的旗子是否正确排雷
+>- 只有当旗子数量大于或等于点击格的数字时才判断
+>- 旗子误插时则分别显示三种状态：
+>>正确的雷（正常显示）
+>>排掉的雷（绿色背景的雷）
+>>错排的雷（红色背景的雷）
+
+![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex5.png)
+
+## 完成！
+
