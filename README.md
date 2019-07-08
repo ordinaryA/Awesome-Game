@@ -23,7 +23,7 @@
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex1.png)
 
 ## 递归
-1. 假设点击空白格的坐标```[x,y]```，则以它为中心的另八个格子坐标为：
+1. 假设点击空白格的坐标``` javascript [x,y]```，则以它为中心的另八个格子坐标为：
 ``` javascript
             const arr = [
                 //获取九宫格数据
@@ -38,7 +38,7 @@
             ];
 ```
 2. 过滤掉边界外的坐标，获得以坐标为集合的二维数组：
-```
+``` javascript
             const [maxX, maxY] = this.boardSize; //棋盘的边界值
             const filterArr = arr.filter(
                 ([posX, posY]) =>
@@ -73,7 +73,7 @@
 
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/birdDemo.png)
 ## 鸟对象与管道集合
-```
+``` javascript
 const bird = {
                top, //鸟的top值
                right, //鸟的right值
@@ -91,7 +91,7 @@ const pipe = {
 ```
 ## 我认为比较关键的点：
 - 鸟的下落速度与上抛速度 （表示已经全部还给了物理老师 特意去网上查了查公式 (┬＿┬)）
-- 遍历管道集合时，当最后一项距离右边界一定距离则```push```一个管道对象，```unshift```掉首项
+- 遍历管道集合时，当最后一项距离右边界一定距离则``` javascript push```一个管道对象，``` javascript unshift```掉首项
 - 当小鸟通过一组上下管道后，则该对象新增记录，遍历时存在则跳过
 - 边界值的判断与误差值
 
@@ -100,7 +100,7 @@ const pipe = {
 - 飞往管道的途中或正在管道中飞行
 - 失败
 - 成功<br>
-当小鸟成功飞过管道时，记录当前管道的```isCross```字段，已被小鸟通过。
+当小鸟成功飞过管道时，记录当前管道的``` javascript isCross```字段，已被小鸟通过。
 
 ### 完成
 >接下来就好办了，写一个动画让背景和小鸟动起来，设置定时器让管道动起来，一切就完成啦！
@@ -110,10 +110,10 @@ const pipe = {
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/snackDemo.png)
 ## 生成一条贪吃的蛇 🐍与它的食物 🎂
 >首先需要定义一个二维数组来存放蛇头与蛇身的坐标
-- 蛇头：```[~~(Math.random() * (棋盘宽度 - 蛇长 - 1) + 1),~~(Math.random() * (棋盘高度 - 蛇长 - 1) + 1)];```
+- 蛇头：``` javascript [~~(Math.random() * (棋盘宽度 - 蛇长 - 1) + 1),~~(Math.random() * (棋盘高度 - 蛇长 - 1) + 1)];```
 - 蛇身：通过蛇头的坐标随机向上或向下遍历坐标可得到
-- 蛇的数据结构：最终得到类似右边的二维数组 ```[[10,10],[10,11],[10,12],[10,13],[10,14]]```
-- 食物： 通过```while```遍历出一个不属于🐍身的坐标就好了
+- 蛇的数据结构：最终得到类似右边的二维数组 ``` javascript [[10,10],[10,11],[10,12],[10,13],[10,14]]```
+- 食物： 通过``` javascript while```遍历出一个不属于🐍身的坐标就好了
 
 ## 让蛇动起来 🐍
 >根据移动的方向使蛇的首项的当前轴坐标+1，并删除蛇集合的尾项，蛇就动起来啦！我们需要：
