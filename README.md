@@ -67,5 +67,7 @@ const pipe = {
 2. 当我们点击某个格子的时候有对应以上三种类型的三种情况：
 >- 雷：emmmm 游戏结束
 >- 数字：显示当前数字，提示用户雷的数量
->- 空白：我们需要以当前点击格子为中心向外递归寻找类型为数字的格子来停止递归，如图
+>- 空白：我们需要以当前点击格子为中心向外递归寻找类型为数字的格子来停止递归，如图1
 
+ 图1
+![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex1.png)
