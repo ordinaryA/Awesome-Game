@@ -1,4 +1,4 @@
-# 用Vue写点游戏玩玩~~~
+# 用Vue写点游戏玩玩~~~（会持续更新）
 
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/mai.jpg)
 
