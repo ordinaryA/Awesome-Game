@@ -23,7 +23,7 @@
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex1.png)
 
 ## 递归
-1. 假设点击空白格的坐标``` javascript [x,y]```，则以它为中心的另八个格子坐标为：
+1. 假设点击空白格的坐标```javascript [x,y]```，则以它为中心的另八个格子坐标为：
 ``` javascript
             const arr = [
                 //获取九宫格数据
