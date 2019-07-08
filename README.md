@@ -7,7 +7,7 @@
 - 管道小鸟 ：[在线试玩](http://www.almx.top/awesome/#/)
 - 贪吃蛇 ：[在线试玩](http://www.almx.top/awesome/#/snack)
 
-## 扫雷
+# 扫雷
 
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweepDemo.png)
 ## 思路
