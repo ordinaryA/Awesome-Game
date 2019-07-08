@@ -67,7 +67,35 @@ const pipe = {
 2. 当我们点击某个格子的时候有对应以上三种类型的三种情况：
 >- 雷：emmmm 游戏结束
 >- 数字：显示当前数字，提示用户雷的数量
->- 空白：我们需要以当前点击格子为中心向外递归寻找类型为数字的格子来停止递归，如图1
+>- 空白：我们需要以当前点击格子为中心向外递归寻找类型为数字的格子来停止递归，如图
 
- 图1
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex1.png)
+
+## 递归
+1. 假设我们点击空白格的坐标```[x,y]```，则以它为中心的另八个格子坐标为：
+```
+            
+            const arr = [
+                //获取九宫格数据
+                [x - 1, y - 1], //左上
+                [x, y - 1], //中上
+                [x + 1, y - 1], //右上
+                [x - 1, y], //中左
+                [x + 1, y], //中右
+                [x - 1, y + 1], //左下
+                [x, y + 1], //中下
+                [x + 1, y + 1] //右下
+            ];
+```
+2. 过滤掉边界外的坐标，获得以坐标为集合的二维数组：
+```
+            const [maxX, maxY] = this.boardSize; //棋盘的边界值
+            const filterArr = arr.filter(
+                ([posX, posY]) =>
+                    !(posX < 0 || posY < 0 || posX >= maxX || posY >= maxY)
+            );
+            return filterArr;
+```
+3. 遍历坐标的集合，再去获取以每一项为中心的另八个坐标的集合，进行递归
+![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex2.png)
+4. 当递归的途中某个坐标的类型不为空白，为数字时，则停止递归
