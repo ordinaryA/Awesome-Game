@@ -572,8 +572,8 @@ export default {
                 checkerArea: [r, c]
             } = this;
             //1.0 避免随机头部在边界且容的下蛇的长度
-            const row = parseInt(Math.random() * (r - l - 1) + 1);
-            const col = parseInt(Math.random() * (c - l - 1) + 1);
+            const row = ~~(Math.random() * (r - l - 1) + 1);
+            const col = ~~(Math.random() * (c - l - 1) + 1);
             //2.0 头部坐标
             const head = [row, col];
             const body = [];

@@ -85,7 +85,7 @@
                                     >
                                 </transition>
                                 <div
-                                    :class="{'birdRoate':sports == 'fall','birdJump':sports == 'jump'}"
+                                    :class="{'birdRoate':birdData.sports == 'fall','birdJump':birdData.sports == 'jump'}"
                                     class="bird"
                                     ref="bird"
                                     :style="birdAttr"
@@ -138,12 +138,12 @@ export default {
             currentMode: "normal", //当前难度
             birdData: {
                 top: 50,
-                right: 700
+                right: 700,
+                sports: undefined //记录运动状态
             }, //鸟对象
             AS: 500, //加速度
             TS: 0, //上抛速度
             jumpPower: 1, //跳跃力度
-            sports: "null", //记录运动状态
             downTime: 0, //记录时间
             isStart: false, //是否开始
             timerNum: 20, //计时器时间
@@ -277,9 +277,9 @@ export default {
                     0.5 * AS * downTime * downTime - TS * downTime;
                 const AH = lastTop + currentTop;
                 if (AH > lastTop) {
-                    if (this.sports != "fall") this.sports = "fall";
+                    if (birdData.sports != "fall") birdData.sports = "fall";
                 } else {
-                    if (this.sports != "jump") this.sports = "jump";
+                    if (birdData.sports != "jump") birdData.sports = "jump";
                 }
                 //4.0 判断底边界
                 const { birdBox, bird } = this.$refs;
