@@ -179,14 +179,15 @@ export default {
             const afterArr = [];
             for (let i = 0; i < y; i++) {
                 for (let j = 0; j < x; j++) {
-                    const single = {};
-                    single.type = "init"; //设置初始属性
-                    single.isCheck = false; //是否点击过
-                    single.pos = [j, i];
-                    single.isRepeat = "not"; //是否递归过
-                    single.isTip = false; //用户点击数字时的提示
-                    single.isFlag = false; //用户是否插了旗子
-                    afterArr.push(single);
+                    const item = {
+                        type: "init", //设置初始属性
+                        isCheck: false, //是否点击过
+                        pos: [j, i], //格子的坐标
+                        isRepeat: "not", //是否递归过
+                        isTip: false, //用户点击数字时的提示
+                        isFlag: false //用户是否插了旗子
+                    };
+                    afterArr.push(item);
                 }
             }
             this.boardData = afterArr;
