@@ -96,6 +96,9 @@ const pipe = {
             );
             return filterArr;
 ```
-3. 遍历坐标的集合，再去获取以每一项为中心的另八个坐标的集合，进行递归
+3. 遍历坐标的集合，再去获取以每一项为中心的另八个坐标的集合，进行递归;
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex2.png)
-4. 当递归的途中某个坐标的类型不为空白，为数字时，则停止递归
+4. 当递归的途中某个坐标的类型不为空白，为数字时，则停止递归，如下图:
+![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/sweep_ex3.png)
+>点击红色向外遍历 => 紫色箭头 => 绿色箭头（找到数字格）=> 跳过绿色箭头的递归 => 开始黑色箭头的递归 
+5. 最后会得到扩展开的边界都为数字格;
