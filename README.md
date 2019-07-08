@@ -70,6 +70,8 @@
 
 ## 完成！
 
+# 管道小鸟
+
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/birdDemo.png)
 ## 鸟对象与管道集合
 ```
@@ -103,6 +105,8 @@ const pipe = {
 
 ### 完成
 >接下来就好办了，写一个动画让背景和小鸟动起来，设置定时器让管道动起来，一切就完成啦！
+
+# 贪恰蛇
 
 ![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/snackDemo.png)
 ## 生成一条贪吃的蛇 🐍与它的食物 🎂
