@@ -116,10 +116,8 @@ export default {
         theRestOfMine() {
             let count = 0;
             const { boardData, mineCount } = this;
-            boardData.map(item => {
-                if (item.type == "mine" && item.isFlag) {
-                    count++;
-                }
+            boardData.map(({ isFlag }) => {
+                if (isFlag) count++;
             });
             const res = mineCount - count;
             if (res == 0) {
