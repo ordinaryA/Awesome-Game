@@ -368,9 +368,10 @@ export default {
         judgeIsPassPipe({ right, topPipeTop, bottomPipeTop }) {
             const { birdData } = this;
             const { top: birdtop, right: birdRight } = birdData;
-            const pipeWidth = 52;
-            const pipeHeight = 420;
-            const birdHeight = 30;
+            const pipeWidth = 52, //管道宽度
+                pipeHeight = 420, //管道高度
+                birdHeight = 30, //鸟的高度
+                errorAllow = 5; //误差值
             //1.0 先判断是否已经通过
             if (birdRight <= right) {
                 return "isSuccess";
@@ -379,8 +380,8 @@ export default {
             if (birdRight <= right + pipeWidth && birdRight > right) {
                 //3.0 判断鸟是否触碰到上下边界或更多
                 if (
-                    birdtop + 5 <= topPipeTop + pipeHeight ||
-                    birdtop + birdHeight - 5 >= bottomPipeTop
+                    birdtop + errorAllow <= topPipeTop + pipeHeight ||
+                    birdtop + birdHeight - errorAllow >= bottomPipeTop
                 ) {
                     return "isFail";
                 }
