@@ -1,3 +1,10 @@
+/*
+ * @Author: Alan 
+ * @Date: 2019-06-26 15:41:65 
+ * @Last Modified by:   Alan 
+ * @Last Modified time: 2019-07-16 20:49:00 
+ */
+
 <template>
     <div class="snack_bg">
         <div class="w1440">

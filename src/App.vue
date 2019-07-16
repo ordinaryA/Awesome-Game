@@ -11,10 +11,11 @@
 </template>
 
 <script>
+
 import Alert from "./components/alert";
 import Awesome from "./components/awesome";
 import Fixed from "./components/fixed";
-import { mapState } from "vuex";
+import { mapState } from "vuex"; 
 import { DISPATCH, SET_SESSION, COMMIT } from "./utils";
 export default {
     name: "App",
