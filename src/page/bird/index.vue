@@ -1,3 +1,10 @@
+/*
+ * @Author: Alan 
+ * @Date: 2019-07-04 20:33:57  
+ * @Last Modified by:   Alan 
+ * @Last Modified time: 2019-07-16 20:48:23 
+ */
+
 <template>
     <div class="bird_bg">
         <div class="w1440 noScroll">
