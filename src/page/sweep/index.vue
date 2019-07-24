@@ -2,7 +2,7 @@
  * @Author: Alan 
  * @Date: 2019-06-26 15:41:65 
  * @Last Modified by: Alan
- * @Last Modified time: 2019-07-24 16:07:40
+ * @Last Modified time: 2019-07-24 16:20:59
  */
 
 <template>
@@ -224,6 +224,7 @@ export default {
          * @return {void}
          */
         restartGame() {
+            this.gameIsOver = false;
             this.initBoard();
         },
 
