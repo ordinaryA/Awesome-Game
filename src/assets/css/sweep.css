@@ -24,6 +24,10 @@
   width: 802px;
 }
 
+.hell_board{
+  width: 902px;
+}
+
 .board {
   border: 1px solid #888;
   margin: 10px auto;

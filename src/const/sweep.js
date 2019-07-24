@@ -15,6 +15,11 @@ const sidebar = [{
         mode: 'crazy',
         label: '疯狂 (Crazy)',
       },
+      {
+        type: 'difficulty',
+        mode: 'hell',
+        label: '?????(?????)',
+      }
     ],
   },
   {

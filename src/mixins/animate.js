@@ -1,3 +1,6 @@
+/**
+ * v-first指令的混入方法
+ */
 import {
   WOW
 } from "wowjs";

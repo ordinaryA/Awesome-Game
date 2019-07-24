@@ -2,7 +2,7 @@
  * @Author: Alan 
  * @Date: 2019-06-26 15:41:65 
  * @Last Modified by: Alan
- * @Last Modified time: 2019-07-24 16:20:59
+ * @Last Modified time: 2019-07-24 16:58:37
  */
 
 <template>
@@ -565,6 +565,8 @@ export default {
          * @return {void}
          */
         pickDifficulty({ mode, label }) {
+            //游戏配置重新开始参数
+            this.gameIsOver = false;
             this.defaultMode = mode;
             let type = "";
             switch (mode) {
@@ -576,11 +578,16 @@ export default {
                 case "hard":
                     this.boardSize = [20, 15];
                     this.mineCount = 50;
-                    type = "warning";
+                    type = "secondary";
                     break;
                 case "crazy":
                     this.boardSize = [40, 20];
                     this.mineCount = 200;
+                    type = "warning";
+                    break;
+                case "hell":
+                    this.boardSize = [45, 25];
+                    this.mineCount = 230;
                     type = "danger";
                     break;
             }

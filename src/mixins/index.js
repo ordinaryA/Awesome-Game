@@ -1,4 +1,4 @@
-import $alert from './alert'
+import $alert from './alert' //弃用
 import $animate from './animate'
 export {
   $alert,
