@@ -1,3 +1,6 @@
+/**
+ * 弃用
+ */
 export default {
   data() {
     return {
