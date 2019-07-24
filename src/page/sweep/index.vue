@@ -1,8 +1,8 @@
 /*
  * @Author: Alan 
  * @Date: 2019-06-26 15:41:65 
- * @Last Modified by:   Alan 
- * @Last Modified time: 2019-07-16 20:49:00 
+ * @Last Modified by: Alan
+ * @Last Modified time: 2019-07-24 16:07:40
  */
 
 <template>
@@ -109,7 +109,8 @@ export default {
             boardSize: [40, 20], //棋盘尺寸
             mineCount: 100, //雷的数量
             minePos: [], //雷的坐标集合
-            boardData: [] //棋盘数据
+            boardData: [], //棋盘数据
+            gameIsOver: false //记录游戏是否结束
         };
     },
     created() {
@@ -331,6 +332,9 @@ export default {
          * @return {void}
          */
         clickBoard(e, item) {
+            const { gameIsOver } = this;
+            //游戏结束则不执行则返回
+            if (gameIsOver) return;
             //只执行鼠标左键按下事件
             if (e.button != 0) return;
             item.isCheck = true;
@@ -429,7 +433,10 @@ export default {
          * @return {void}
          */
         gameOver({ notArr = [], errorArr = [] }) {
+            //1.0 记录游戏结束结束点击事件
+            this.gameIsOver = true;
             const { boardData } = this;
+            //2.0 游戏结束显示所有格子
             boardData.map(item => {
                 item.isCheck = true;
                 item.isTip = false;
