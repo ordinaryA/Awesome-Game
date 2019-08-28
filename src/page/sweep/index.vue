@@ -461,7 +461,7 @@ export default {
         /**
          * 比较数组返回雷的坐标集合
          * @param {object}
-         * @return {array}
+         * @return {object}
          */
         findMine({ flagArr, mineArr }) {
             const { boardData } = this;
@@ -613,7 +613,7 @@ export default {
         /**
          * 给数字添加颜色
          * @param {number}
-         * @return {str}
+         * @return {object}
          */
         handleInsertColors(i) {
             let obj = {};
