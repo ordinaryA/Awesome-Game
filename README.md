@@ -75,7 +75,7 @@
 
 # 管道小鸟
 
-![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/birdDemo.png)
+![awesome](http://www.almx.top/image/awesome-game/birdDemo.png)
 ## 鸟对象与管道集合
 ``` javascript
 const bird = {
