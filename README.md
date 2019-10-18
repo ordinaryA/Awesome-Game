@@ -1,6 +1,6 @@
 # 用Vue写点游戏玩玩~~~（会持续更新）
 
-![awesome](https://github.com/ordinaryA/Awesome-Game/blob/master/supply/mai.jpg)
+![awesome](http://www.almx.top/image/awesome-game/mai.jpg)
 
 ### 求个赞
 >掘金地址：[https://juejin.im/post/5d22b3ade51d4577770e73f1](https://juejin.im/post/5d22b3ade51d4577770e73f1)
