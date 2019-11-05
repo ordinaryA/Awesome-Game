@@ -19,7 +19,6 @@ export default {
      * @return {void}
      */
     handleAlert(item) {
-
     }
   }
 };
