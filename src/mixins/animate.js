@@ -6,7 +6,7 @@ import {
 } from "wowjs";
 export default {
   data() {
-    return {}
+    return {};
   },
   created() {
     this.$nextTick(() => {
@@ -26,7 +26,7 @@ export default {
         mobile: true,
         live: false
       };
-      const wow = new WOW(options).init();
-    },
+      new WOW(options).init();
+    }
   }
-}
+};

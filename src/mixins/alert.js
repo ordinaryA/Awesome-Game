@@ -7,7 +7,7 @@ export default {
       alertOptions: {
         show: false,
         content: ''
-      }, //参数
+      } //参数
       //   alertIsShow: false, //弹框显示
       //   alertContent: undefined, //弹框内容
     };
@@ -19,7 +19,7 @@ export default {
      * @return {void}
      */
     handleAlert(item) {
-        
+
     }
   }
 };

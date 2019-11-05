@@ -1,18 +1,18 @@
 import Vue from "vue";
 import Vuex from "vuex";
-Vue.use(Vuex);
 
 import {
   GET_SESSION,
   DEL_SESSION
 } from '../utils';
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
     //alert组件参数
     alertQueue: [], //alert队列
     alertId: 0, //alert唯一键值
-    alertClearTimer: null, //alert唯一显示的延时器 
+    alertClearTimer: null, //alert唯一显示的延时器
     //漫画组件参数
     cartoon: {}, //漫画组件参数
 
@@ -21,7 +21,7 @@ const store = new Vuex.Store({
       normal: 0,
       hard: 0,
       crazy: 0
-    },
+    }
   },
   getters: {
     birdScore(state) {
@@ -29,21 +29,21 @@ const store = new Vuex.Store({
         birdBestScore
       } = state;
       const arr = [];
-      for (let i in birdBestScore) {
+      for (const i in birdBestScore) {
         let str = '';
         switch (i) {
           case 'normal':
             str = '普通模式（Normal）';
-            break
+            break;
           case 'hard':
             str = '困难模式（Hard）';
-            break
+            break;
           case 'crazy':
             str = '疯狂模式（Crazy）';
-            break
+            break;
         }
         const item = `${str}最高为${birdBestScore[i]}分`;
-        arr.push(item)
+        arr.push(item);
       }
       return arr;
     }
@@ -65,7 +65,7 @@ const store = new Vuex.Store({
         });
         state.alertClearTimer = setTimeout(() => {
           state.alertQueue.shift(1);
-        }, 2000)
+        }, 2000);
       } else {
         //页面显示多个alert
         state.alertQueue.push({
@@ -74,37 +74,37 @@ const store = new Vuex.Store({
         });
         setTimeout(() => {
           state.alertQueue.shift(1);
-        }, 2000)
+        }, 2000);
       }
     },
 
     /**
      * 显示暴漫图片
-     * @param {state,object} 
+     * @param {state,object}
      */
     showCartoon(state, data) {
-      state.cartoon = data
+      state.cartoon = data;
     },
 
     /**
      * 公共方法设置state参数
-     * @param {state,object} 
+     * @param {state,object}
      */
     submit(state, item) {
-      for (let i in item) {
-        state[i] = item[i]
+      for (const i in item) {
+        state[i] = item[i];
       }
     },
 
     /**
      * 小鸟游戏记录更新
-     * @param {state,array} 
+     * @param {state,array}
      */
     birdRecord(state, [mode, score]) {
       if (state.birdBestScore[mode] < score) {
         state.birdBestScore[mode] = score;
       }
-    },
+    }
   },
   actions: {
     /**
@@ -123,7 +123,7 @@ const store = new Vuex.Store({
         );
         DEL_SESSION("store");
       }
-    },
+    }
   }
 });
 export default store;
