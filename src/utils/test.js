@@ -1,6 +1,6 @@
 import {
   COMMIT
-} from './index'
+} from './index';
 
 /**
  * 简陋深拷贝（无法拷贝函数）
@@ -23,7 +23,7 @@ const current = () => Number(new Date()) / 1000;
  * @return {void}
  */
 const HiAlert = item => {
-  COMMIT('handleAlert', item)
+  COMMIT('handleAlert', item);
   /*
     item = {
       type: 'primary', //主要的 primary 次要的 secondary 成功的 success 警告 warning 危险 danger
@@ -31,7 +31,7 @@ const HiAlert = item => {
       clear: false, //true:只显示一个弹窗 false:显示多个弹窗
     }
   */
-}
+};
 
 /**
  * 显示图片结果
@@ -45,23 +45,22 @@ const HiImg = item => {
         type: 'fail',
         isShow: false
       }
-    })
+    });
   } else {
     COMMIT({
       showCartoon: {
         ...item,
         isShow: true
       }
-    })
+    });
   }
-}
-
+};
 
 const FUNCTION = {
   Deep,
   current,
   HiAlert,
   HiImg
-}
+};
 
 export default FUNCTION;
