@@ -103,7 +103,7 @@ export default {
       buttonList, //按钮栏
       liStyle: {}, //棋盘样式
       snackLength: 4, //蛇的初始长度
-      boardBorder: true, //棋盘边框
+      boardBorder: false, //棋盘边框
       snack: [], //蛇的容器
       food: [], //食物的坐标
       direction: undefined, //移动方向
