@@ -15,24 +15,16 @@
 
 <script>
 import { mapState } from "vuex";
-import { sidebar } from "../../const/bird";
 import { $animate } from "../../mixins";
 import { COMMIT } from "../../utils";
 export default {
   mixins: [$animate],
   data() {
     return {
-      // sidebar
     };
   },
   computed: {},
   methods: {
-    /**
-     * 侧边栏事件
-     * @param {object}
-     * @return {void}
-     */
-    sideBarMethod(item) {}
   }
 };
 </script>
