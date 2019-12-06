@@ -13,7 +13,6 @@ import {
 InstallFunction(Vue); //this绑定方法
 InstallCommand(Vue); //自定义指令
 
-/* eslint-disable no-new */
 const _Vue = new Vue({
   el: '#app',
   router,

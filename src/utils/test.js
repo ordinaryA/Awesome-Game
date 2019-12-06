@@ -39,7 +39,7 @@ const HiAlert = item => {
  * @return {void}
  */
 const HiImg = item => {
-  if (item.isShow == 'hide') {
+  if (item.isShow === 'hide') {
     COMMIT({
       showCartoon: {
         type: 'fail',
