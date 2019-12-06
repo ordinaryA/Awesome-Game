@@ -1,12 +1,14 @@
 <template>
-  <div class="bird_bg">
+  <div class="gold_bg">
     <div class="w1440 noScroll">
       <div class="row site">
         <div class="sm-12 md-12 col">
           <div
             class="paper"
             v-first="{name:'translateRight',duration:'0.4s',delay:'0.5s',offset:'0'}"
-          >111111111111111</div>
+          >
+            <div class="wohu"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -20,12 +22,10 @@ import { COMMIT } from "../../utils";
 export default {
   mixins: [$animate],
   data() {
-    return {
-    };
+    return {};
   },
   computed: {},
-  methods: {
-  }
+  methods: {}
 };
 </script>
 
