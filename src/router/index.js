@@ -8,25 +8,30 @@ const empty = [{
   redirect: "/404"
 }];
 
-const routes = [{
-  path: '/',
-  name: 'bird',
-  component: resolve => require(['../page/bird'], resolve)
-},
-{
-  path: '/snack',
-  name: 'snack',
-  component: resolve => require(['../page/snack'], resolve)
-},
-{
-  path: '/sweep',
-  name: 'sweep',
-  component: resolve => require(['../page/sweep'], resolve)
-},
-...NotFound,
-...empty
+const routes = [
+  {
+    path: '/',
+    name: 'gold',
+    component: resolve => require(['../page/gold'], resolve)
+  },
+  {
+    path: '/bird',
+    name: 'bird',
+    component: resolve => require(['../page/bird'], resolve)
+  },
+  {
+    path: '/snack',
+    name: 'snack',
+    component: resolve => require(['../page/snack'], resolve)
+  },
+  {
+    path: '/sweep',
+    name: 'sweep',
+    component: resolve => require(['../page/sweep'], resolve)
+  },
+
+  ...NotFound,
+  ...empty
 ];
 
-export default new Router({
-  routes
-});
+export default new Router({ routes });

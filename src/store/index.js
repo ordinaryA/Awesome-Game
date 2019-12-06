@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     //漫画组件参数
     cartoon: {}, //漫画组件参数
 
-    //小鸟
+    //管道小鸟得分
     birdBestScore: {
       normal: 0,
       hard: 0,
