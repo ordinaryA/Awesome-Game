@@ -189,7 +189,7 @@ export default {
     /**
      * 侧边栏事件
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     sideBarMethod(item) {
       const { type } = item;
@@ -203,7 +203,7 @@ export default {
     /**
      * 选择难度
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     chooseDifficulty({ speed, label }) {
       let type = "";
@@ -241,8 +241,8 @@ export default {
 
     /**
      * 绑定空格键
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     bindSpaceKey() {
       document.onkeydown = ({ keyCode }) => {
@@ -261,8 +261,8 @@ export default {
 
     /**
      * 开始运动
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     birdMove() {
       let { timerNum, birdData, TS, AS } = this;
@@ -296,8 +296,8 @@ export default {
 
     /**
      * 跳跃
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     birdJump() {
       const { jumpPower } = this;
@@ -311,8 +311,8 @@ export default {
 
     /**
      * 管道移动
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     pipeMove() {
       const { birdBox } = this.$refs;
@@ -363,7 +363,7 @@ export default {
     /**
      * 判断小鸟是否通过管道
      * @param {object}
-     * @return {string}
+     * @returns {string}
      */
     judgeIsPassPipe({ right, topPipeTop, bottomPipeTop }) {
       const { birdData } = this;
@@ -391,8 +391,8 @@ export default {
 
     /**
      * 判断小鸟是否通过管道
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     passPipe() {
       const { birdData } = this;
@@ -409,8 +409,8 @@ export default {
 
     /**
      * 判断小鸟是否通过管道
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     gameOver() {
       clearInterval(this.pipeTimer);
@@ -437,8 +437,8 @@ export default {
 
     /**
      * 游戏重新开始
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     gameRestart() {
       this.HiImg({ isShow: "hide" });
@@ -451,8 +451,8 @@ export default {
 
     /**
      * 创造管道
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     createPipe() {
       const { pipeDist, pipeArr } = this;

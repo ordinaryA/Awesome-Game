@@ -128,7 +128,7 @@ export default {
     /**
      * 侧边栏事件
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     sideBarMethod(item) {
       const { type } = item;
@@ -144,8 +144,8 @@ export default {
 
     /**
      * 游戏胜利
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     gameWin() {
       const { boardData } = this;
@@ -166,8 +166,8 @@ export default {
 
     /**
      * 初始化棋盘
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     initBoard() {
       //1.0 初始化棋盘
@@ -194,7 +194,7 @@ export default {
     /**
      * 按钮事件
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     switchEvent({ type }) {
       switch (type) {
@@ -210,8 +210,8 @@ export default {
 
     /**
      * 重新开始游戏
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     restartGame() {
       this.gameIsOver = false;
@@ -220,8 +220,8 @@ export default {
 
     /**
      * 随机生成若干雷
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     creatMine() {
       const {
@@ -264,8 +264,8 @@ export default {
 
     /**
      * 计算格子周围有多少雷
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     calcMineForNumber() {
       const { boardData, minePos } = this;
@@ -320,7 +320,7 @@ export default {
     /**
      * 点击棋盘扫雷
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     clickBoard(e, item) {
       const { gameIsOver } = this;
@@ -348,7 +348,7 @@ export default {
     /**
      * 用户点击雷
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     pickMine({ pos }) {
       const { boardData } = this;
@@ -360,7 +360,7 @@ export default {
     /**
      * 用户点击数字
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     pickNumber(item) {
       const { boardData } = this;
@@ -377,7 +377,7 @@ export default {
     /**
      * 用户点击数字提示用户九宫格
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     tipUserSudoForPos({ number: mineNumb, pos }) {
       const { boardData } = this;
@@ -421,7 +421,7 @@ export default {
     /**
      * 游戏结束
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     gameOver({ notArr = [], errorArr = [] }) {
       //1.0 记录游戏结束结束点击事件
@@ -490,7 +490,7 @@ export default {
     /**
      * 点击空白处递归方法
      * @param {array}
-     * @return {void}
+     * @returns {void}
      */
     handleSpace(arr) {
       const { boardData } = this;
@@ -552,7 +552,7 @@ export default {
     /**
      * 选择难度
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     pickDifficulty({ mode, label }) {
       //游戏配置重新开始参数
@@ -591,7 +591,7 @@ export default {
     /**
      * 自定义难度
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     userSetContext() {
       this.HiAlert({

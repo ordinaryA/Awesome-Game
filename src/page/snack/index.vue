@@ -117,7 +117,7 @@ export default {
   computed: {
     /**
      * 二维数组
-     * @return {array}
+     * @returns {array}
      */
     formattCheck() {
       const [a, b] = this.checkerArea;
@@ -134,7 +134,7 @@ export default {
 
     /**
      * 棋盘样式
-     * @return {object}
+     * @returns {object}
      */
     handleLiStyle() {
       let { liStyle, boardBorder } = this;
@@ -166,7 +166,7 @@ export default {
     /**
      * 侧边栏事件
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     sideBarMethod(item) {
       const { type } = item;
@@ -186,7 +186,7 @@ export default {
     /**
      * 选择模式
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     chooseMode({ type, mode, label }) {
       let tip = `已切换为${label}`;
@@ -213,7 +213,7 @@ export default {
     /**
      * 选择难度
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     chooseDifficulty({ speed, label }) {
       let type = "";
@@ -242,7 +242,7 @@ export default {
     /**
      * 选择棋盘size
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     chooseBoard({ size, label }) {
       switch (size) {
@@ -272,8 +272,8 @@ export default {
 
     /**
      * 按钮事件
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     snackAlert() {
       this.HiAlert({
@@ -285,7 +285,7 @@ export default {
     /**
      * 按钮事件
      * @param {object}
-     * @return {void}
+     * @returns {void}
      */
     switchEvent({ type }) {
       switch (type) {
@@ -307,8 +307,8 @@ export default {
 
     /**
      * 暂停游戏
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     stopGame() {
       const { isStop } = this;
@@ -332,8 +332,8 @@ export default {
 
     /**
      * 重新开始游戏
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     restartGame() {
       this.score = 0;
@@ -356,8 +356,8 @@ export default {
 
     /**
      * 游戏开始
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     gameStart() {
       const { speed } = this;
@@ -370,8 +370,8 @@ export default {
 
     /**
      * 按键改变方向
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     bindKeycode() {
       document.onkeydown = ({ keyCode }) => {
@@ -416,8 +416,8 @@ export default {
 
     /**
      * 移动一条蛇
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     snackMove() {
       const { direction, snack, currentMode } = this;
@@ -473,7 +473,7 @@ export default {
     /**
      * 经典模式
      * @param {array}
-     * @return {boolean}
+     * @returns {boolean}
      */
     classicMode([row, col]) {
       const [R, C] = this.checkerArea;
@@ -487,7 +487,7 @@ export default {
     /**
      * 自由模式
      * @param {array}
-     * @return {array}
+     * @returns {array}
      */
     freeMode([row, col]) {
       let [R, C] = this.checkerArea;
@@ -516,13 +516,13 @@ export default {
     /**
      * 冒险模式
      * @param {array}
-     * @return {array}
+     * @returns {array}
      */
 
     /**
      * 游戏结束
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     gameOver() {
       clearInterval(this.moveTimer);
@@ -537,8 +537,8 @@ export default {
 
     /**
      * 判断是否吃到了食物
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     isAteFood() {
       const [foodRow, foodCol] = this.food;
@@ -553,8 +553,8 @@ export default {
 
     /**
      * 创建一条蛇
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     createSnack() {
       const {
@@ -586,8 +586,8 @@ export default {
 
     /**
      * 画一条蛇
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     drawSnack() {
       const { snack } = this;
@@ -608,8 +608,8 @@ export default {
 
     /**
      * 创建一个食物
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     createFood() {
       const {
@@ -635,8 +635,8 @@ export default {
 
     /**
      * 判断蛇头是否在自己身上
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     judgeHeadInSelfBody() {
       //拷贝数组
@@ -653,8 +653,8 @@ export default {
 
     /**
      * 初始化棋盘样式
-     * @param {null}
-     * @return {void}
+     * @param {void}
+     * @returns {void}
      */
     initStyle() {
       const { layout } = this.$refs,
