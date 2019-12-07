@@ -320,6 +320,7 @@ export default {
           clear: true
         });
       } else {
+        this.HiImg({ isShow: "hide" });
         this.HiAlert({
           type: "success",
           content: "游戏已开始！",
