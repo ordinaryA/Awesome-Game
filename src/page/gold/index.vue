@@ -7,7 +7,7 @@
             class="paper"
             v-first="{name:'translateRight',duration:'0.4s',delay:'0.5s',offset:'0'}"
           >
-            <div class="wohu"></div>
+            <div class="wohu">111</div>
           </div>
         </div>
       </div>
