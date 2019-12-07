@@ -19,6 +19,7 @@
 import { mapState } from "vuex";
 import { $animate } from "../../mixins";
 import { COMMIT } from "../../utils";
+
 export default {
   mixins: [$animate],
   data() {
@@ -29,6 +30,6 @@ export default {
 };
 </script>
 
-<style scoped>
-@import url("../../assets/css/gold.scss");
+<style lang="scss" scoped>
+@import "@style/gold.scss";
 </style>

@@ -58,6 +58,6 @@ export default {
 };
 </script>
 
-<style scoped>
-@import url("../../assets/css/404");
+<style lang="scss" scoped>
+@import "@style/404.scss";
 </style>

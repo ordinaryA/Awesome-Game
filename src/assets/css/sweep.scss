@@ -1,5 +1,5 @@
 .snack_bg {
-  background: url('../img/snack/geometry.png');
+  background: url('~@image/snack/geometry.png');
   height: 100vh;
 }
 
@@ -56,22 +56,22 @@
 }
 
 .mine {
-  background: url('../img/sweep/mine.png') no-repeat center center;
+  background: url('~@image/sweep/mine.png') no-repeat center center;
   background-size: 100% 100%;
 }
 
 .mineNot {
-  background: url('../img/sweep/mineNot.png') no-repeat center center;
+  background: url('~@image/sweep/mineNot.png') no-repeat center center;
   background-size: 100% 100%;
 }
 
 .mineError {
-  background: url('../img/sweep/mineError.png') no-repeat center center;
+  background: url('~@image/sweep/mineError.png') no-repeat center center;
   background-size: 100% 100%;
 }
 
 .mineSuccess {
-  background: url('../img/sweep/mineSuccess.png') no-repeat center center;
+  background: url('~@image/sweep/mineSuccess.png') no-repeat center center;
   background-size: 100% 100%;
 }
 
@@ -84,7 +84,7 @@
 }
 
 .flag {
-  background: url('../img/sweep/flag.png') no-repeat center center;
+  background: url('~@image/sweep/flag.png') no-repeat center center;
   background-size: 100% 100%;
 }
 

@@ -477,6 +477,6 @@ export default {
 };
 </script>
 
-<style scoped>
-@import url("../../assets/css/bird");
+<style lang="scss" scoped>
+@import "@style/bird.scss";
 </style>

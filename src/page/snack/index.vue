@@ -668,6 +668,6 @@ export default {
 };
 </script>
 
-<style scoped>
-@import url("../../assets/css/snack");
+<style lang="scss" scoped>
+@import "@style/snack.scss";
 </style>

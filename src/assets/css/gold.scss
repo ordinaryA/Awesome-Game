@@ -1,5 +1,5 @@
 .gold_bg {
-  background: url('../img/snack/geometry.png');
+  background: url('~@image/snack/geometry.png');
   height: 100vh;
 
   .sidebar_h3 {
@@ -11,10 +11,9 @@
     overflow: hidden;
   }
 
-  .wohu{
-      width: 150px;
-      height: 150px;
-      background: #000;
+  .wohu {
+    width: 150px;
+    height: 150px;
+    background: #000;
   }
-
 }

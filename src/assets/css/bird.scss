@@ -1,5 +1,5 @@
 .bird_bg {
-  background: url('../img/snack/geometry.png');
+  background: url('~@image/snack/geometry.png');
   height: 100vh;
 }
 
@@ -36,12 +36,12 @@
 
 .land {
   height: 50px;
-  background: url('../img/bird/land.png');
+  background: url('~@image/bird/land.png');
 }
 
 .bird_box {
   height: 480px;
-  background: url('../img/bird/sky.png');
+  background: url('~@image/bird/sky.png');
   background-position: center center;
   position: relative;
   animation: birdBgMove 4s infinite linear;
@@ -91,22 +91,22 @@
 
 @keyframes birdWing {
   0% {
-    background: url('../img/bird/bird2.png') center center;
+    background: url('~@image/bird/bird2.png') center center;
     background-size: 195% 195%;
   }
 
   33% {
-    background: url('../img/bird/bird0.png') center center;
+    background: url('~@image/bird/bird0.png') center center;
     background-size: 195% 195%;
   }
 
   66% {
-    background: url('../img/bird/bird1.png') center center;
+    background: url('~@image/bird/bird1.png') center center;
     background-size: 195% 195%;
   }
 
   100% {
-    background: url('../img/bird/bird2.png') center center;
+    background: url('~@image/bird/bird2.png') center center;
     background-size: 195% 195%;
   }
 }

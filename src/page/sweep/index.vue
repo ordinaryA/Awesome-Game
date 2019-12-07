@@ -642,6 +642,6 @@ export default {
 };
 </script>
 
-<style scoped>
-@import url("../../assets/css/sweep");
+<style lang="scss" scoped>
+@import "@style/sweep.scss";
 </style>
