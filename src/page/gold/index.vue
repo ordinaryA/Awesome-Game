@@ -7,7 +7,16 @@
             class="paper"
             v-first="{name:'translateRight',duration:'0.4s',delay:'0.5s',offset:'0'}"
           >
-            <canvas class="hook_canvas" ref="hookCanvas"></canvas>
+            <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <line
+                x1="0"
+                y1="0"
+                x2="50"
+                y2="50"
+                ref="hooks"
+                style="stroke:rgb(99,99,99);stroke-width:2"
+              />
+            </svg>
           </div>
         </div>
       </div>
@@ -24,26 +33,29 @@ export default {
   mixins: [$animate],
   data() {
     return {
-      hookPos: [100, 100]
+      hookPos: [100, 100],
+      hookTimer: null
     };
   },
   created() {
-    this.$nextTick(() => {
-      const { hookCanvas } = this.$refs;
-      const ctx = hookCanvas.getContext("2d");
-      ctx.save();
-      ctx.translate(0.5, 0.5);
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(10, 100);
-      ctx.lineTo(300, 100);
-      ctx.stroke();
-      ctx.restore();
-    });
+    this.test();
   },
-  mounted() {},
   computed: {},
-  methods: {}
+  methods: {
+    test() {
+      let [x2, y2] = this.hookPos;
+      this.hookTimer = setInterval(() => {
+        this.hookPos = [(x2 += 50), (y2 += 50)];
+        this.setLinePos();
+      }, 300);
+    },
+    setLinePos() {
+      const [x2, y2] = this.hookPos;
+      const { hooks } = this.$refs;
+      hooks.setAttribute("x2", x2);
+      hooks.setAttribute("y2", y2);
+    }
+  }
 };
 </script>
 
