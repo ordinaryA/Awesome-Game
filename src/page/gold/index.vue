@@ -7,9 +7,7 @@
             class="paper"
             v-first="{name:'translateRight',duration:'0.4s',delay:'0.5s',offset:'0'}"
           >
-            <svg width="100" height="100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-              <line x1="0" y1="0" x2="100%" y2="100%" style="stroke:rgb(99,99,99);stroke-width:2" />
-            </svg>
+            <canvas class="hook_canvas" ref="hookCanvas"></canvas>
           </div>
         </div>
       </div>
@@ -29,6 +27,21 @@ export default {
       hookPos: [100, 100]
     };
   },
+  created() {
+    this.$nextTick(() => {
+      const { hookCanvas } = this.$refs;
+      const ctx = hookCanvas.getContext("2d");
+      ctx.save();
+      ctx.translate(0.5, 0.5);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(10, 100);
+      ctx.lineTo(300, 100);
+      ctx.stroke();
+      ctx.restore();
+    });
+  },
+  mounted() {},
   computed: {},
   methods: {}
 };
