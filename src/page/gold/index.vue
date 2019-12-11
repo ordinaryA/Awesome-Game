@@ -31,7 +31,9 @@ export default {
       hookStartPos: [683, 0], //绳子起点坐标
       hookPos: [683, 30], //钩子坐标
       hookTimer: null, //钩子计时器
-      hookIsRotate: true //钩子是否旋转
+      hookIsRotate: true, //钩子是否正在旋转
+      grabTimer: null, //钩子抓出计时器
+      hookIsGrab: false //钩子是否正在抓取
     };
   },
   created() {
@@ -63,10 +65,15 @@ export default {
         if (this.lineAngle > 360) {
           this.lineAngle = 0;
         }
+        //1.0 判断钩子是否正在旋转
         if (this.hookIsRotate) {
-          this.lineAngle = this.lineAngle + 1;
-          this.computHooksPos();
+          this.lineAngle += 1;
         }
+        //2.0 判断钩子是否正在抓取
+        if (this.hookIsGrab) {
+          this.lineLength += 3;
+        }
+        this.computHooksPos();
       }, 30);
     },
 
@@ -82,24 +89,15 @@ export default {
           //下
           case 40: {
             if (hookIsRotate) {
-              this.stopRotate();
+              this.hookIsRotate = false;
+              this.hookIsGrab = true;
             } else {
               this.hookIsRotate = true;
-              this.rotateHooks();
             }
             break;
           }
         }
       };
-    },
-    /**
-     * 钩子停止旋转
-     * @param {void}
-     * @returns {void}
-     */
-    stopRotate() {
-      this.hookIsRotate = false;
-      clearInterval(this.hookTimer);
     },
 
     /**
