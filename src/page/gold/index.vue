@@ -48,7 +48,7 @@ export default {
         hookStartPos: [x1, y1],
         hookPos: [x2, y2]
       } = this;
-      const path = `M${x1} ${y1}  L${x2} ${y2} Z`;
+      const path = `M${x1} ${y1} L${x2} ${y2} Z`;
       return path;
     }
   },
