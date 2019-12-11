@@ -10,8 +10,13 @@
     height: 100vh;
   }
 
-  .hook_canvas{
+  .hook_svg {
     width: 1366px;
     height: 400px;
+  }
+
+  .hooksLine {
+    stroke: #000;
+    stroke-width: 1;
   }
 }

@@ -7,15 +7,8 @@
             class="paper"
             v-first="{name:'translateRight',duration:'0.4s',delay:'0.5s',offset:'0'}"
           >
-            <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
-              <line
-                x1="0"
-                y1="0"
-                x2="50"
-                y2="50"
-                ref="hooks"
-                style="stroke:rgb(99,99,99);stroke-width:2"
-              />
+            <svg class="hook_svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <path :d="pathParams" class="hooksLine" />
             </svg>
           </div>
         </div>
@@ -33,27 +26,27 @@ export default {
   mixins: [$animate],
   data() {
     return {
-      hookPos: [100, 100],
+      hookPos: [50, 50],
       hookTimer: null
     };
   },
   created() {
     this.test();
   },
-  computed: {},
+  computed: {
+    /**
+     * 绳子的绘制路径
+     * @returns {string}
+     */
+    pathParams() {
+      const [x, y] = this.hookPos;
+      const path = `M683 0 L${x} ${y} Z`;
+      return path;
+    }
+  },
   methods: {
-    test() {
-      let [x2, y2] = this.hookPos;
-      this.hookTimer = setInterval(() => {
-        this.hookPos = [(x2 += 50), (y2 += 50)];
-        this.setLinePos();
-      }, 300);
-    },
-    setLinePos() {
-      const [x2, y2] = this.hookPos;
-      const { hooks } = this.$refs;
-      hooks.setAttribute("x2", x2);
-      hooks.setAttribute("y2", y2);
+    circleLine() {
+      
     }
   }
 };
