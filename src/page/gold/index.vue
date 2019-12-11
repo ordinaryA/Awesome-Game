@@ -68,6 +68,8 @@ export default {
         //1.0 判断钩子是否正在旋转
         if (this.hookIsRotate) {
           this.lineAngle += 1;
+          // 旋转时设置不能抓取
+          this.hookIsGrab = false;
         }
         //2.0 判断钩子是否正在抓取
         if (this.hookIsGrab) {
