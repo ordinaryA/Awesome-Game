@@ -73,7 +73,11 @@ export default {
         }
         //2.0 判断钩子是否正在抓取
         if (this.hookIsGrab) {
-          this.lineLength += 3;
+          if (this.lineLength > 200) {
+            this.lineLength -= 3;
+          } else {
+            this.lineLength += 3;
+          }
         }
         this.computHooksPos();
       }, 30);
