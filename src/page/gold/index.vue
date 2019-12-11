@@ -26,12 +26,17 @@ export default {
   mixins: [$animate],
   data() {
     return {
-      hookPos: [50, 50],
-      hookTimer: null
+      lineLength: 30, //绳子长度
+      lineAngle: -90, //绳子与Y轴角度
+      hookStartPos: [683, 0], //绳子起点坐标
+      hookPos: [683, 30], //钩子坐标
+      hookTimer: null, //钩子计时器
+      hookIsRotate: true //钩子是否旋转
     };
   },
   created() {
-    this.test();
+    this.bindKeycode();
+    this.rotateHooks();
   },
   computed: {
     /**
@@ -39,14 +44,82 @@ export default {
      * @returns {string}
      */
     pathParams() {
-      const [x, y] = this.hookPos;
-      const path = `M683 0 L${x} ${y} Z`;
+      const {
+        hookStartPos: [x1, y1],
+        hookPos: [x2, y2]
+      } = this;
+      const path = `M${x1} ${y1}  L${x2} ${y2} Z`;
       return path;
     }
   },
   methods: {
-    circleLine() {
-      
+    /**
+     * 生成定时器，旋转钩子
+     * @param {void}
+     * @returns {void}
+     */
+    rotateHooks() {
+      this.hookTimer = setInterval(() => {
+        if (this.lineAngle > 360) {
+          this.lineAngle = 0;
+        }
+        if (this.hookIsRotate) {
+          this.lineAngle = this.lineAngle + 1;
+          this.computHooksPos();
+        }
+      }, 30);
+    },
+
+    /**
+     * 绑定键盘事件
+     * @param {void}
+     * @returns {void}
+     */
+    bindKeycode() {
+      document.onkeydown = ({ keyCode }) => {
+        const { hookIsRotate } = this;
+        switch (keyCode) {
+          //下
+          case 40: {
+            if (hookIsRotate) {
+              this.stopRotate();
+            } else {
+              this.hookIsRotate = true;
+              this.rotateHooks();
+            }
+            break;
+          }
+        }
+      };
+    },
+    /**
+     * 钩子停止旋转
+     * @param {void}
+     * @returns {void}
+     */
+    stopRotate() {
+      this.hookIsRotate = false;
+      clearInterval(this.hookTimer);
+    },
+
+    /**
+     * 计算钩子坐标
+     * @param {void}
+     * @returns {void}
+     */
+    computHooksPos() {
+      const {
+        hookPos,
+        lineAngle,
+        lineLength,
+        hookStartPos: [x0, y0]
+      } = this;
+      // 1.0 算出弧度
+      const radian = ((2 * Math.PI) / 360) * lineAngle;
+      const x1 = ~~Math.abs(x0 + Math.sin(radian) * lineLength);
+      const y1 = ~~Math.abs(y0 - Math.cos(radian) * lineLength);
+      //2.0 计算绘制在SVG上的坐标x
+      this.hookPos = [x1, y1];
     }
   }
 };
