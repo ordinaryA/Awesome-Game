@@ -62,8 +62,11 @@ export default {
      */
     rotateHooks() {
       this.hookTimer = setInterval(() => {
-        if (this.lineAngle > 360) {
-          this.lineAngle = 0;
+        //1.0 判断钩子长度大于某长度后缩短
+        if (this.lineLength > 100) {
+          this.lineLength = 30;
+          this.hookIsGrab = false;
+          this.hookIsRotate = true;
         }
         //1.0 判断钩子是否正在旋转
         if (this.hookIsRotate) {
@@ -93,8 +96,6 @@ export default {
             if (hookIsRotate) {
               this.hookIsRotate = false;
               this.hookIsGrab = true;
-            } else {
-              this.hookIsRotate = true;
             }
             break;
           }
