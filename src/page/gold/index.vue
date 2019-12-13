@@ -7,9 +7,16 @@
             class="paper"
             v-first="{name:'translateRight',duration:'0.4s',delay:'0.5s',offset:'0'}"
           >
-            <svg class="hook_svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
-              <path :d="pathParams" class="hooksLine" />
-            </svg>
+            <div class="game_container" :style="gameArea">
+              <svg
+                :style="gameArea"
+                class="svg_dise"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path :d="pathParams" class="hooksLine" />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
@@ -18,9 +25,9 @@
 </template>
 
 <script>
+import { GOLD } from "@constants";
 import { mapState } from "vuex";
 import { $animate } from "../../mixins";
-import { COMMIT } from "../../utils";
 
 // 绳子默认长度
 const LINE_DEFAULT_LENGTH = 30;
@@ -61,6 +68,14 @@ export default {
       } = this;
       const path = `M${x1} ${y1} L${x2} ${y2} Z`;
       return path;
+    },
+
+    /**
+     * 返回游戏区域大小
+     * @returns {object}
+     */
+    gameArea() {
+      return { width: `${SVG_WIDTH}px`, height: `${SVG_HEIGHT}px` };
     }
   },
   methods: {

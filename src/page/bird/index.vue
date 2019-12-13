@@ -127,15 +127,15 @@
 </template>
 
 <script>
+import { BIRD } from "@constants";
 import { mapState, mapGetters } from "vuex";
-import { sidebar } from "../../const/bird";
 import { $animate } from "../../mixins";
 import { COMMIT } from "../../utils";
 export default {
   mixins: [$animate],
   data() {
     return {
-      sidebar, //侧边栏
+      sidebar: BIRD.sidebar, //侧边栏
       currentMode: "normal", //当前难度
       birdData: {
         top: 50,

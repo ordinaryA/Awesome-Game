@@ -18,8 +18,8 @@
   animation: alan_scale 0.3s reverse;
 }
 
-.snack_bg {
-  background: url('~@image/snack/geometry.png');
+.snake_bg {
+  background: url('~@image/snake/geometry.png');
 }
 
 .content {
@@ -64,11 +64,11 @@
   content: '';
 }
 
-.snack_head {
+.snake_head {
   background: rgb(211, 218, 206);
 }
 
-.snack_body {
+.snake_body {
   background: rgb(170, 163, 163);
 }
 

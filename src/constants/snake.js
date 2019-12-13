@@ -85,3 +85,6 @@ export {
   sidebar,
   buttonList
 };
+
+export default {};
+

@@ -6,7 +6,7 @@
  */
 
 <template>
-  <div class="snack_bg">
+  <div class="snake_bg">
     <div class="w1440 noScroll">
       <div class="row site">
         <div
@@ -71,7 +71,7 @@
               </div>
               <transition name="alan_scale">
                 <div class="stop" v-show="isStop">
-                  <img src="../../assets/img/snack/stop.png" alt />
+                  <img src="../../assets/img/snake/stop.png" alt />
                 </div>
               </transition>
             </div>
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { sidebar, buttonList } from "../../const/snack";
+import { BIRD } from "@constants";
 import { COMMIT } from "../../utils";
 import { $animate } from "../../mixins";
 export default {
@@ -99,12 +99,12 @@ export default {
     return {
       checkerArea: [50, 50], //棋盘横纵格子数
       currentMode: "classicMode", //当前游戏魔模式
-      sidebar, //侧边栏
-      buttonList, //按钮栏
+      sidebar: BIRD.sidebar, //侧边栏
+      buttonList: BIRD.buttonList, //按钮栏
       liStyle: {}, //棋盘样式
-      snackLength: 4, //蛇的初始长度
+      snakeLength: 4, //蛇的初始长度
       boardBorder: false, //棋盘边框
-      snack: [], //蛇的容器
+      snake: [], //蛇的容器
       food: [], //食物的坐标
       direction: undefined, //移动方向
       moveTimer: undefined, //蛇移动的定时器
@@ -147,12 +147,12 @@ export default {
   },
   created() {
     //1.0 生成蛇的二维数组
-    this.createSnack();
+    this.createSnake();
     this.$nextTick(() => {
       //2.0 初始化棋盘样式
       this.initStyle();
       //3.0 画出一条蛇
-      this.drawSnack();
+      this.drawSnake();
       //4.0 随机生成食物
       this.createFood();
       //5.0 绑定键盘事件
@@ -275,7 +275,7 @@ export default {
      * @param {void}
      * @returns {void}
      */
-    snackAlert() {
+    snakeAlert() {
       this.HiAlert({
         type: "warning",
         content: "This is just a test button"
@@ -300,7 +300,7 @@ export default {
           this.stopGame();
           break;
         case "alert":
-          this.snackAlert();
+          this.snakeAlert();
           break;
       }
     },
@@ -348,9 +348,9 @@ export default {
         li.className = "";
       }
       //2.0 生成蛇的二维数组
-      this.createSnack();
+      this.createSnake();
       //3.0 画出一条蛇
-      this.drawSnack();
+      this.drawSnake();
       //4.0 随机生成食物
       this.createFood();
     },
@@ -364,7 +364,7 @@ export default {
       const { speed } = this;
       clearInterval(this.moveTimer);
       this.moveTimer = setInterval(() => {
-        this.snackMove();
+        this.snakeMove();
         this.wait = true;
       }, speed);
     },
@@ -420,9 +420,9 @@ export default {
      * @param {void}
      * @returns {void}
      */
-    snackMove() {
-      const { direction, snack, currentMode } = this;
-      let [r, c] = snack[0]; //第r行的第c个
+    snakeMove() {
+      const { direction, snake, currentMode } = this;
+      let [r, c] = snake[0]; //第r行的第c个
       let headAfter = [];
       switch (direction) {
         case "up":
@@ -463,12 +463,12 @@ export default {
         this.createFood();
       } else {
         //未到食物则删除获取最后一个元素坐标
-        const [row, col] = snack.pop();
+        const [row, col] = snake.pop();
         const li = this.$refs[`li_${row}`][col];
         li.className = "";
       }
-      snack.unshift(headAfter);
-      this.drawSnack();
+      snake.unshift(headAfter);
+      this.drawSnake();
     },
 
     /**
@@ -494,24 +494,24 @@ export default {
       let [R, C] = this.checkerArea;
       R -= 1;
       C -= 1;
-      let snackHead = [row, col];
+      let snakeHead = [row, col];
       //蛇头到达上边界时 蛇头坐标变为棋盘下边界
       if (row < 0) {
-        snackHead = [R, col];
+        snakeHead = [R, col];
       }
       //蛇头到达左边界时 蛇头坐标变为棋盘右边界
       if (col < 0) {
-        snackHead = [row, C];
+        snakeHead = [row, C];
       }
       //蛇头到达下边界时 蛇头坐标变为棋盘上边界
       if (row > R) {
-        snackHead = [0, col];
+        snakeHead = [0, col];
       }
       //蛇头到达右边界时 蛇头坐标变为棋盘左边界
       if (col > C) {
-        snackHead = [row, 0];
+        snakeHead = [row, 0];
       }
-      return snackHead;
+      return snakeHead;
     },
 
     /**
@@ -543,7 +543,7 @@ export default {
      */
     isAteFood() {
       const [foodRow, foodCol] = this.food;
-      const [headRow, headCol] = this.snack[0];
+      const [headRow, headCol] = this.snake[0];
       if (foodRow == headRow && foodCol == headCol) {
         this.score++;
         return true;
@@ -557,9 +557,9 @@ export default {
      * @param {void}
      * @returns {void}
      */
-    createSnack() {
+    createSnake() {
       const {
-        snackLength: l,
+        snakeLength: l,
         checkerArea: [r, c]
       } = this;
       //1.0 避免随机头部在边界且容的下蛇的长度
@@ -582,7 +582,7 @@ export default {
           this.direction = "left";
         }
       }
-      this.snack = [head, ...body];
+      this.snake = [head, ...body];
     },
 
     /**
@@ -590,19 +590,19 @@ export default {
      * @param {void}
      * @returns {void}
      */
-    drawSnack() {
-      const { snack } = this;
+    drawSnake() {
+      const { snake } = this;
       //1.0 解构 a:横轴坐标 b:纵轴坐标
-      snack.map(([a, b], idx) => {
+      snake.map(([a, b], idx) => {
         //2.0 根据坐标获取元素
         const li = this.$refs[`li_${a}`][b] || undefined;
         if (!li) {
           return;
         }
         if (idx == 0) {
-          li.className = "snack_head";
+          li.className = "snake_head";
         } else {
-          li.className = "snack_body";
+          li.className = "snake_body";
         }
       });
     },
@@ -615,14 +615,14 @@ export default {
     createFood() {
       const {
         checkerArea: [x, y],
-        snack
+        snake
       } = this;
       //1.0 食物的坐标与蛇重叠则重新随机
       while (true) {
         const row = Math.floor(Math.random() * x);
         const col = Math.floor(Math.random() * y);
-        for (let i = 0; i < snack.length; i++) {
-          const [a, b] = snack[i];
+        for (let i = 0; i < snake.length; i++) {
+          const [a, b] = snake[i];
           if (row != a && col != b) {
             this.food = [row, col];
             //2.0 修改食物坐标样式
@@ -641,7 +641,7 @@ export default {
      */
     judgeHeadInSelfBody() {
       //拷贝数组
-      const body = JSON.parse(JSON.stringify(this.snack));
+      const body = JSON.parse(JSON.stringify(this.snake));
       //删除数组第一项并返回蛇头坐标
       const [x, y] = body.shift(1);
       for (let i = 0; i < body.length; i++) {
@@ -670,5 +670,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@style/snack.scss";
+@import "@style/snake.scss";
 </style>

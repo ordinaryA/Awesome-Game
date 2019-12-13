@@ -1,5 +1,5 @@
 .gold_bg {
-  background: url('~@image/snack/geometry.png');
+  background: url('~@image/snake/geometry.png');
   height: 100vh;
 
   .sidebar_h3 {
@@ -10,9 +10,14 @@
     height: 100vh;
   }
 
-  .hook_svg {
-    width: 1366px;
-    height: 400px;
+  .game_container {
+    position: relative;
+  }
+
+  .svg_dise {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .hooksLine {

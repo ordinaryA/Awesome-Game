@@ -1,11 +1,5 @@
-/*
- * @Author: Alan 
- * @Date: 2019-06-26 15:41:65 
- * @Last Modified by: Alan
- * @Last Modified time: 2019-07-24 16:58:37
- */
 <template>
-  <div class="snack_bg">
+  <div class="snake_bg">
     <div class="w1440">
       <div class="row site">
         <div
@@ -87,14 +81,14 @@
 </template>
 
 <script>
-import { sidebar, buttonList } from "../../const/sweep";
+import { SWEEP } from "@constants";
 import { $animate } from "../../mixins";
 export default {
   mixins: [$animate],
   data() {
     return {
-      sidebar, //侧边栏
-      buttonList, //按钮列表
+      sidebar: SWEEP.sidebar, //侧边栏
+      buttonList: SWEEP.buttonList, //按钮列表
       defaultMode: "crazy", //默认难度
       boardSize: [40, 20], //棋盘尺寸
       mineCount: 100, //雷的数量

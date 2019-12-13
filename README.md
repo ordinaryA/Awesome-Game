@@ -9,7 +9,7 @@
 ## 在线Demo
 - 扫雷 ：[在线试玩](http://www.almx.top/awesome/#/sweep)
 - 管道小鸟 ：[在线试玩](http://www.almx.top/awesome/#/)
-- 贪吃蛇 ：[在线试玩](http://www.almx.top/awesome/#/snack)
+- 贪吃蛇 ：[在线试玩](http://www.almx.top/awesome/#/snake)
 
 # 扫雷
 

@@ -20,9 +20,9 @@ const routes = [
     component: resolve => require(['../page/bird'], resolve)
   },
   {
-    path: '/snack',
-    name: 'snack',
-    component: resolve => require(['../page/snack'], resolve)
+    path: '/snake',
+    name: 'snake',
+    component: resolve => require(['../page/snake'], resolve)
   },
   {
     path: '/sweep',

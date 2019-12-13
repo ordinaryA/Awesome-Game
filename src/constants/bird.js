@@ -21,3 +21,5 @@ const sidebar = [{
 export {
   sidebar
 };
+
+export default {};

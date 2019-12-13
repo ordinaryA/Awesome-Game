@@ -27,6 +27,7 @@ module.exports = {
       '@': resolve('src'),
       '@style': resolve('src/assets/css'),
       '@image': resolve('src/assets/img'),
+      '@constants': resolve('src/constants/index.js'),
     }
   },
   module: {
