@@ -2,34 +2,40 @@
 // 黄金和石头属性
 const ITEMS = {
   GOLD_1: {
-    size: 80,
+    width: 80,
+    height: 80,
     score: 500,
-    background: "#000"
+    className: "gold_1"
   },
   GOLD_2: {
-    size: 50,
+    width: 50,
+    height: 50,
     score: 250,
-    background: "#000"
+    className: "gold_2"
   },
   GOLD_3: {
-    size: 30,
+    width: 30,
+    height: 30,
     score: 100,
-    background: "#000"
+    className: "gold_3"
   },
   GOLD_4: {
-    size: 15,
+    width: 15,
+    height: 15,
     score: 50,
-    background: "#000"
+    className: "gold_4"
   },
   STONE_1: {
-    size: 30,
+    width: 30,
+    height: 30,
     score: 75,
-    background: "#aaa"
+    className: "stone_1"
   },
   STONE_2: {
-    size: 20,
+    width: 20,
+    height: 20,
     score: 25,
-    background: "#aaa"
+    className: "stone_2"
   }
 };
 

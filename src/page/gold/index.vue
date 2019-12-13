@@ -16,6 +16,13 @@
               >
                 <path :d="pathParams" class="hooksLine" />
               </svg>
+              <div
+                v-for="(item,idx) in handleItemList"
+                class="items_class"
+                :class="item.className"
+                :style="item.style"
+                :key="`gold_item_${idx}`"
+              ></div>
             </div>
           </div>
         </div>
@@ -49,7 +56,7 @@ export default {
       hookIsGrab: false, // 钩子是否正在抓取
       lineIsShorting: false, // 绳子正在收缩
       currentLevel: 1, // 当前关卡
-      itemsList: [] // 黄金石头啥玩意的集合
+      itemsList: [] // 黄金石头等等啥玩意的集合
     };
   },
   created() {
@@ -80,6 +87,27 @@ export default {
      */
     gameArea() {
       return { width: `${SVG_WIDTH}px`, height: `${SVG_HEIGHT}px` };
+    },
+
+    /**
+     * 处理物品数组，方便来渲染到html
+     * @returns {array}
+     */
+    handleItemList() {
+      const res = this.itemsList.map(({ width, height, pos, className }) => {
+        const item = {
+          style: {
+            width: `${width}px`,
+            height: `${width}px`,
+            top: `${pos[1]}px`,
+            left: `${pos[0]}px`
+          },
+          className
+        };
+        return item;
+      });
+      console.log(res);
+      return res;
     }
   },
   methods: {
@@ -98,15 +126,54 @@ export default {
         // 2.0 随机生成一个坐标
         const x = ~~(Math.random() * SVG_WIDTH);
         const y = ~~(Math.random() * SVG_HEIGHT);
-        // 3.0 遍历存储处理后的物品数组检查是否有重复
+        const randomItems = { ...item, pos: [x, y] };
+
+        // 3.0 判断坐标是否超出SVG区域
+        const bool_1 = this.judgeIsExceedBorder(randomItems);
+        if (bool_1) {
+          i--;
+          continue;
+        }
+
+        // 4.0 检查随机生成的坐标以否在已生成的物品内
+        let isConform = false;
         _.forEach(result, c => {
-          const bool = this.judgePosIsInside([x, y], c);
-          if (bool) {
-            // 3.1 如果已存在跳出forEach
+          // 3.1 判断坐标是否在区域内
+          const bool_2 = this.judgePosIsInside([x, y], c);
+          if (bool_2) {
+            // 3.1 只要以上判断出现true，则不满足生成条件，跳出循环
+            isConform = true;
             return false;
           }
         });
+        // 4.1 如果存在则重新开始当次循环
+        if (isConform) {
+          i--;
+          continue;
+        }
+
+        // 5.0 成功随机到则加入到数组
+        result.push(randomItems);
       }
+      this.itemsList = result;
+    },
+
+    /**
+     * 判断随机生成的物品是否超过了边界
+     * @param {object} items 被检查坐标
+     * @returns {boolean}
+     */
+    judgeIsExceedBorder(items) {
+      const {
+        pos: [x, y],
+        width,
+        height
+      } = items;
+      //超出边界则返回false
+      if (x + width > SVG_WIDTH || y + height > SVG_HEIGHT) {
+        return true;
+      }
+      return false;
     },
 
     /**
@@ -119,12 +186,13 @@ export default {
       const [x1, y1] = pos;
       const {
         pos: [x2, y2],
-        size
+        width,
+        height
       } = items;
       // 如果传入坐标的x，大于等于目标区域的左边界且小于等于右边界
       // y大于等于目标区域的上边界且小于等于下边界
       // 同时满足时判定点在目标内
-      if (x1 >= x2 && x1 <= x2 + size && y1 >= y2 && y1 <= y2 + size) {
+      if (x1 >= x2 && x1 <= x2 + width && y1 >= y2 && y1 <= y2 + height) {
         return true;
       }
       return false;
