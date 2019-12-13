@@ -24,6 +24,9 @@ import { COMMIT } from "../../utils";
 
 // 绳子默认长度
 const LINE_DEFAULT_LENGTH = 30;
+// SVG的宽高
+const SVG_WIDTH = 1366;
+const SVG_HEIGHT = 400;
 
 export default {
   mixins: [$animate],
@@ -41,7 +44,9 @@ export default {
     };
   },
   created() {
+    // 绑定键盘事件
     this.bindKeycode();
+    // 设置定时器
     this.rotateHooks();
   },
   computed: {
@@ -78,8 +83,10 @@ export default {
         //2.0 判断钩子是否正在抓取
         if (this.hookIsGrab) {
           //2.1 判断钩子长度大于某长度后缩短
-          this.lineIsShorten();
-          if (this.lineLength > 200) {
+          this.drawLineIsShorten();
+          //2.2 判断绳子快接近边界时开始往回收
+          const isNearBorder = this.judgeLineNearBorder();
+          if (isNearBorder) {
             this.lineIsShorting = true;
           } else {
             this.lineLength += 3;
@@ -90,19 +97,38 @@ export default {
     },
 
     /**
+     * 判断绳子是否快接近边界
+     * @param {void}
+     * @returns {boolean}
+     */
+    judgeLineNearBorder() {
+      const [x, y] = this.hookPos;
+
+      // 接近SVG边界的临界值
+      const NEAR_NUMBER = 50;
+      if (
+        SVG_WIDTH - x < NEAR_NUMBER ||
+        SVG_HEIGHT - y < NEAR_NUMBER ||
+        x < NEAR_NUMBER
+      ) {
+        return true;
+      }
+      return false;
+    },
+
+    /**
      * 绳子缩短到正常长度
      * @param {void}
      * @returns {void}
      */
-    lineIsShorten() {
+    drawLineIsShorten() {
       // 如果绳子收缩状态为true时
       if (this.lineIsShorting) {
-        this.lineLength -= 5;
+        this.lineLength -= 10;
         if (this.lineLength < LINE_DEFAULT_LENGTH) {
-          // 恢复正常绳子长度，钩子恢复旋转，绳子收缩状态为false
+          // 恢复正常绳子长度，钩子恢复旋转
           this.lineLength = LINE_DEFAULT_LENGTH;
-          this.hookIsRotate = true;
-          this.lineIsShorting = false;
+          this.setHookStatus("startRotate");
         }
       }
     },
@@ -119,13 +145,32 @@ export default {
           //下
           case 40: {
             if (hookIsRotate) {
-              this.hookIsRotate = false;
-              this.hookIsGrab = true;
+              this.setHookStatus("startGrab");
             }
             break;
           }
         }
       };
+    },
+
+    /**
+     * 设置钩子状态
+     * @param {string}
+     * @returns {void}
+     */
+    setHookStatus(status) {
+      switch (status) {
+        case "startRotate": {
+          this.hookIsRotate = true;
+          this.lineIsShorting = false;
+          break;
+        }
+        case "startGrab": {
+          this.hookIsRotate = false;
+          this.hookIsGrab = true;
+          break;
+        }
+      }
     },
 
     /**
