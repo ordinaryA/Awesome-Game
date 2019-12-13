@@ -39,15 +39,17 @@ export default {
   mixins: [$animate],
   data() {
     return {
-      lineLength: LINE_DEFAULT_LENGTH, //绳子长度
-      lineAngle: -90, //绳子与Y轴角度
-      hookStartPos: [683, 0], //绳子起点坐标
-      hookPos: [683, LINE_DEFAULT_LENGTH], //钩子坐标
-      hookTimer: null, //钩子计时器
-      hookIsRotate: true, //钩子是否正在旋转
-      grabTimer: null, //钩子抓出计时器
-      hookIsGrab: false, //钩子是否正在抓取
-      lineIsShorting: false //绳子正在收缩
+      lineLength: LINE_DEFAULT_LENGTH, // 绳子长度
+      lineAngle: -90, // 绳子与Y轴角度
+      hookStartPos: [683, 0], // 绳子起点坐标
+      hookPos: [683, LINE_DEFAULT_LENGTH], // 钩子坐标
+      hookTimer: null, // 钩子计时器
+      hookIsRotate: true, // 钩子是否正在旋转
+      grabTimer: null, // 钩子抓出计时器
+      hookIsGrab: false, // 钩子是否正在抓取
+      lineIsShorting: false, // 绳子正在收缩
+      currentLevel: 1, // 当前关卡
+      itemsList: [] // 黄金石头啥玩意的集合
     };
   },
   created() {
@@ -55,6 +57,8 @@ export default {
     this.bindKeycode();
     // 设置定时器
     this.rotateHooks();
+    // 生成黄金和石头
+    this.createItems();
   },
   computed: {
     /**
@@ -79,6 +83,53 @@ export default {
     }
   },
   methods: {
+    /**
+     * 生成黄金和石头
+     * @param {void}
+     * @returns {void}
+     */
+    createItems() {
+      const { currentLevel } = this;
+      const { [currentLevel]: arr } = GOLD.LEVEL;
+      const result = [];
+      // 1.0 遍历关卡抓取物的属性来生成数组
+      for (let i = 0; i < arr.length; i++) {
+        const item = arr[i];
+        // 2.0 随机生成一个坐标
+        const x = ~~(Math.random() * SVG_WIDTH);
+        const y = ~~(Math.random() * SVG_HEIGHT);
+        // 3.0 遍历存储处理后的物品数组检查是否有重复
+        _.forEach(result, c => {
+          const bool = this.judgePosIsInside([x, y], c);
+          if (bool) {
+            // 3.1 如果已存在跳出forEach
+            return false;
+          }
+        });
+      }
+    },
+
+    /**
+     * 判断坐标是否在对象内
+     * @param {array} pos 被检查坐标
+     * @param {object} items 检查是否在内的对象区域属性
+     * @returns {boolean}
+     */
+    judgePosIsInside(pos, items) {
+      const [x1, y1] = pos;
+      const {
+        pos: [x2, y2],
+        size
+      } = items;
+      // 如果传入坐标的x，大于等于目标区域的左边界且小于等于右边界
+      // y大于等于目标区域的上边界且小于等于下边界
+      // 同时满足时判定点在目标内
+      if (x1 >= x2 && x1 <= x2 + size && y1 >= y2 && y1 <= y2 + size) {
+        return true;
+      }
+      return false;
+    },
+
     /**
      * 生成定时器，旋转钩子
      * @param {void}

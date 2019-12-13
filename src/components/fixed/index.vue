@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       iconList: [
-        { icon: "icon-juzuiniao", url: "/", tip: "小鸟" },
+        { icon: "icon-juzuiniao", url: "bird", tip: "小鸟" },
         { icon: "icon-she", url: "snake", tip: "贪恰蛇" },
         { icon: "icon-leishen", url: "sweep", tip: "扫雷" }
       ]

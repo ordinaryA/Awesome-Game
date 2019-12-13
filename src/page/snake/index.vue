@@ -1,10 +1,3 @@
-/*
- * @Author: Alan 
- * @Date: 2019-06-13 14:28:42 
- * @Last Modified by:   Alan 
- * @Last Modified time: 2019-07-16 20:48:45 
- */
-
 <template>
   <div class="snake_bg">
     <div class="w1440 noScroll">
@@ -89,7 +82,7 @@
 </template>
 
 <script>
-import { BIRD } from "@constants";
+import { SNAKE } from "@constants";
 import { COMMIT } from "../../utils";
 import { $animate } from "../../mixins";
 export default {
@@ -99,8 +92,8 @@ export default {
     return {
       checkerArea: [50, 50], //棋盘横纵格子数
       currentMode: "classicMode", //当前游戏魔模式
-      sidebar: BIRD.sidebar, //侧边栏
-      buttonList: BIRD.buttonList, //按钮栏
+      sidebar: SNAKE.sidebar, //侧边栏
+      buttonList: SNAKE.buttonList, //按钮栏
       liStyle: {}, //棋盘样式
       snakeLength: 4, //蛇的初始长度
       boardBorder: false, //棋盘边框

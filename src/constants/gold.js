@@ -33,6 +33,7 @@ const ITEMS = {
   }
 };
 
+
 const LEVEL_1 = [
   ITEMS.GOLD_1,
   ITEMS.GOLD_1,
@@ -50,6 +51,9 @@ const LEVEL_1 = [
   ITEMS.STONE_2,
 ];
 
-export { LEVEL_1 };
+const LEVEL = { 1: LEVEL_1 };
+
+
+export { LEVEL };
 
 export default {};
