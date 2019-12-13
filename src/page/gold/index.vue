@@ -42,6 +42,8 @@ const LINE_DEFAULT_LENGTH = 30;
 const SVG_WIDTH = 1366;
 const SVG_HEIGHT = 400;
 
+// 记录一个BUG，随机生成的点虽然在其他黄金石头外，但是加上size后，却会与他们重叠
+
 export default {
   mixins: [$animate],
   data() {
