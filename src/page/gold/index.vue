@@ -118,8 +118,9 @@ export default {
      * @returns {void}
      */
     createItems() {
-      const { currentLevel } = this;
-      const { [currentLevel]: arr } = GOLD.LEVEL;
+      const { currentLevel, hookStartPos } = this;
+      // 获取当前关卡物品数组
+      const arr = this.handleLevel();
       const result = [];
       // 1.0 遍历关卡抓取物的属性来生成数组
       for (let i = 0; i < arr.length; i++) {
@@ -136,30 +137,52 @@ export default {
           continue;
         }
 
-        // 4.0 检查随机生成的坐标以否在已生成的物品内
+        console.log(`遍历了n次`);
+
+        // 4.0 出现在钩子起点半径为80范围内重新生成
+        const HOOKS_AREA_ERROR = 80;
+        const [xStart, yStart] = hookStartPos;
+        // 不允许随机的钩子的范围
+        const hooksArea = {
+          pos: [xStart - HOOKS_AREA_ERROR, yStart],
+          width: HOOKS_AREA_ERROR * 2,
+          height: HOOKS_AREA_ERROR
+        };
+        const bool_2 = this.judgePosIsInside([x, y], hooksArea);
+        if (bool_2) {
+          i--;
+          continue;
+        }
+
+        // 5.0 检查随机生成的坐标以否在已生成的物品内
         let isOK = true;
         _.forEach(result, c => {
-          // 4.1 判断生成的坐标四个点都是否在区域内（避免物体重叠）
-          const { w, h } = item;
-          const posArr = [[x, y], [x + w, y], [x, y + h], [x + w, y + h]];
-          const bool_2 = this.judgePosIsInside(posArr[0], c);
-          const bool_3 = this.judgePosIsInside(posArr[1], c);
-          const bool_4 = this.judgePosIsInside(posArr[2], c);
-          const bool_5 = this.judgePosIsInside(posArr[3], c);
+          // 5.1 判断生成的坐标四个点都是否在区域内（避免物体重叠）
+          const { width, height } = item;
+          const posArr = [
+            [x, y],
+            [x + width, y],
+            [x, y + height],
+            [x + width, y + height]
+          ];
+          const bool_3 = this.judgePosIsInside(posArr[0], c);
+          const bool_4 = this.judgePosIsInside(posArr[1], c);
+          const bool_5 = this.judgePosIsInside(posArr[2], c);
+          const bool_6 = this.judgePosIsInside(posArr[3], c);
 
-          if (bool_2 || bool_3 || bool_4 || bool_5) {
+          if (bool_3 || bool_4 || bool_5 || bool_6) {
             isOK = false;
             return false;
           }
         });
 
-        // 4.2 如果不满足则重新开始当次循环
+        // 5.2 如果不满足则重新开始当次循环
         if (!isOK) {
           i--;
           continue;
         }
 
-        // 5.0 成功随机到则加入到数组
+        // 6.0 成功随机到则加入到数组
         result.push(randomItems);
       }
       this.itemsList = result;
@@ -332,6 +355,24 @@ export default {
       const y1 = ~~Math.abs(y0 - Math.cos(radian) * lineLength);
       //2.0 计算绘制在SVG上的坐标x
       this.hookPos = [x1, y1];
+    },
+
+    /**
+     * 处理关卡信息
+     * @param {void}
+     * @returns {array}
+     */
+    handleLevel() {
+      const { LEVEL, 很多很多东西 } = GOLD;
+      const { currentLevel } = this;
+      const result = [];
+      _.forEach(LEVEL[currentLevel], (value, key) => {
+        const item = 很多很多东西[key];
+        for (let i = 0; i < value; i++) {
+          result.push(item);
+        }
+      });
+      return result;
     }
   }
 };

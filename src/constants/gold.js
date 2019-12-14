@@ -1,65 +1,58 @@
 
 // 黄金和石头属性
-const ITEMS = {
-  GOLD_1: {
+const 很多很多东西 = {
+  黄金1: {
     width: 80,
     height: 80,
-    score: 500,
+    price: 500,
     className: "gold_1"
   },
-  GOLD_2: {
+  黄金2: {
     width: 50,
     height: 50,
-    score: 250,
+    price: 250,
     className: "gold_2"
   },
-  GOLD_3: {
+  黄金3: {
     width: 30,
     height: 30,
-    score: 100,
+    price: 100,
     className: "gold_3"
   },
-  GOLD_4: {
+  黄金4: {
     width: 15,
     height: 15,
-    score: 50,
+    price: 50,
     className: "gold_4"
   },
-  STONE_1: {
+  石头1: {
     width: 30,
     height: 30,
-    score: 75,
+    price: 75,
     className: "stone_1"
   },
-  STONE_2: {
+  石头2: {
     width: 20,
     height: 20,
-    score: 25,
+    price: 25,
     className: "stone_2"
   }
 };
 
 
-const LEVEL_1 = [
-  ITEMS.GOLD_1,
-  ITEMS.GOLD_1,
-  ITEMS.GOLD_1,
-  ITEMS.GOLD_2,
-  ITEMS.GOLD_2,
-  ITEMS.GOLD_3,
-  ITEMS.GOLD_3,
-  ITEMS.GOLD_4,
-  ITEMS.GOLD_4,
-  ITEMS.GOLD_4,
-  ITEMS.STONE_1,
-  ITEMS.STONE_1,
-  ITEMS.STONE_2,
-  ITEMS.STONE_2,
-];
+const LEVEL_1 = {
+  黄金1: 3,
+  黄金2: 5,
+  黄金3: 5,
+  黄金4: 5,
+  石头1: 2,
+  石头2: 2,
+};
+
 
 const LEVEL = { 1: LEVEL_1 };
 
 
-export { LEVEL };
+export { LEVEL, 很多很多东西 };
 
 export default {};
