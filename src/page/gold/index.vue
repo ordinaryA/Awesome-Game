@@ -108,7 +108,6 @@ export default {
         };
         return item;
       });
-      console.log(res);
       return res;
     }
   },
@@ -138,18 +137,24 @@ export default {
         }
 
         // 4.0 检查随机生成的坐标以否在已生成的物品内
-        let isConform = false;
+        let isOK = true;
         _.forEach(result, c => {
-          // 3.1 判断坐标是否在区域内
-          const bool_2 = this.judgePosIsInside([x, y], c);
-          if (bool_2) {
-            // 3.1 只要以上判断出现true，则不满足生成条件，跳出循环
-            isConform = true;
+          // 4.1 判断生成的坐标四个点都是否在区域内（避免物体重叠）
+          const { w, h } = item;
+          const posArr = [[x, y], [x + w, y], [x, y + h], [x + w, y + h]];
+          const bool_2 = this.judgePosIsInside(posArr[0], c);
+          const bool_3 = this.judgePosIsInside(posArr[1], c);
+          const bool_4 = this.judgePosIsInside(posArr[2], c);
+          const bool_5 = this.judgePosIsInside(posArr[3], c);
+
+          if (bool_2 || bool_3 || bool_4 || bool_5) {
+            isOK = false;
             return false;
           }
         });
-        // 4.1 如果存在则重新开始当次循环
-        if (isConform) {
+
+        // 4.2 如果不满足则重新开始当次循环
+        if (!isOK) {
           i--;
           continue;
         }
