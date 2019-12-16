@@ -56,12 +56,13 @@ export default {
       // 关卡物品列表
       currentLevel: 1, // 当前关卡
       itemsList: [], // 黄金石头等等啥玩意的集合
+      itemsIdx: undefined, //抓取到物品的索引
 
       // 钩子抓取状态
       hookIsRotate: true, // 钩子是否正在旋转
       hookIsGrab: false, // 钩子是否正在抓取
-      lineIsShorting: false, // 绳子正在收缩
-      isCatchItem: false // 是否已经抓取到物品
+      hookIsBack: false, // 钩子是否正在收缩
+      isCatchItem: false // 钩子是否已经抓取到物品
     };
   },
   created() {
@@ -236,7 +237,7 @@ export default {
      */
     rotateHooks() {
       this.hookTimer = setInterval(() => {
-        const { hookIsRotate, hookIsGrab, lineIsShorting } = this;
+        const { hookIsRotate, hookIsGrab, hookIsBack } = this;
 
         // 1.0 计算钩子坐标
         this.computHooksPos();
@@ -250,35 +251,46 @@ export default {
 
         //3.0 当钩子处于正在抓取状态
         if (hookIsGrab) {
-          // 3.1 当钩子抓到某物品后
-          const { idx } = this.judgeHookIsCatch();
-          if (!_.isUndefined(idx)) {
+          // 3.1.1 当钩子抓到某物品后
+          if (this.judgeHookIsCatch()) {
+            // 3.1.2 设置钩子返回
             this.setHookStatus("hooksBack");
             return;
           }
 
-          // 3.2 当钩子接近边界时 设置钩子状态往回收
+          // 3.2.1 当钩子接近边界时 设置钩子状态往回收
           if (this.judgeHookNearBorder()) {
             this.setHookStatus("hooksBack");
             return;
           }
 
-          this.lineLength += 3;
+          this.lineLength += 7;
           return;
         }
 
         // 4.0 当钩子处于回收状态时
-        if (lineIsShorting) {
+        if (hookIsBack) {
           this.drawLineIsShorten();
+          this.hooksCatchSomething();
           return;
         }
       }, 30);
     },
 
     /**
-     * 判断钩子点是否抓取到物品
+     * 当钩子抓取到某物品时
      * @param {void}
-     * @returns {object}
+     * @returns {void}
+     */
+    hooksCatchSomething() {
+      const { hookPos, itemsIdx } = this;
+      this.itemsList[itemsIdx].pos = hookPos;
+    },
+
+    /**
+     * 判断钩子是否抓取到物品
+     * @param {void}
+     * @returns {boolean}
      */
     judgeHookIsCatch() {
       const { itemsList, hookPos, isCatchItem } = this;
@@ -290,11 +302,12 @@ export default {
           if (bool) {
             // 3.0 设置已经抓取到 跳出遍历
             this.isCatchItem = true;
-            return { idx: i };
+            this.itemsIdx = i;
+            return true;
           }
         }
       }
-      return {};
+      return false;
     },
 
     /**
@@ -361,27 +374,31 @@ export default {
       switch (status) {
         // 钩子旋转状态
         case "startRotate": {
+          // 判断已经是旋转则避免重复设置 希望能小小优化一下吧
+          if (this.hookIsRotate) return;
           this.hookIsRotate = true;
           this.hookIsGrab = false;
-          this.lineIsShorting = false;
+          this.hookIsBack = false;
           this.isCatchItem = false;
           break;
         }
 
         // 钩子抓取状态
         case "startGrab": {
+          if (this.hookIsGrab) return;
           this.hookIsRotate = false;
           this.hookIsGrab = true;
-          this.lineIsShorting = false;
+          this.hookIsBack = false;
           this.isCatchItem = false;
           break;
         }
 
         // 钩子回收状态
         case "hooksBack": {
+          if (this.hookIsBack) return;
           this.hookIsRotate = false;
           this.hookIsGrab = false;
-          this.lineIsShorting = true;
+          this.hookIsBack = true;
           this.isCatchItem = true;
         }
       }
