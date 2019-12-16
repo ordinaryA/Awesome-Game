@@ -42,8 +42,6 @@ const LINE_DEFAULT_LENGTH = 30;
 const SVG_WIDTH = 1366;
 const SVG_HEIGHT = 400;
 
-// 记录一个BUG，随机生成的点虽然在其他黄金石头外，但是加上size后，却会与他们重叠
-
 export default {
   mixins: [$animate],
   data() {
@@ -58,7 +56,8 @@ export default {
       hookIsGrab: false, // 钩子是否正在抓取
       lineIsShorting: false, // 绳子正在收缩
       currentLevel: 1, // 当前关卡
-      itemsList: [] // 黄金石头等等啥玩意的集合
+      itemsList: [], // 黄金石头等等啥玩意的集合
+      isCatchItem: false // 是否已经抓取到物品
     };
   },
   created() {
@@ -136,8 +135,6 @@ export default {
           i--;
           continue;
         }
-
-        console.log(`遍历了n次`);
 
         // 4.0 出现在钩子起点半径为80范围内重新生成
         const HOOKS_AREA_ERROR = 80;
@@ -235,37 +232,70 @@ export default {
      */
     rotateHooks() {
       this.hookTimer = setInterval(() => {
-        // 计算钩子坐标
+        const { hookIsRotate, hookIsGrab, lineIsShorting } = this;
+
+        // 1.0 计算钩子坐标
         this.computHooksPos();
-        //1.0 判断钩子是否正在旋转
-        if (this.hookIsRotate) {
-          // 旋转时增加角度，设置不能抓取
+        
+        //2.0 当钩子处于旋转状态时
+        if (hookIsRotate) {
+          // 旋转时增加角度
           this.lineAngle += 1;
-          this.hookIsGrab = false;
           return;
         }
-        //2.0 判断钩子是否正在抓取
-        if (this.hookIsGrab) {
-          //2.1 判断钩子长度大于某长度后缩短
-          this.drawLineIsShorten();
-          //2.2 判断绳子快接近边界时开始往回收
-          const isNearBorder = this.judgeLineNearBorder();
-          if (isNearBorder) {
-            this.lineIsShorting = true;
-          } else {
-            this.lineLength += 3;
+
+        //3.0 当钩子处于正在抓取状态
+        if (hookIsGrab) {
+          // 3.0 判断钩子是否抓到物品
+          // const { idx } = this.judgeHookIsCatch();
+          // if (_.isUndefined(idx)) {
+          // 4.0 未抓取到任何物品且绳子长度未接近边界时 绳子长度增加
+          if (!this.judgeHookNearBorder()) {
+            // 4.1 靠近边界状态时
+            this.setHookStatus("hooksBack");
+            return;
           }
+          this.lineLength += 3;
+          // }
+          return;
+        }
+
+        // 4.0 当钩子处于回收状态时
+        if (lineIsShorting) {
+          this.drawLineIsShorten();
           return;
         }
       }, 30);
     },
 
     /**
-     * 判断绳子是否快接近边界
+     * 判断钩子点是否抓取到物品
+     * @param {void}
+     * @returns {object}
+     */
+    judgeHookIsCatch() {
+      const { itemsList, hookPos, isCatchItem } = this;
+      // 1.0 判断是否已经抓取到物品 未抓取到时开始遍历
+      if (!isCatchItem) {
+        // 2.0 遍历物品列表 判断钩子是否在任意一个物品中
+        for (let i = 0; i < itemsList.length; i++) {
+          const bool = this.judgePosIsInside(hookPos, itemsList[i]);
+          if (bool) {
+            // 3.0 设置已经抓取到 跳出遍历
+            this.isCatchItem = true;
+            return { idx: i };
+          }
+        }
+      }
+      return {};
+    },
+
+    /**
+     * 判断钩子是否快接近边界
      * @param {void}
      * @returns {boolean}
      */
-    judgeLineNearBorder() {
+    judgeHookNearBorder() {
       const [x, y] = this.hookPos;
 
       // 接近SVG边界的临界值
@@ -287,13 +317,11 @@ export default {
      */
     drawLineIsShorten() {
       // 如果绳子收缩状态为true时
-      if (this.lineIsShorting) {
-        this.lineLength -= 10;
-        if (this.lineLength < LINE_DEFAULT_LENGTH) {
-          // 恢复正常绳子长度，钩子恢复旋转
-          this.lineLength = LINE_DEFAULT_LENGTH;
-          this.setHookStatus("startRotate");
-        }
+      this.lineLength -= 10;
+      if (this.lineLength < LINE_DEFAULT_LENGTH) {
+        // 恢复正常绳子长度，钩子恢复旋转
+        this.lineLength = LINE_DEFAULT_LENGTH;
+        this.setHookStatus("startRotate");
       }
     },
 
@@ -324,15 +352,27 @@ export default {
      */
     setHookStatus(status) {
       switch (status) {
+        // 钩子旋转状态
         case "startRotate": {
           this.hookIsRotate = true;
+          this.hookIsGrab = false;
           this.lineIsShorting = false;
           break;
         }
+
+        // 钩子抓取状态
         case "startGrab": {
           this.hookIsRotate = false;
           this.hookIsGrab = true;
+          this.lineIsShorting = false;
           break;
+        }
+
+        // 钩子回收状态
+        case "hooksBack": {
+          this.hookIsRotate = false;
+          this.hookIsGrab = false;
+          this.lineIsShorting = true;
         }
       }
     },
