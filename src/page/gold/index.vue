@@ -366,7 +366,7 @@ export default {
       const { LEVEL, 很多很多东西 } = GOLD;
       const { currentLevel } = this;
       const result = [];
-      _.forEach(LEVEL[currentLevel], (value, key) => {
+      _.forEach(LEVEL[currentLevel - 1], (value, key) => {
         const item = 很多很多东西[key];
         for (let i = 0; i < value; i++) {
           result.push(item);
