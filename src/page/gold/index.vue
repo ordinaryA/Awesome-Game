@@ -46,17 +46,21 @@ export default {
   mixins: [$animate],
   data() {
     return {
+      // 初始状态
       lineLength: LINE_DEFAULT_LENGTH, // 绳子长度
       lineAngle: -90, // 绳子与Y轴角度
       hookStartPos: [683, 0], // 绳子起点坐标
       hookPos: [683, LINE_DEFAULT_LENGTH], // 钩子坐标
       hookTimer: null, // 钩子计时器
-      hookIsRotate: true, // 钩子是否正在旋转
-      grabTimer: null, // 钩子抓出计时器
-      hookIsGrab: false, // 钩子是否正在抓取
-      lineIsShorting: false, // 绳子正在收缩
+
+      // 关卡物品列表
       currentLevel: 1, // 当前关卡
       itemsList: [], // 黄金石头等等啥玩意的集合
+
+      // 钩子抓取状态
+      hookIsRotate: true, // 钩子是否正在旋转
+      hookIsGrab: false, // 钩子是否正在抓取
+      lineIsShorting: false, // 绳子正在收缩
       isCatchItem: false // 是否已经抓取到物品
     };
   },
@@ -236,7 +240,7 @@ export default {
 
         // 1.0 计算钩子坐标
         this.computHooksPos();
-        
+
         //2.0 当钩子处于旋转状态时
         if (hookIsRotate) {
           // 旋转时增加角度
@@ -246,17 +250,20 @@ export default {
 
         //3.0 当钩子处于正在抓取状态
         if (hookIsGrab) {
-          // 3.0 判断钩子是否抓到物品
-          // const { idx } = this.judgeHookIsCatch();
-          // if (_.isUndefined(idx)) {
-          // 4.0 未抓取到任何物品且绳子长度未接近边界时 绳子长度增加
-          if (!this.judgeHookNearBorder()) {
-            // 4.1 靠近边界状态时
+          // 3.1 当钩子抓到某物品后
+          const { idx } = this.judgeHookIsCatch();
+          if (!_.isUndefined(idx)) {
             this.setHookStatus("hooksBack");
             return;
           }
+
+          // 3.2 当钩子接近边界时 设置钩子状态往回收
+          if (this.judgeHookNearBorder()) {
+            this.setHookStatus("hooksBack");
+            return;
+          }
+
           this.lineLength += 3;
-          // }
           return;
         }
 
@@ -357,6 +364,7 @@ export default {
           this.hookIsRotate = true;
           this.hookIsGrab = false;
           this.lineIsShorting = false;
+          this.isCatchItem = false;
           break;
         }
 
@@ -365,6 +373,7 @@ export default {
           this.hookIsRotate = false;
           this.hookIsGrab = true;
           this.lineIsShorting = false;
+          this.isCatchItem = false;
           break;
         }
 
@@ -373,6 +382,7 @@ export default {
           this.hookIsRotate = false;
           this.hookIsGrab = false;
           this.lineIsShorting = true;
+          this.isCatchItem = true;
         }
       }
     },
