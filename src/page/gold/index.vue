@@ -254,13 +254,13 @@ export default {
           // 3.1.1 当钩子抓到某物品后
           if (this.judgeHookIsCatch()) {
             // 3.1.2 设置钩子返回
-            this.setHookStatus("hooksBack");
+            this.setHookStatus("hookSuccessBack");
             return;
           }
 
           // 3.2.1 当钩子接近边界时 设置钩子状态往回收
           if (this.judgeHookNearBorder()) {
-            this.setHookStatus("hooksBack");
+            this.setHookStatus("hookFailBack");
             return;
           }
 
@@ -271,7 +271,10 @@ export default {
         // 4.0 当钩子处于回收状态时
         if (hookIsBack) {
           this.drawLineIsShorten();
-          this.hooksCatchSomething();
+          // 4.1 抓到物品时使其跟随钩子
+          if (this.isCatchItem) {
+            this.hooksCatchSomething();
+          }
           return;
         }
       }, 30);
@@ -283,8 +286,12 @@ export default {
      * @returns {void}
      */
     hooksCatchSomething() {
-      const { hookPos, itemsIdx } = this;
-      this.itemsList[itemsIdx].pos = hookPos;
+      const {
+        hookPos: [x, y],
+        itemsIdx
+      } = this;
+      const { width, height } = this.itemsList[itemsIdx];
+      this.itemsList[itemsIdx].pos = [x - width / 2, y - height / 2];
     },
 
     /**
@@ -293,18 +300,15 @@ export default {
      * @returns {boolean}
      */
     judgeHookIsCatch() {
-      const { itemsList, hookPos, isCatchItem } = this;
-      // 1.0 判断是否已经抓取到物品 未抓取到时开始遍历
-      if (!isCatchItem) {
-        // 2.0 遍历物品列表 判断钩子是否在任意一个物品中
-        for (let i = 0; i < itemsList.length; i++) {
-          const bool = this.judgePosIsInside(hookPos, itemsList[i]);
-          if (bool) {
-            // 3.0 设置已经抓取到 跳出遍历
-            this.isCatchItem = true;
-            this.itemsIdx = i;
-            return true;
-          }
+      const { itemsList, hookPos } = this;
+      // 1.0 遍历物品列表 判断钩子是否在任意一个物品中
+      for (let i = 0; i < itemsList.length; i++) {
+        const bool = this.judgePosIsInside(hookPos, itemsList[i]);
+        if (bool) {
+          // 3.0 设置已经抓取到 跳出遍历
+          this.isCatchItem = true;
+          this.itemsIdx = i;
+          return true;
         }
       }
       return false;
@@ -336,13 +340,26 @@ export default {
      * @returns {void}
      */
     drawLineIsShorten() {
-      // 如果绳子收缩状态为true时
+      // 绳子缩短速率
       this.lineLength -= 10;
       if (this.lineLength < LINE_DEFAULT_LENGTH) {
-        // 恢复正常绳子长度，钩子恢复旋转
+        // 恢复正常绳子长度
         this.lineLength = LINE_DEFAULT_LENGTH;
+        // 计算得分 设置钩子恢复旋转
+        this.calcScore();
         this.setHookStatus("startRotate");
       }
+    },
+
+    /**
+     * 计算得分
+     * @param {void}
+     * @returns {void}
+     */
+    calcScore() {
+      const { itemsIdx, itemsList } = this;
+      const item = itemsList[itemsIdx];
+      console.log(item);
     },
 
     /**
@@ -380,6 +397,7 @@ export default {
           this.hookIsGrab = false;
           this.hookIsBack = false;
           this.isCatchItem = false;
+          this.itemsIdx = undefined;
           break;
         }
 
@@ -390,16 +408,26 @@ export default {
           this.hookIsGrab = true;
           this.hookIsBack = false;
           this.isCatchItem = false;
+          this.itemsIdx = undefined;
           break;
         }
 
-        // 钩子回收状态
-        case "hooksBack": {
+        // 钩子抓取成功返回
+        case "hookSuccessBack": {
           if (this.hookIsBack) return;
           this.hookIsRotate = false;
           this.hookIsGrab = false;
           this.hookIsBack = true;
           this.isCatchItem = true;
+        }
+
+        // 钩子抓取失败返回
+        case "hookFailBack": {
+          if (this.hookIsBack) return;
+          this.hookIsRotate = false;
+          this.hookIsGrab = false;
+          this.hookIsBack = true;
+          this.isCatchItem = false;
         }
       }
     },
