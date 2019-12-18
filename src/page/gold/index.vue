@@ -41,6 +41,8 @@ const LINE_DEFAULT_LENGTH = 30;
 // SVG的宽高
 const SVG_WIDTH = 1366;
 const SVG_HEIGHT = 400;
+// 接近SVG边界的临界值
+const NEAR_NUMBER = 20;
 
 export default {
   mixins: [$animate],
@@ -100,7 +102,7 @@ export default {
      * @returns {array}
      */
     handleItemList() {
-      const res = this.itemsList.map(({ width, height, pos, className }) => {
+      const list = this.itemsList.map(({ width, height, pos, className }) => {
         const item = {
           style: {
             width: `${width}px`,
@@ -112,7 +114,7 @@ export default {
         };
         return item;
       });
-      return res;
+      return list;
     }
   },
   methods: {
@@ -127,7 +129,7 @@ export default {
       const arr = this.handleLevel();
       const result = [];
       // 1.0 遍历关卡抓取物的属性来生成数组
-      for (let i = 0; i < arr.length; i++) {
+      for (var i = 0; i < arr.length; i++) {
         const item = arr[i];
         // 2.0 随机生成一个坐标
         const x = ~~(Math.random() * SVG_WIDTH);
@@ -135,8 +137,7 @@ export default {
         const randomItems = { ...item, pos: [x, y] };
 
         // 3.0 判断坐标是否超出SVG区域
-        const bool_1 = this.judgeIsExceedBorder(randomItems);
-        if (bool_1) {
+        if (this.judgeIsExceedBorder(randomItems)) {
           i--;
           continue;
         }
@@ -150,8 +151,7 @@ export default {
           width: HOOKS_AREA_ERROR * 2,
           height: HOOKS_AREA_ERROR
         };
-        const bool_2 = this.judgePosIsInside([x, y], hooksArea);
-        if (bool_2) {
+        if (this.judgePosIsInside([x, y], hooksArea)) {
           i--;
           continue;
         }
@@ -167,12 +167,12 @@ export default {
             [x, y + height],
             [x + width, y + height]
           ];
-          const bool_3 = this.judgePosIsInside(posArr[0], c);
-          const bool_4 = this.judgePosIsInside(posArr[1], c);
-          const bool_5 = this.judgePosIsInside(posArr[2], c);
-          const bool_6 = this.judgePosIsInside(posArr[3], c);
+          const bool_1 = this.judgePosIsInside(posArr[0], c);
+          const bool_2 = this.judgePosIsInside(posArr[1], c);
+          const bool_3 = this.judgePosIsInside(posArr[2], c);
+          const bool_4 = this.judgePosIsInside(posArr[3], c);
 
-          if (bool_3 || bool_4 || bool_5 || bool_6) {
+          if (bool_1 || bool_2 || bool_3 || bool_4) {
             isOK = false;
             return false;
           }
@@ -183,10 +183,10 @@ export default {
           i--;
           continue;
         }
-
         // 6.0 成功随机到则加入到数组
         result.push(randomItems);
       }
+      console.log(_.size(result));
       this.itemsList = result;
     },
 
@@ -322,8 +322,6 @@ export default {
     judgeHookNearBorder() {
       const [x, y] = this.hookPos;
 
-      // 接近SVG边界的临界值
-      const NEAR_NUMBER = 50;
       if (
         SVG_WIDTH - x < NEAR_NUMBER ||
         SVG_HEIGHT - y < NEAR_NUMBER ||
@@ -359,7 +357,10 @@ export default {
     calcScore() {
       const { itemsIdx, itemsList } = this;
       const item = itemsList[itemsIdx];
-      console.log(item);
+      // 不存在时 为未抓到
+      if (_.isEmpty(item)) return;
+      const list = itemsList.filter((c, i) => i !== itemsIdx);
+      this.itemsList = list;
     },
 
     /**
