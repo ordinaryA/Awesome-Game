@@ -106,7 +106,7 @@ export default {
         const item = {
           style: {
             width: `${width}px`,
-            height: `${width}px`,
+            height: `${height}px`,
             top: `${pos[1]}px`,
             left: `${pos[0]}px`
           },
@@ -338,8 +338,16 @@ export default {
      * @returns {void}
      */
     drawLineIsShorten() {
-      // 绳子缩短速率
-      this.lineLength -= 10;
+      const DEFAULT_SPEED = 10;
+      const { itemsList, itemsIdx, isCatchItem } = this;
+      // 抓取到获取当前物品的缩短速率
+      if (isCatchItem) {
+        const { speed } = itemsList[itemsIdx];
+        this.lineLength -= speed * 0.1;
+      } else {
+        // 未抓到缩短速率
+        this.lineLength -= DEFAULT_SPEED;
+      }
       if (this.lineLength < LINE_DEFAULT_LENGTH) {
         // 恢复正常绳子长度
         this.lineLength = LINE_DEFAULT_LENGTH;

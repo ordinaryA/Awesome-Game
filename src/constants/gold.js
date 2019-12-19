@@ -5,36 +5,42 @@ const 很多很多东西 = {
     width: 150,
     height: 150,
     price: 500,
+    speed: 5,
     className: "gold_1"
   },
   篮球2: {
     width: 120,
     height: 120,
     price: 250,
+    speed: 7,
     className: "gold_2"
   },
   篮球3: {
     width: 80,
     height: 80,
     price: 100,
+    speed: 9,
     className: "gold_3"
   },
   篮球4: {
     width: 50,
     height: 50,
     price: 50,
+    speed: 11,
     className: "gold_4"
   },
   头发1: {
     width: 80,
     height: 48,
     price: 75,
+    speed: 5,
     className: "stone_1"
   },
   头发2: {
     width: 50,
     height: 30,
     price: 25,
+    speed: 7,
     className: "stone_2"
   },
   鲲1: {
