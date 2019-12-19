@@ -40,7 +40,7 @@ import { $animate } from "../../mixins";
 const LINE_DEFAULT_LENGTH = 30;
 // SVG的宽高
 const SVG_WIDTH = 1366;
-const SVG_HEIGHT = 400;
+const SVG_HEIGHT = 500;
 // 接近SVG边界的临界值
 const NEAR_NUMBER = 20;
 
