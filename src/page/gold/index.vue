@@ -130,6 +130,7 @@ export default {
       const result = [];
       // 1.0 遍历关卡抓取物的属性来生成数组
       for (let i = 0; i < arr.length; i++) {
+        console.log('count');
         const item = arr[i];
         // 2.0 随机生成一个坐标
         const x = ~~(Math.random() * SVG_WIDTH);
