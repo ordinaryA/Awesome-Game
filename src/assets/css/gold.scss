@@ -27,32 +27,31 @@
 
   .items_class {
     position: absolute;
-    width: 50px;
-    height: 50px;
+    background-size: 100% 100%;
   }
 
   .gold_1 {
-    background: #ff0;
+    background-image: url('~@image/gold/ball_1.png');
   }
 
   .gold_2 {
-    background: #ff0;
+    background-image: url('~@image/gold/ball_1.png');
   }
 
   .gold_3 {
-    background: #ff0;
+    background-image: url('~@image/gold/ball_1.png');
   }
 
   .gold_4 {
-    background: #ff0;
+    background-image: url('~@image/gold/ball_1.png');
   }
 
   .stone_1 {
-    background: #000;
+    background-image: url('~@image/gold/hair.png');
   }
 
   .stone_2 {
-    background: #000;
+    background-image: url('~@image/gold/hair.png');
   }
 
 }
