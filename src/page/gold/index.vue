@@ -119,7 +119,7 @@ export default {
   },
   methods: {
     /**
-     * 生成黄金和石头
+     * 生成物品
      * @param {void}
      * @returns {void}
      */
@@ -129,7 +129,7 @@ export default {
       const arr = this.handleLevel();
       const result = [];
       // 1.0 遍历关卡抓取物的属性来生成数组
-      for (var i = 0; i < arr.length; i++) {
+      for (let i = 0; i < arr.length; i++) {
         const item = arr[i];
         // 2.0 随机生成一个坐标
         const x = ~~(Math.random() * SVG_WIDTH);
@@ -158,7 +158,7 @@ export default {
 
         // 5.0 检查随机生成的坐标以否在已生成的物品内
         let isOK = true;
-        _.forEach(result, c => {
+        for (const c of result) {
           // 5.1 判断生成的坐标四个点都是否在区域内（避免物体重叠）
           const { width, height } = item;
           const posArr = [
@@ -174,19 +174,19 @@ export default {
 
           if (bool_1 || bool_2 || bool_3 || bool_4) {
             isOK = false;
-            return false;
+            break;
           }
-        });
+        }
 
         // 5.2 如果不满足则重新开始当次循环
         if (!isOK) {
           i--;
           continue;
         }
+
         // 6.0 成功随机到则加入到数组
         result.push(randomItems);
       }
-      console.log(_.size(result));
       this.itemsList = result;
     },
 
