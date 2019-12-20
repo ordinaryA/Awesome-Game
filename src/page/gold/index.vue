@@ -44,6 +44,13 @@ const SVG_HEIGHT = 700;
 // 接近SVG边界的临界值
 const NEAR_NUMBER = 20;
 
+// 未钩中时的默认重量
+const DEFAULT_WEIGHT = 10;
+// 钩子旋转角度速度
+const HOOKS_ROTATE_SPEED = 1;
+// 钩子向下抓取速度
+const HOOK_CATCH_SPEED = 7;
+
 export default {
   mixins: [$animate],
   data() {
@@ -245,7 +252,7 @@ export default {
         //2.0 当钩子处于旋转状态时
         if (hookIsRotate) {
           // 旋转时增加角度
-          this.lineAngle += 1;
+          this.lineAngle += HOOKS_ROTATE_SPEED;
           return;
         }
 
@@ -264,7 +271,7 @@ export default {
             return;
           }
 
-          this.lineLength += 7;
+          this.lineLength += HOOK_CATCH_SPEED;
           return;
         }
 
@@ -338,8 +345,6 @@ export default {
      * @returns {void}
      */
     drawLineIsShorten() {
-      // 未钩中时的默认重量
-      const DEFAULT_WEIGHT = 10;
       const { itemsList, itemsIdx, isCatchItem } = this;
       // 抓取到获取当前物品的缩短速率
       if (isCatchItem) {
