@@ -338,15 +338,16 @@ export default {
      * @returns {void}
      */
     drawLineIsShorten() {
-      const DEFAULT_SPEED = 10;
+      // 未钩中时的默认重量
+      const DEFAULT_WEIGHT = 10;
       const { itemsList, itemsIdx, isCatchItem } = this;
       // 抓取到获取当前物品的缩短速率
       if (isCatchItem) {
-        const { speed } = itemsList[itemsIdx];
-        this.lineLength -= speed * 0.1;
+        const { weight } = itemsList[itemsIdx];
+        this.lineLength -= weight * 0.1;
       } else {
         // 未抓到缩短速率
-        this.lineLength -= DEFAULT_SPEED;
+        this.lineLength -= DEFAULT_WEIGHT;
       }
       if (this.lineLength < LINE_DEFAULT_LENGTH) {
         // 恢复正常绳子长度
