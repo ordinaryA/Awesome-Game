@@ -49,6 +49,7 @@ const 很多很多东西 = {
     price: 600,
     weight: 12,
     move: 3,
+    area: 400,
     className: "kun_1",
   },
 };

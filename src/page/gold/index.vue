@@ -82,10 +82,10 @@ export default {
   created() {
     // 绑定键盘事件
     this.bindKeycode();
-    // 设置定时器
-    this.rotateHooks();
     // 生成黄金和石头
     this.createItems();
+    // 设置定时器
+    this.rotateHooks();
   },
   computed: {
     /**
@@ -199,7 +199,20 @@ export default {
         // 6.0 成功随机到则加入到数组
         result.push(randomItems);
       }
-      this.itemsList = result;
+
+      // 7.0 处理鲲的运动范围
+      const lastArr = result.map(c => {
+        // 不是鲲直接返回
+        if (_.isUndefined(c.move)) return c;
+        // 处理鲲
+        const { move, area, pos } = c;
+        const [x, y] = pos;
+        // 判断鲲的x轴距离是否超出边界 超出取最大范围内的值
+        const maxArea = x + area - SVG_WIDTH < 0 ? x + area : SVG_WIDTH - x;
+        return { ...c, maxArea };
+      });
+
+      this.itemsList = lastArr;
     },
 
     /**
@@ -250,6 +263,7 @@ export default {
     rotateHooks() {
       this.hookTimer = setInterval(() => {
         const { hookIsRotate, hookIsGrab, hookIsBack } = this;
+        // this.letKunIsMoving();
 
         // 1.0 计算钩子坐标
         this.computHooksPos();
@@ -290,6 +304,21 @@ export default {
           return;
         }
       }, 30);
+    },
+
+    /**
+     * 让鲲动起来！
+     * @param {void}
+     * @returns {void}
+     */
+    letKunIsMoving() {
+      const { itemsList } = this;
+      const 鲲集合 = itemsList.filter(c => !_.isUndefined(c.move));
+      _.forEach(鲲集合, o => {
+        // 1.0 鲲移动
+        // const { move, area, pos } = o;
+        // pos[0] += move;
+      });
     },
 
     /**
