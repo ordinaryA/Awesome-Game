@@ -5,7 +5,12 @@
         <div class="sm-12 md-12 col">
           <div
             class="paper"
-            v-first="{name:'translateRight',duration:'0.4s',delay:'0.5s',offset:'0'}"
+            v-first="{
+              name: 'translateRight',
+              duration: '0.4s',
+              delay: '0.5s',
+              offset: '0'
+            }"
           >
             <div class="game_container" :style="gameArea">
               <svg
@@ -17,7 +22,7 @@
                 <path :d="pathParams" class="hooksLine" />
               </svg>
               <div
-                v-for="(item,idx) in handleItemList"
+                v-for="(item, idx) in handleItemList"
                 class="items_class"
                 :class="item.className"
                 :style="item.style"
