@@ -92,6 +92,9 @@ export default {
     // 设置定时器
     this.rotateHooks();
   },
+  destroyed() {
+    clearInterval(this.hookTimer);
+  },
   computed: {
     /**
      * 绳子的绘制路径

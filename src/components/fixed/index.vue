@@ -1,10 +1,15 @@
 <template>
   <div class="fix_contain" v-drag>
-    <div class="which_one" v-for="(item,idx) in iconList" :key="idx" @click="toTarget(item)">
+    <div
+      class="which_one"
+      v-for="(item, idx) in iconList"
+      :key="idx"
+      @click="toTarget(item)"
+    >
       <svg class="fixed_icon" aria-hidden="true">
         <use :xlink:href="`#${item.icon}`" />
       </svg>
-      <div class="fix_tip">{{item.tip}}</div>
+      <div class="fix_tip">{{ item.tip }}</div>
     </div>
   </div>
 </template>
@@ -18,7 +23,8 @@ export default {
       iconList: [
         { icon: "icon-juzuiniao", url: "bird", tip: "小鸟" },
         { icon: "icon-she", url: "snake", tip: "贪恰蛇" },
-        { icon: "icon-leishen", url: "sweep", tip: "扫雷" }
+        { icon: "icon-leishen", url: "sweep", tip: "扫雷" },
+        { icon: "icon-lanqiu", url: "gold", tip: "抓鲲" }
       ]
     };
   },
