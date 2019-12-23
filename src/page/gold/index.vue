@@ -205,11 +205,15 @@ export default {
         // 不是鲲直接返回
         if (_.isUndefined(c.move)) return c;
         // 处理鲲
-        const { move, area, pos } = c;
+        const { area, pos } = c;
         const [x, y] = pos;
-        // 判断鲲的x轴距离是否超出边界 超出取最大范围内的值
-        const maxArea = x + area - SVG_WIDTH < 0 ? x + area : SVG_WIDTH - x;
-        return { ...c, maxArea };
+        // 取范围中间值
+        const areaHalf = area / 2;
+        // 判断随机的鲲往左移动是否会超过边界，超过则取可移动范围起点为0
+        const moveStart = x - areaHalf > 0 ? x - areaHalf : 0;
+        // 同上取最大移动范围为右边界
+        const moveEnd = x + areaHalf < SVG_WIDTH ? x + areaHalf : SVG_WIDTH;
+        return { ...c, moveArea: [moveStart, moveEnd] };
       });
 
       this.itemsList = lastArr;
@@ -263,7 +267,7 @@ export default {
     rotateHooks() {
       this.hookTimer = setInterval(() => {
         const { hookIsRotate, hookIsGrab, hookIsBack } = this;
-        // this.letKunIsMoving();
+        this.letKunIsMoving();
 
         // 1.0 计算钩子坐标
         this.computHooksPos();
@@ -313,12 +317,27 @@ export default {
      */
     letKunIsMoving() {
       const { itemsList } = this;
-      const 鲲集合 = itemsList.filter(c => !_.isUndefined(c.move));
-      _.forEach(鲲集合, o => {
-        // 1.0 鲲移动
-        // const { move, area, pos } = o;
-        // pos[0] += move;
+
+      const arr = itemsList.map(c => {
+        // 跳过不是鲲的物品
+        if (_.isUndefined(c.move)) return c;
+
+        // 更新鲲的坐标
+        const { move, moveArea, pos } = o;
+        const [moveStart, moveEnd] = moveArea;
       });
+
+      // for (const c of itemsList) {
+      //   // 跳过不是鲲的物品
+      //   if (_.isUndefined(c.move)) continue;
+
+      // }
+
+      // _.forEach(kunArr, o => {
+      // 1.0 鲲移动
+      // const { move, area, pos } = o;
+      // pos[0] += move;
+      // });
     },
 
     /**
