@@ -323,21 +323,17 @@ export default {
         if (_.isUndefined(c.move)) return c;
 
         // 更新鲲的坐标
-        const { move, moveArea, pos } = o;
+        const { move, moveArea, pos } = c;
+        let [x, y] = pos;
         const [moveStart, moveEnd] = moveArea;
+
+        // 鲲超出边界往反移动
+        if (x <= moveStart) x += move;
+        if (x >= moveEnd) x -= move;
+        console.log(x, moveStart, moveEnd);
+        return { ...c, pos: [x, y] };
       });
-
-      // for (const c of itemsList) {
-      //   // 跳过不是鲲的物品
-      //   if (_.isUndefined(c.move)) continue;
-
-      // }
-
-      // _.forEach(kunArr, o => {
-      // 1.0 鲲移动
-      // const { move, area, pos } = o;
-      // pos[0] += move;
-      // });
+      this.itemsList = arr;
     },
 
     /**
