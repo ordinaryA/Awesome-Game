@@ -56,6 +56,11 @@ const HOOKS_ROTATE_SPEED = 1;
 // 钩子向下抓取速度
 const HOOK_CATCH_SPEED = 7;
 
+// 随机鲲时 鲲最小的移动范围值
+const KUN_MOVE_MIN = 100;
+// 随机鲲时 鲲最大的移动范围值
+const KUN_MOVE_MAX = 500;
+
 export default {
   mixins: [$animate],
   data() {
@@ -204,16 +209,21 @@ export default {
       const lastArr = result.map(c => {
         // 不是鲲直接返回
         if (_.isUndefined(c.move)) return c;
+
         // 处理鲲
-        const { area, pos } = c;
-        const [x, y] = pos;
+        const [x, y] = c.pos;
+        // 随机鲲的移动范围
+        const area = ~~(Math.random() * KUN_MOVE_MAX) + KUN_MOVE_MIN;
         // 取范围中间值
         const areaHalf = area / 2;
         // 判断随机的鲲往左移动是否会超过边界，超过则取可移动范围起点为0
         const moveStart = x - areaHalf > 0 ? x - areaHalf : 0;
         // 同上取最大移动范围为右边界
         const moveEnd = x + areaHalf < SVG_WIDTH ? x + areaHalf : SVG_WIDTH;
-        return { ...c, moveArea: [moveStart, moveEnd] };
+        // 初始移动方向
+        const direct = Math.random() > 0.5 ? "left" : "right";
+
+        return { ...c, moveArea: [moveStart, moveEnd], direct };
       });
 
       this.itemsList = lastArr;
@@ -323,15 +333,19 @@ export default {
         if (_.isUndefined(c.move)) return c;
 
         // 更新鲲的坐标
-        const { move, moveArea, pos } = c;
+        let { move, moveArea, pos, direct } = c;
         let [x, y] = pos;
         const [moveStart, moveEnd] = moveArea;
 
-        // 鲲超出边界往反移动
-        if (x <= moveStart) x += move;
-        if (x >= moveEnd) x -= move;
-        console.log(x, moveStart, moveEnd);
-        return { ...c, pos: [x, y] };
+        // 超出边界则方向取反
+        if (x >= moveEnd) direct = "left";
+        if (x <= moveStart) direct = "right";
+        // 鲲方向向左move为负值
+        if (_.isEqual(direct, "left")) move = -Math.abs(move);
+        if (_.isEqual(direct, "right")) move = Math.abs(move);
+        x += move;
+
+        return { ...c, pos: [x, y], direct };
       });
       this.itemsList = arr;
     },
