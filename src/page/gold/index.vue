@@ -68,7 +68,7 @@ export default {
     return {
       // 初始状态
       lineLength: LINE_DEFAULT_LENGTH, // 绳子长度
-      lineAngle: -90, // 绳子与Y轴角度
+      lineAngle: 270, // 绳子与Y轴角度
       hookStartPos: [683, 0], // 绳子起点坐标
       hookPos: [683, LINE_DEFAULT_LENGTH], // 钩子坐标
       hookTimer: null, // 钩子计时器
@@ -119,13 +119,12 @@ export default {
         hookPos: [left, top],
         lineAngle
       } = this;
-      const rotate = Math.abs(lineAngle);
+      const rotate = Math.abs((360 - lineAngle) % 360);
       const style = {
         top: `${top}px`,
         left: `${left}px`,
         transform: `rotate(${rotate}deg)`
       };
-      console.log(rotate);
       return style;
     },
 
