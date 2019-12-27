@@ -1,0 +1,32 @@
+// 清除浮动
+@mixin clear {
+  *zoom: 1;
+
+  &:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+// 设置宽高
+@mixin wh($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+// 设置背景图
+@mixin background_img($url, $type: 100% 100%) {
+  background-image: url($url);
+  background-size: $type;
+}
+
+// 行内块居中
+@mixin inline_block_center($width, $height) {
+  width: $width;
+  height: $height;
+  line-height: $height;
+  text-align: center;
+}

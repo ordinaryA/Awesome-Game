@@ -1,5 +1,7 @@
+@import "@mixin-scss";
+
 .gold_bg {
-  background: url('~@image/snake/geometry.png');
+  background: url("~@image/snake/geometry.png");
   height: 100vh;
 
   .sidebar_h3 {
@@ -12,7 +14,7 @@
 
   .game_container {
     position: relative;
-    background-image: url('~@image/gold/stage.jpg');
+    background-image: url("~@image/gold/stage.jpg");
     background-size: 100% 100%;
   }
 
@@ -33,30 +35,36 @@
   }
 
   .gold_1 {
-    background-image: url('~@image/gold/ball_1.png');
+    @include background_img("~@image/gold/ball_1.png");
   }
 
   .gold_2 {
-    background-image: url('~@image/gold/ball_1.png');
+    @include background_img("~@image/gold/ball_1.png");
   }
 
   .gold_3 {
-    background-image: url('~@image/gold/ball_1.png');
+    @include background_img("~@image/gold/ball_1.png");
   }
 
   .gold_4 {
-    background-image: url('~@image/gold/ball_1.png');
+    @include background_img("~@image/gold/ball_1.png");
   }
 
   .stone_1 {
-    background-image: url('~@image/gold/hair.png');
+    @include background_img("~@image/gold/hair.png");
   }
 
   .stone_2 {
-    background-image: url('~@image/gold/hair.png');
+    @include background_img("~@image/gold/hair.png");
   }
 
   .kun_1 {
-    background-image: url('~@image/gold/kun.gif');
+    @include background_img("~@image/gold/kun.gif");
+  }
+
+  .hooks_img {
+    @include wh(23px, 19px);
+    @include background_img("~@image/gold/hooks.png");
+    position: absolute;
   }
 }

@@ -6,7 +6,7 @@
     <!-- 暴走漫画 -->
     <Awesome />
     <!-- 侧边条 -->
-    <Fixed />
+    <!-- <Fixed /> -->
   </div>
 </template>
 
@@ -71,5 +71,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

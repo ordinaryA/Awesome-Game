@@ -21,6 +21,7 @@
               >
                 <path :d="pathParams" class="hooksLine" />
               </svg>
+              <div class="hooks_img" :style="hooksPosStyle"></div>
               <div
                 v-for="(item, idx) in handleItemList"
                 class="items_class"
@@ -107,6 +108,25 @@ export default {
       } = this;
       const path = `M${x1} ${y1} L${x2} ${y2} Z`;
       return path;
+    },
+
+    /**
+     * 钩子的绝对坐标值
+     * @returns {object}
+     */
+    hooksPosStyle() {
+      const {
+        hookPos: [left, top],
+        lineAngle
+      } = this;
+      const rotate = Math.abs(lineAngle);
+      const style = {
+        top: `${top}px`,
+        left: `${left}px`,
+        transform: `rotate(${rotate}deg)`
+      };
+      console.log(rotate);
+      return style;
     },
 
     /**
@@ -288,7 +308,7 @@ export default {
         //2.0 当钩子处于旋转状态时
         if (hookIsRotate) {
           // 旋转时增加角度
-          this.lineAngle += HOOKS_ROTATE_SPEED;
+          this.lineAngle = (this.lineAngle + HOOKS_ROTATE_SPEED) % 360;
           return;
         }
 

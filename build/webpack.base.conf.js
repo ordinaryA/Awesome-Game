@@ -28,6 +28,7 @@ module.exports = {
       '@style': resolve('src/assets/css'),
       '@image': resolve('src/assets/img'),
       '@constants': resolve('src/constants/index.js'),
+      '@mixin-scss': resolve('src/utils/common.scss'),
     }
   },
   module: {
