@@ -10,12 +10,12 @@ const empty = [{
 
 const routes = [
   {
-    path: '/gold',
+    path: '/',
     name: 'gold',
     component: resolve => require(['../page/gold'], resolve)
   },
   {
-    path: '/',
+    path: '/bird',
     name: 'bird',
     component: resolve => require(['../page/bird'], resolve)
   },
