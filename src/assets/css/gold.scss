@@ -63,7 +63,7 @@
   }
 
   .hooks_img {
-    @include wh(23px, 19px);
+    @include wh(23px, 13px);
     @include background_img("~@image/gold/hooks.png");
     position: absolute;
   }

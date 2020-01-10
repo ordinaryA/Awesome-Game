@@ -119,10 +119,18 @@ export default {
         hookPos: [left, top],
         lineAngle
       } = this;
-      const rotate = Math.abs((360 - lineAngle) % 360);
+
+      // 计算钩子旋转角度
+      let rotate;
+      if (lineAngle >= 90 && lineAngle <= 270) {
+        rotate = lineAngle - 180;
+      } else {
+        rotate = 360 - lineAngle;
+      }
+
       const style = {
-        top: `${top}px`,
-        left: `${left}px`,
+        top: `${top - 5}px`,
+        left: `${left - 11}px`,
         transform: `rotate(${rotate}deg)`
       };
       return style;
