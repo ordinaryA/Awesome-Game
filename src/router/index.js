@@ -11,11 +11,6 @@ const empty = [{
 const routes = [
   {
     path: '/',
-    name: 'gold',
-    component: resolve => require(['../page/gold'], resolve)
-  },
-  {
-    path: '/bird',
     name: 'bird',
     component: resolve => require(['../page/bird'], resolve)
   },
