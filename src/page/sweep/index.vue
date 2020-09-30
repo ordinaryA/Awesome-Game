@@ -4,31 +4,54 @@
       <div class="row site">
         <div
           class="sm-12 md-3 col sidebar"
-          v-first="{name:'translateLeft',duration:'0.5s',delay:'0.2s',offset:'0'}"
+          v-first="{
+            name: 'translateLeft',
+            duration: '0.5s',
+            delay: '0.2s',
+            offset: '0',
+          }"
         >
           <div
             class="paper"
-            v-first="{name:'translateTop',duration:'0.5s',delay:'0.5s',offset:'0'}"
+            v-first="{
+              name: 'translateTop',
+              duration: '0.5s',
+              delay: '0.5s',
+              offset: '0',
+            }"
           >
             <h3 class="sidebar_h3">扫雷</h3>
             <h3 class="sidebar-title sidebar_h3">Mine Clearance</h3>
             <div class="row">
               <div
                 class="collapsible full-width"
-                v-for="(item,idx) in sidebar"
+                v-for="(item, idx) in sidebar"
                 :key="idx"
-                v-first="{name:'translateTop',duration:'0.5s',delay:`${0.7+idx*0.2}s`,offset:'0'}"
+                v-first="{
+                  name: 'translateTop',
+                  duration: '0.5s',
+                  delay: `${0.7 + idx * 0.2}s`,
+                  offset: '0',
+                }"
               >
-                <input :id="`collapsible-${item.title}`" type="radio" name="collapsible" />
-                <label :for="`collapsible-${item.title}`">{{item.title}}</label>
+                <input
+                  :id="`collapsible-${item.title}`"
+                  type="radio"
+                  name="collapsible"
+                />
+                <label :for="`collapsible-${item.title}`">{{
+                  item.title
+                }}</label>
                 <div class="collapsible-body">
                   <ul>
                     <li
                       class="paper_li"
-                      v-for="(child,cIdx) in item.children"
+                      v-for="(child, cIdx) in item.children"
                       :key="cIdx"
                       @click="sideBarMethod(child)"
-                    >{{child.label}}</li>
+                    >
+                      {{ child.label }}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -37,41 +60,73 @@
         </div>
         <div
           class="sm-12 md-9 col"
-          v-first="{name:'translateRight',duration:'0.5s',delay:'0.5s',offset:'0'}"
+          v-first="{
+            name: 'translateRight',
+            duration: '0.5s',
+            delay: '0.5s',
+            offset: '0',
+          }"
         >
           <div class="paper">
             <div class="right_top">
               <div class="row child-borders cont_btn">
                 <span
-                  v-first="{name:'translateTop',duration:'0.5s',delay:`${0.7+idx*0.2}s`,offset:'0'}"
+                  v-first="{
+                    name: 'translateTop',
+                    duration: '0.5s',
+                    delay: `${0.7 + idx * 0.2}s`,
+                    offset: '0',
+                  }"
                   class="paper-btn"
-                  v-for="(item,idx) in buttonList"
+                  v-for="(item, idx) in buttonList"
                   :key="idx"
                   @click="switchEvent(item)"
-                >{{item.label}}</span>
+                  >{{ item.label }}</span
+                >
               </div>
               <div
                 class="mine_tip"
-                v-first="{name:'translateTop',duration:'0.5s',delay:'0.9s',offset:'0'}"
+                v-first="{
+                  name: 'translateTop',
+                  duration: '0.5s',
+                  delay: '0.9s',
+                  offset: '0',
+                }"
               >
-                <span>{{`剩余 X ${theRestOfMine}`}}</span>
-                <img class="mine_img" src="../../assets/img/sweep/mineTransparent.png" alt />
+                <span>{{ `剩余 X ${theRestOfMine}` }}</span>
+                <img
+                  class="mine_img"
+                  src="../../assets/img/sweep/mineTransparent.png"
+                  alt
+                />
               </div>
             </div>
             <div
               class="board cl"
               :class="`${defaultMode}_board`"
-              v-first="{name:'translateTop',duration:'0.5s',delay:`${0.7+buttonList.length*0.2}s`,offset:'0'}"
+              v-first="{
+                name: 'translateTop',
+                duration: '0.5s',
+                delay: `${0.7 + buttonList.length * 0.2}s`,
+                offset: '0',
+              }"
             >
               <div
-                v-for="(item,idx) in boardData"
+                v-for="(item, idx) in boardData"
                 :key="idx"
                 :style="item.styles"
-                :class="{[item.type]:true,'isCheck':!item.isCheck,'isTip':item.isTip,'flag':item.isFlag}"
+                :class="{
+                  [item.type]: true,
+                  isCheck: !item.isCheck,
+                  isTip: item.isTip,
+                  flag: item.isFlag,
+                }"
                 class="sigleCheck"
                 @contextmenu.prevent="insertFlag(item)"
-                @mousedown="clickBoard($event,item)"
-              >{{item.isCheck?item.number:''}}</div>
+                @mousedown="clickBoard($event, item)"
+              >
+                {{ item.isCheck ? item.number : "" }}
+              </div>
             </div>
           </div>
         </div>
@@ -94,7 +149,7 @@ export default {
       mineCount: 100, //雷的数量
       minePos: [], //雷的坐标集合
       boardData: [], //棋盘数据
-      gameIsOver: false //记录游戏是否结束
+      gameIsOver: false, //记录游戏是否结束
     };
   },
   created() {
@@ -116,7 +171,7 @@ export default {
         this.gameWin();
       }
       return res;
-    }
+    },
   },
   methods: {
     /**
@@ -143,7 +198,7 @@ export default {
      */
     gameWin() {
       const { boardData } = this;
-      boardData.map(item => {
+      boardData.map((item) => {
         item.isCheck = true;
         item.isTip = false;
         item.isFlag = false;
@@ -153,7 +208,7 @@ export default {
       });
       this.HiAlert({
         type: "success",
-        content: "你赢了！！！"
+        content: "你赢了！！！",
       });
       this.HiImg({ type: "win" });
     },
@@ -175,7 +230,7 @@ export default {
             pos: [j, i], //格子的坐标
             isRepeat: "not", //是否递归过
             isTip: false, //用户点击数字时的提示
-            isFlag: false //用户是否插了旗子
+            isFlag: false, //用户是否插了旗子
           };
           afterArr.push(item);
         }
@@ -196,7 +251,7 @@ export default {
           this.restartGame();
           this.HiAlert({
             type: "success",
-            content: "游戏已重置！"
+            content: "游戏已重置！",
           });
           break;
       }
@@ -221,7 +276,7 @@ export default {
       const {
         mineCount, //雷的数量
         boardData, //棋盘数据
-        boardSize: [a, b] //随机最大值
+        boardSize: [a, b], //随机最大值
       } = this;
       let i = 0;
       //1.0 获取不重复的随机数组
@@ -246,7 +301,7 @@ export default {
       }
       let minePos = [];
       //2.0 新增雷到棋盘数据
-      randomArr.map(item => {
+      randomArr.map((item) => {
         boardData[item].type = "mine";
         //3.0 记录雷的坐标
         minePos.push(boardData[item].pos);
@@ -263,11 +318,11 @@ export default {
      */
     calcMineForNumber() {
       const { boardData, minePos } = this;
-      boardData.map(item => {
+      boardData.map((item) => {
         let count = 0; //记录当前格子周边雷的数量
         const sudoku = this.requestPos(item.pos);
-        sudoku.map(sudo => {
-          minePos.map(mine => {
+        sudoku.map((sudo) => {
+          minePos.map((mine) => {
             //相同则记录一次雷的数量
             if (sudo[0] == mine[0] && sudo[1] == mine[1]) {
               count++;
@@ -402,7 +457,7 @@ export default {
         //6.0 正确则递归 错误则返回错误雷和未排雷
         const { bool, notArr, errorArr } = this.findMine({
           mineArr,
-          flagArr
+          flagArr,
         });
         if (bool) {
           this.handleSpace(pos);
@@ -422,7 +477,7 @@ export default {
       this.gameIsOver = true;
       const { boardData } = this;
       //2.0 游戏结束显示所有格子
-      boardData.map(item => {
+      boardData.map((item) => {
         item.isCheck = true;
         item.isTip = false;
         item.isFlag = false;
@@ -437,7 +492,7 @@ export default {
       }
       this.HiAlert({
         type: "danger",
-        content: "游戏失败"
+        content: "游戏失败",
       });
       this.HiImg({ type: "fail" });
     },
@@ -454,7 +509,7 @@ export default {
       //排雷正确则返回 错误则返回坐标集合
       if (JSON.stringify(flagArr) == JSON.stringify(mineArr)) {
         return {
-          bool: true
+          bool: true,
         };
       } else {
         for (let i = 0; i < flagArr.length; i++) {
@@ -476,7 +531,7 @@ export default {
         return {
           bool: false,
           notArr,
-          errorArr
+          errorArr,
         };
       }
     },
@@ -533,7 +588,7 @@ export default {
         [x + 1, y], //中右
         [x - 1, y + 1], //左下
         [x, y + 1], //中下
-        [x + 1, y + 1] //右下
+        [x + 1, y + 1], //右下
       ];
       //1.0 过滤掉边界外的坐标
       const filterArr = arr.filter(
@@ -578,7 +633,7 @@ export default {
       this.initBoard();
       this.HiAlert({
         type,
-        content: `难度已重置为${label}`
+        content: `难度已重置为${label}`,
       });
     },
 
@@ -590,7 +645,7 @@ export default {
     userSetContext() {
       this.HiAlert({
         type: "warning",
-        content: "努力开发中···"
+        content: "努力开发中···",
       });
     },
 
@@ -631,8 +686,8 @@ export default {
           break;
       }
       return obj;
-    }
-  }
+    },
+  },
 };
 </script>
 

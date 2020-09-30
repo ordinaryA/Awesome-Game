@@ -4,30 +4,55 @@
       <div class="row site">
         <div
           class="sm-12 md-3 col sidebar"
-          v-first="{name:'translateLeft',duration:'0.5s',delay:'0.5s',offset:'0'}"
+          v-first="{
+            name: 'translateLeft',
+            duration: '0.5s',
+            delay: '0.5s',
+            offset: '0',
+          }"
         >
           <div class="paper">
             <h3
               class="sidebar-title sidebar_h3"
-              v-first="{name:'translateTop',duration:'0.5s',delay:'0.8s',offset:'0'}"
-            >贪恰蛇 Gluttonous Snake</h3>
+              v-first="{
+                name: 'translateTop',
+                duration: '0.5s',
+                delay: '0.8s',
+                offset: '0',
+              }"
+            >
+              贪恰蛇 Gluttonous Snake
+            </h3>
             <div class="row">
               <div
                 class="collapsible full-width"
-                v-for="(item,idx) in sidebar"
+                v-for="(item, idx) in sidebar"
                 :key="idx"
-                v-first="{name:'translateTop',duration:'0.5s',delay:`${1+idx*0.2}s`,offset:'0'}"
+                v-first="{
+                  name: 'translateTop',
+                  duration: '0.5s',
+                  delay: `${1 + idx * 0.2}s`,
+                  offset: '0',
+                }"
               >
-                <input :id="`collapsible-${item.title}`" type="radio" name="collapsible" />
-                <label :for="`collapsible-${item.title}`">{{item.title}}</label>
+                <input
+                  :id="`collapsible-${item.title}`"
+                  type="radio"
+                  name="collapsible"
+                />
+                <label :for="`collapsible-${item.title}`">{{
+                  item.title
+                }}</label>
                 <div class="collapsible-body">
                   <ul>
                     <li
                       class="paper_li"
-                      v-for="(child,cIdx) in item.children"
+                      v-for="(child, cIdx) in item.children"
                       :key="cIdx"
                       @click="sideBarMethod(child)"
-                    >{{child.label}}</li>
+                    >
+                      {{ child.label }}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -36,26 +61,46 @@
         </div>
         <div
           class="sm-12 md-9 col"
-          v-first="{name:'translateRight',duration:'0.5s',delay:'0.8s',offset:'0'}"
+          v-first="{
+            name: 'translateRight',
+            duration: '0.5s',
+            delay: '0.8s',
+            offset: '0',
+          }"
         >
           <div class="paper score_father">
             <div class="row child-borders cont_btn">
               <span
                 class="paper-btn"
-                v-for="(item,idx) in buttonList"
+                v-for="(item, idx) in buttonList"
                 :key="idx"
                 @click="switchEvent(item)"
-                v-first="{name:'translateTop',duration:'0.5s',delay:`${1+idx*0.2}s`,offset:'0'}"
-              >{{item.label}}</span>
+                v-first="{
+                  name: 'translateTop',
+                  duration: '0.5s',
+                  delay: `${1 + idx * 0.2}s`,
+                  offset: '0',
+                }"
+                >{{ item.label }}</span
+              >
             </div>
             <div
               class="content"
-              v-first="{name:'translateTop',duration:'0.5s',delay:`${1+buttonList.length*0.2}s`,offset:'0'}"
+              v-first="{
+                name: 'translateTop',
+                duration: '0.5s',
+                delay: `${1 + buttonList.length * 0.2}s`,
+                offset: '0',
+              }"
             >
               <div class="layout" ref="layout">
-                <ul class="check_ul cl" v-for="(col,cIdx) in formattCheck" :key="cIdx">
+                <ul
+                  class="check_ul cl"
+                  v-for="(col, cIdx) in formattCheck"
+                  :key="cIdx"
+                >
                   <li
-                    v-for="(row,rIdx) in col"
+                    v-for="(row, rIdx) in col"
                     :key="rIdx"
                     :style="handleLiStyle"
                     :ref="`li_${cIdx}`"
@@ -70,9 +115,14 @@
             </div>
             <div
               class="score"
-              v-first="{name:'translateTop',duration:'0.5s',delay:'1.9s',offset:'0'}"
+              v-first="{
+                name: 'translateTop',
+                duration: '0.5s',
+                delay: '1.9s',
+                offset: '0',
+              }"
             >
-              <div>{{`当前得分：${score}分`}}</div>
+              <div>{{ `当前得分：${score}分` }}</div>
             </div>
           </div>
         </div>
@@ -104,7 +154,7 @@ export default {
       isStop: true, //是否暂停
       wait: true, //等待方向更改完成才能再次修改方向
       speed: 200, //蛇速度
-      score: 0 //当前得分
+      score: 0, //当前得分
     };
   },
   computed: {
@@ -136,7 +186,7 @@ export default {
         liStyle = { ...liStyle, border };
       }
       return liStyle;
-    }
+    },
   },
   created() {
     //1.0 生成蛇的二维数组
@@ -199,7 +249,7 @@ export default {
       this.restartGame();
       this.HiAlert({
         type: alertType,
-        content: tip
+        content: tip,
       });
     },
 
@@ -228,7 +278,7 @@ export default {
       clearInterval(this.moveTimer);
       this.HiAlert({
         type,
-        content: `难度已切换为${label}`
+        content: `难度已切换为${label}`,
       });
     },
 
@@ -257,7 +307,7 @@ export default {
       }
       this.HiAlert({
         type: "success",
-        content: `棋盘已设置为${label}`
+        content: `棋盘已设置为${label}`,
       });
       this.initStyle();
       this.restartGame();
@@ -271,7 +321,7 @@ export default {
     snakeAlert() {
       this.HiAlert({
         type: "warning",
-        content: "This is just a test button"
+        content: "This is just a test button",
       });
     },
 
@@ -286,7 +336,7 @@ export default {
           this.restartGame();
           this.HiAlert({
             type: "success",
-            content: "游戏已重置！"
+            content: "游戏已重置！",
           });
           break;
         case "stop":
@@ -310,14 +360,14 @@ export default {
         this.HiAlert({
           type: "secondary",
           content: "游戏已暂停！",
-          clear: true
+          clear: true,
         });
       } else {
         this.HiImg({ isShow: "hide" });
         this.HiAlert({
           type: "success",
           content: "游戏已开始！",
-          clear: true
+          clear: true,
         });
         this.gameStart();
       }
@@ -524,7 +574,7 @@ export default {
       this.restartGame();
       this.HiAlert({
         type: "danger",
-        content: "游戏结束！"
+        content: "游戏结束！",
       });
       this.HiImg({ type: "fail" });
     },
@@ -553,7 +603,7 @@ export default {
     createSnake() {
       const {
         snakeLength: l,
-        checkerArea: [r, c]
+        checkerArea: [r, c],
       } = this;
       //1.0 避免随机头部在边界且容的下蛇的长度
       const row = ~~(Math.random() * (r - l - 1) + 1);
@@ -608,7 +658,7 @@ export default {
     createFood() {
       const {
         checkerArea: [x, y],
-        snake
+        snake,
       } = this;
       //1.0 食物的坐标与蛇重叠则重新随机
       while (true) {
@@ -657,8 +707,8 @@ export default {
         w = parseInt(offsetWidth / b) + "px",
         h = parseInt(offsetHeight / a) + "px";
       this.liStyle = { width: w, height: h };
-    }
-  }
+    },
+  },
 };
 </script>
 

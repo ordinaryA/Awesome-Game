@@ -11,30 +11,55 @@
       <div class="row site">
         <div
           class="sm-12 md-3 col sidebar"
-          v-first="{name:'translateLeft',duration:'0.5s',delay:'0.5s',offset:'0'}"
+          v-first="{
+            name: 'translateLeft',
+            duration: '0.5s',
+            delay: '0.5s',
+            offset: '0',
+          }"
         >
           <div class="paper">
             <h3
               class="sidebar-title sidebar_h3"
-              v-first="{name:'translateTop',duration:'0.5s',delay:'0.8s',offset:'0'}"
-            >管道小鸟 Flappy Bird</h3>
+              v-first="{
+                name: 'translateTop',
+                duration: '0.5s',
+                delay: '0.8s',
+                offset: '0',
+              }"
+            >
+              管道小鸟 Flappy Bird
+            </h3>
             <div class="row">
               <div
                 class="collapsible full-width"
-                v-for="(item,idx) in sidebar"
+                v-for="(item, idx) in sidebar"
                 :key="idx"
-                v-first="{name:'translateTop',duration:'0.5s',delay:`${1+idx*0.2}s`,offset:'0'}"
+                v-first="{
+                  name: 'translateTop',
+                  duration: '0.5s',
+                  delay: `${1 + idx * 0.2}s`,
+                  offset: '0',
+                }"
               >
-                <input :id="`collapsible-${item.title}`" type="radio" name="collapsible" />
-                <label :for="`collapsible-${item.title}`">{{item.title}}</label>
+                <input
+                  :id="`collapsible-${item.title}`"
+                  type="radio"
+                  name="collapsible"
+                />
+                <label :for="`collapsible-${item.title}`">{{
+                  item.title
+                }}</label>
                 <div class="collapsible-body">
                   <ul>
                     <li
                       class="paper_li"
-                      v-for="(child,cIdx) in item.children"
+                      v-for="(child, cIdx) in item.children"
                       :key="cIdx"
                       @click="sideBarMethod(child)"
-                    >{{child.label}}</li>
+                    >
+                      {{ child.label }}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -44,37 +69,79 @@
         <div class="sm-12 md-9 col">
           <div
             class="paper"
-            v-first="{name:'translateRight',duration:'0.4s',delay:'0.5s',offset:'0'}"
+            v-first="{
+              name: 'translateRight',
+              duration: '0.4s',
+              delay: '0.5s',
+              offset: '0',
+            }"
           >
             <div
               class="spaceTip"
-              v-first="{name:'translateRight',duration:'0.4s',delay:'0.7s',offset:'0'}"
-            >{{`空格键开始或跳跃（Space） 当前得分（Count）：${successCount}分`}}</div>
+              v-first="{
+                name: 'translateRight',
+                duration: '0.4s',
+                delay: '0.7s',
+                offset: '0',
+              }"
+            >
+              {{
+                `空格键开始或跳跃（Space） 当前得分（Count）：${successCount}分`
+              }}
+            </div>
             <div
               class="scoreTip"
-              v-first="{name:'translateRight',duration:'0.4s',delay:'0.8s',offset:'0'}"
+              v-first="{
+                name: 'translateRight',
+                duration: '0.4s',
+                delay: '0.8s',
+                offset: '0',
+              }"
             >
               <span
                 class="birdScoreSpan"
-                v-for="(item,idx) in birdScore"
+                v-for="(item, idx) in birdScore"
                 :key="idx"
-                v-first="{name:'translateRight',duration:'0.5s',delay:`${0.9+idx*0.2}s`,offset:'0'}"
-              >{{item}}</span>
+                v-first="{
+                  name: 'translateRight',
+                  duration: '0.5s',
+                  delay: `${0.9 + idx * 0.2}s`,
+                  offset: '0',
+                }"
+                >{{ item }}</span
+              >
             </div>
             <div
               class="game_layout"
-              v-first="{name:'translateRight',duration:'0.4s',delay:'0.9s',offset:'0'}"
+              v-first="{
+                name: 'translateRight',
+                duration: '0.4s',
+                delay: '0.9s',
+                offset: '0',
+              }"
             >
               <div class="bird_box" ref="birdBox">
                 <transition name="alanAlert">
                   <div class="bird_h3" v-if="!isStart">
                     <span
-                      v-first="{name:'translateTop',duration:'0.5s',delay:'1.4s',offset:'0'}"
-                    >Game Start!!!</span>
+                      v-first="{
+                        name: 'translateTop',
+                        duration: '0.5s',
+                        delay: '1.4s',
+                        offset: '0',
+                      }"
+                      >Game Start!!!</span
+                    >
                     <br />
                     <span
-                      v-first="{name:'translateTop',duration:'0.5s',delay:'1.6s',offset:'0'}"
-                    >Just do it!Foolish guys!</span>
+                      v-first="{
+                        name: 'translateTop',
+                        duration: '0.5s',
+                        delay: '1.6s',
+                        offset: '0',
+                      }"
+                      >Just do it!Foolish guys!</span
+                    >
                   </div>
                 </transition>
                 <transition name="alanAlert">
@@ -87,7 +154,10 @@
                   />
                 </transition>
                 <div
-                  :class="{'birdRoate':birdData.sports == 'fall','birdJump':birdData.sports == 'jump'}"
+                  :class="{
+                    birdRoate: birdData.sports == 'fall',
+                    birdJump: birdData.sports == 'jump',
+                  }"
                   class="bird"
                   ref="bird"
                   :style="birdAttr"
@@ -96,27 +166,32 @@
                 </div>
                 <div
                   class="pipFar"
-                  v-for="(item,idx) in pipeArr"
+                  v-for="(item, idx) in pipeArr"
                   :key="idx"
-                  :style="{right:item.right + 'px'}"
+                  :style="{ right: item.right + 'px' }"
                 >
                   <img
                     class="pipe"
                     :src="item.topPipeSrc"
-                    :style="{top:item.topPipeTop + 'px'}"
+                    :style="{ top: item.topPipeTop + 'px' }"
                     alt
                   />
                   <img
                     class="pipe"
                     :src="item.bottomPipeSrc"
-                    :style="{top:item.bottomPipeTop + 'px'}"
+                    :style="{ top: item.bottomPipeTop + 'px' }"
                     alt
                   />
                 </div>
               </div>
               <div
                 class="land"
-                v-first="{name:'alanAlertIn',duration:'0.5s',delay:'1.1s',offset:'0'}"
+                v-first="{
+                  name: 'alanAlertIn',
+                  duration: '0.5s',
+                  delay: '1.1s',
+                  offset: '0',
+                }"
               ></div>
             </div>
           </div>
@@ -135,31 +210,31 @@ export default {
   mixins: [$animate],
   data() {
     return {
-      sidebar: BIRD.sidebar, //侧边栏
-      currentMode: "normal", //当前难度
+      sidebar: BIRD.sidebar, // 侧边栏
+      currentMode: "normal", // 当前难度
       birdData: {
         top: 50,
         right: 700,
-        sports: undefined //记录运动状态
-      }, //鸟对象
-      AS: 500, //加速度
-      TS: 0, //上抛速度
-      jumpPower: 1, //跳跃力度
-      downTime: 0, //记录时间
-      isStart: false, //是否开始
-      timerNum: 20, //计时器时间
-      moveTimer: null, //飞行计时器
-      pipeArr: [], //管道的集合
-      pipeMoveDistance: 2, //管道移动距离
-      pipeDist: 100, //每组管道之间的距离
-      pipeTimer: null, //管道定时器
-      pipeDistance: 200, //每组管道之间间隔的距离
+        sports: undefined, // 记录运动状态
+      }, // 鸟对象
+      AS: 500, // 加速度
+      TS: 0, // 上抛速度
+      jumpPower: 1, // 跳跃力度
+      downTime: 0, // 记录时间
+      isStart: false, // 是否开始
+      timerNum: 20, // 计时器时间
+      moveTimer: null, // 飞行计时器
+      pipeArr: [], // 管道的集合
+      pipeMoveDistance: 2, // 管道移动距离
+      pipeDist: 100, // 每组管道之间的距离
+      pipeTimer: null, // 管道定时器
+      pipeDistance: 200, // 每组管道之间间隔的距离
       successTip: {
         top: 210,
         right: 500,
-        isShow: false
+        isShow: false,
       }, //成功提示
-      successCount: 0 //成功得分
+      successCount: 0, // 成功得分
     };
   },
   created() {
@@ -173,17 +248,17 @@ export default {
     birdAttr() {
       return {
         top: this.birdData.top + "px",
-        right: this.birdData.right + "px"
+        right: this.birdData.right + "px",
       };
     },
     successAttr() {
       return {
         top: this.successTip.top + "px",
-        right: this.successTip.right + "px"
+        right: this.successTip.right + "px",
       };
     },
     ...mapState(["birdBestScore"]),
-    ...mapGetters(["birdScore"])
+    ...mapGetters(["birdScore"]),
   },
   methods: {
     /**
@@ -235,7 +310,7 @@ export default {
       this.pipeArr = [];
       this.HiAlert({
         type,
-        content: `难度已切换为${label}`
+        content: `难度已切换为${label}`,
       });
     },
 
@@ -400,7 +475,7 @@ export default {
       this.successTip = {
         top: birdData.top,
         right: birdData.right - 120,
-        isShow: true
+        isShow: true,
       };
       setTimeout(() => {
         this.successTip.isShow = false;
@@ -423,13 +498,13 @@ export default {
         COMMIT({ birdRecord: [currentMode, successCount] });
         this.HiAlert({
           type: "success",
-          content: "恭喜你打破了记录！！！"
+          content: "恭喜你打破了记录！！！",
         });
         this.HiImg({ type: "win" });
       } else {
         this.HiAlert({
           type: "danger",
-          content: "你挂了"
+          content: "你挂了",
         });
         this.HiImg({ type: "fail" });
       }
@@ -469,11 +544,11 @@ export default {
         topPipeSrc: require("../../assets/img/bird/pipeTop.png"),
         bottomPipeTop: topH + pipeDist,
         bottomPipeSrc: require("../../assets/img/bird/pipeBottom.png"),
-        isCross: "no" //是否已被穿过
+        isCross: "no", //是否已被穿过
       };
       pipeArr.push(pipe);
-    }
-  }
+    },
+  },
 };
 </script>
 

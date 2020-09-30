@@ -42,7 +42,7 @@ export default {
     return {
       star1: 30, //星星1
       star2: 30, //星星2
-      birdCount: 6 //鸟
+      birdCount: 6, //鸟
     };
   },
   methods: {
@@ -53,8 +53,8 @@ export default {
      */
     handleGOBack() {
       this.$router.go(-1);
-    }
-  }
+    },
+  },
 };
 </script>
 
