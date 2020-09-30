@@ -6,7 +6,7 @@
     <!-- 暴走漫画 -->
     <Awesome />
     <!-- 侧边条 -->
-    <!-- <Fixed /> -->
+    <Fixed />
   </div>
 </template>
 
@@ -20,12 +20,12 @@ export default {
   name: "App",
   data() {
     return {
-      isRefresh: true
+      isRefresh: true,
     };
   },
   provide() {
     return {
-      reload: this.reload
+      reload: this.reload,
     };
   },
   beforeCreate() {
@@ -55,19 +55,19 @@ export default {
         COMMIT({
           submit: {
             alertQueue: [], //alert队列初始化
-            cartoon: {} //漫画初始化
-          }
+            cartoon: {}, //漫画初始化
+          },
         });
         //保存store
         SET_SESSION("store", JSON.stringify(this.$store.state));
       });
-    }
+    },
   },
   components: {
     Alert,
     Awesome,
-    Fixed
-  }
+    Fixed,
+  },
 };
 </script>
 

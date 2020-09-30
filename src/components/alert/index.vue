@@ -2,7 +2,7 @@
   <div class="alert_box">
     <transition-group name="alanAlert">
       <div class="alert_style" v-for="item in alertQueue" :key="item.alertId">
-        <div :class="`alert alert-${item.type}`">{{item.content}}</div>
+        <div :class="`alert alert-${item.type}`">{{ item.content }}</div>
         <!-- Alert-primary
             Alert-secondary
             Alert-success
@@ -18,8 +18,8 @@ import { COMMIT } from "../../utils";
 import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState(["alertQueue"])
-  }
+    ...mapState(["alertQueue"]),
+  },
 };
 </script>
 

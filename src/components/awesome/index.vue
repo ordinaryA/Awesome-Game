@@ -12,8 +12,8 @@ import { COMMIT } from "../../utils";
 export default {
   data() {
     return {
-      win: 7, //胜利图片数量
-      fail: 14 //失败图片数量
+      win: 7, // 胜利图片数量
+      fail: 14, // 失败图片数量
     };
   },
   computed: {
@@ -24,13 +24,13 @@ export default {
         return require(`../../assets/img/winOrFail/${type}_${ran}.jpg`);
       }
     },
-    ...mapState(["cartoon"])
+    ...mapState(["cartoon"]),
   },
   methods: {
     hideThere() {
       this.HiImg({ isShow: "hide" });
-    }
-  }
+    },
+  },
 };
 </script>
 
