@@ -49,7 +49,7 @@ const first = {
 
 const directive = {
   drag,
-  first
+  first,
 };
 
 export default directive;

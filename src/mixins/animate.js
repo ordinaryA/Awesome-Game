@@ -1,9 +1,8 @@
 /**
  * v-first指令的混入方法
  */
-import {
-  WOW
-} from "wowjs";
+import { WOW } from "wowjs";
+
 export default {
   data() {
     return {};
@@ -16,7 +15,7 @@ export default {
   methods: {
     /**
      * 延迟加载动画
-     * @param {null}
+     * @param {void}
      * @return {void}
      */
     alan_timoutAnimate() {
@@ -24,9 +23,9 @@ export default {
         boxClass: "wow",
         animateClass: "animated",
         mobile: true,
-        live: false
+        live: true
       };
       new WOW(options).init();
-    }
-  }
+    },
+  },
 };
