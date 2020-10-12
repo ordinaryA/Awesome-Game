@@ -375,6 +375,8 @@ export default {
       const { gameIsOver } = this;
       //游戏结束则不执行则返回
       if (gameIsOver) return;
+      // 如果点击格子已被插旗 则不允许执行操作 立即返回
+      if (item.isFlag) return;
       //只执行鼠标左键按下事件
       if (e.button != 0) return;
       item.isCheck = true;
@@ -399,8 +401,8 @@ export default {
      * @param {object}
      * @returns {void}
      */
-    pickMine({ pos }) {
-      const { boardData } = this;
+    pickMine({ pos, isFlag }) {
+      if(isFlag) return;
       const errorArr = [pos];
       //1.0 只传入当前点击的坐标
       this.gameOver({ errorArr });

@@ -24,7 +24,7 @@
   }
 
   100% {
-    background-position: 100%;
+    background-position: -100%;
   }
 }
 
@@ -44,7 +44,7 @@
   background: url('~@image/bird/sky.png');
   background-position: center center;
   position: relative;
-  animation: birdBgMove 4s infinite linear;
+  animation: birdBgMove 5s infinite linear;
   overflow: hidden;
 }
 
