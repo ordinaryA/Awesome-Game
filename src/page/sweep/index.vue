@@ -142,17 +142,21 @@ export default {
   mixins: [$animate],
   data() {
     return {
+      // 正常 normal 困难 hard 疯狂 crazy 地狱 hell
+      defaultMode: "crazy", //默认难度
       sidebar: SWEEP.sidebar, //侧边栏
       buttonList: SWEEP.buttonList, //按钮列表
-      defaultMode: "crazy", //默认难度
-      boardSize: [40, 20], //棋盘尺寸
-      mineCount: 100, //雷的数量
+      boardSize: [0, 0], //棋盘尺寸
+      mineCount: 0, //雷的数量
       minePos: [], //雷的坐标集合
       boardData: [], //棋盘数据
       gameIsOver: false, //记录游戏是否结束
     };
   },
   created() {
+    // 1.通过难度初始化数据
+    this.setInitMode();
+    // 2.通过数据初始化棋盘
     this.initBoard();
   },
   computed: {
@@ -172,6 +176,18 @@ export default {
     },
   },
   methods: {
+    /**
+     * 设置初始难度，雷，棋盘样式
+     * @param {void}
+     * @returns {void}
+     */
+    setInitMode() {
+      const { modeEnum } = SWEEP;
+      const { defaultMode } = this;
+      this.boardSize = modeEnum[defaultMode].boardSize;
+      this.mineCount = modeEnum[defaultMode].mineCount;
+    },
+
     /**
      * 侧边栏事件
      * @param {object}
@@ -615,32 +631,15 @@ export default {
      * @returns {void}
      */
     pickDifficulty({ mode, label }) {
-      //游戏配置重新开始参数
+      const { modeEnum } = SWEEP;
+      // 游戏配置重新开始参数
       this.gameIsOver = false;
       this.defaultMode = mode;
-      let type = "";
-      switch (mode) {
-        case "normal":
-          this.boardSize = [10, 10];
-          this.mineCount = 10;
-          type = "primary";
-          break;
-        case "hard":
-          this.boardSize = [20, 15];
-          this.mineCount = 50;
-          type = "secondary";
-          break;
-        case "crazy":
-          this.boardSize = [40, 20];
-          this.mineCount = 200;
-          type = "warning";
-          break;
-        case "hell":
-          this.boardSize = [45, 25];
-          this.mineCount = 230;
-          type = "danger";
-          break;
-      }
+
+      // 通过枚举设置棋盘属性
+      this.boardSize = modeEnum[mode].boardSize;
+      this.mineCount = modeEnum[mode].mineCount;
+      const type = modeEnum[mode].type;
       this.initBoard();
       this.HiAlert({
         type,
