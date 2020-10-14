@@ -161,16 +161,14 @@ export default {
      * @return {number}
      */
     theRestOfMine() {
-      let count = 0;
       const { boardData, mineCount } = this;
-      boardData.map(({ isFlag }) => {
-        if (isFlag) count++;
-      });
-      const res = mineCount - count;
-      if (res == 0) {
-        this.gameWin();
-      }
-      return res;
+      const count = boardData.reduce((c, i) => {
+        if (i.isFlag) {
+          return c - 1;
+        }
+        return c;
+      }, mineCount);
+      return count < 0 ? 0 : count;
     },
   },
   methods: {
@@ -348,11 +346,22 @@ export default {
      * @return {number}
      */
     insertFlag(item) {
-      //已经被点击过的盒子 不能插旗子
+      const { boardData, mineCount } = this;
+      // 已经被点击过的盒子 不能插旗子
       if (item.isCheck) {
         item.isFlag = false;
-      } else {
-        item.isFlag = !item.isFlag;
+        return;
+      }
+      item.isFlag = !item.isFlag;
+      // 检查是否取得胜利
+      const correctFlag = boardData.reduce((c, i) => {
+        if (i.isFlag && i.type === "mine") {
+          return c + 1;
+        }
+        return c;
+      }, 0);
+      if (correctFlag === mineCount) {
+        this.gameWin();
       }
     },
 
@@ -402,7 +411,7 @@ export default {
      * @returns {void}
      */
     pickMine({ pos, isFlag }) {
-      if(isFlag) return;
+      if (isFlag) return;
       const errorArr = [pos];
       //1.0 只传入当前点击的坐标
       this.gameOver({ errorArr });
