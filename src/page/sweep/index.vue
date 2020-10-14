@@ -143,7 +143,7 @@ export default {
   data() {
     return {
       // 正常 normal 困难 hard 疯狂 crazy 地狱 hell
-      defaultMode: "crazy", //默认难度
+      defaultMode: "normal", //默认难度
       sidebar: SWEEP.sidebar, //侧边栏
       buttonList: SWEEP.buttonList, //按钮列表
       boardSize: [0, 0], //棋盘尺寸
@@ -581,18 +581,18 @@ export default {
           continue;
         }
         //4.0 判断是否已经递归过
-        if (item.isRepeat == "not") {
+        if (item.isRepeat === "not") {
           item.isRepeat = "is";
           //5.0 不为雷的时候才让其显示
-          if (item.type != "mine") {
+          if (item.type !== "mine") {
             item.isCheck = true;
           }
           //6.0 如果为数字则跳出当前轮循环
-          if (item.type == "number") {
+          if (item.type === "number") {
             continue;
           }
           //7.0 如果为空白格则向外扩散递归
-          if (item.type == "null") {
+          if (item.type === "null") {
             this.handleSpace(item.pos);
           }
         }
