@@ -143,14 +143,14 @@ export default {
   data() {
     return {
       // 正常 normal 困难 hard 疯狂 crazy 地狱 hell
-      defaultMode: "normal", //默认难度
-      sidebar: SWEEP.sidebar, //侧边栏
-      buttonList: SWEEP.buttonList, //按钮列表
-      boardSize: [0, 0], //棋盘尺寸
-      mineCount: 0, //雷的数量
-      minePos: [], //雷的坐标集合
-      boardData: [], //棋盘数据
-      gameIsOver: false, //记录游戏是否结束
+      defaultMode: "normal", // 默认难度
+      sidebar: SWEEP.sidebar, // 侧边栏
+      buttonList: SWEEP.buttonList, // 按钮列表
+      boardSize: [0, 0], // 棋盘尺寸
+      mineCount: 0, // 雷的数量
+      minePos: [], // 雷的坐标集合
+      boardData: [], // 棋盘数据
+      gameIsOver: false, // 记录游戏是否结束
     };
   },
   created() {
@@ -158,6 +158,12 @@ export default {
     this.setInitMode();
     // 2.通过数据初始化棋盘
     this.initBoard();
+  },
+  mounted() {
+    this.bindKeyboard();
+  },
+  destroyed() {
+    document.onkeydown = null;
   },
   computed: {
     /**
@@ -206,6 +212,20 @@ export default {
     },
 
     /**
+     * 键盘事件
+     * @param {void}
+     * @returns {void}
+     */
+    bindKeyboard() {
+      document.onkeydown = ({ keyCode }) => {
+        // 绑定空格键
+        if (keyCode == 32) {
+          this.HiImg({ isShow: "hide" });
+        }
+      };
+    },
+
+    /**
      * 游戏胜利
      * @param {void}
      * @returns {void}
@@ -233,24 +253,24 @@ export default {
      * @returns {void}
      */
     initBoard() {
-      //1.0 初始化棋盘
+      // 1.0 初始化棋盘
       const [x, y] = this.boardSize;
       const afterArr = [];
       for (let i = 0; i < y; i++) {
         for (let j = 0; j < x; j++) {
           const item = {
-            type: "init", //设置初始属性
-            isCheck: false, //是否点击过
-            pos: [j, i], //格子的坐标
-            isRepeat: "not", //是否递归过
-            isTip: false, //用户点击数字时的提示
-            isFlag: false, //用户是否插了旗子
+            type: "init", // 设置初始属性
+            isCheck: false, // 是否点击过
+            pos: [j, i], // 格子的坐标
+            isRepeat: "not", // 是否递归过
+            isTip: false, // 用户点击数字时的提示
+            isFlag: false, // 用户是否插了旗子
           };
           afterArr.push(item);
         }
       }
       this.boardData = afterArr;
-      //2.0 初始化雷
+      // 2.0 初始化雷
       this.creatMine();
     },
 
@@ -288,20 +308,20 @@ export default {
      */
     creatMine() {
       const {
-        mineCount, //雷的数量
-        boardData, //棋盘数据
-        boardSize: [a, b], //随机最大值
+        mineCount, // 雷的数量
+        boardData, // 棋盘数据
+        boardSize: [a, b], // 随机最大值
       } = this;
       let i = 0;
-      //1.0 获取不重复的随机数组
+      // 1.0 获取不重复的随机数组
       const randomArr = [];
       while (i < mineCount) {
         const ran = parseInt(Math.random() * a * b);
         let l = randomArr.length;
-        let bool = false; //判断重复布尔值
+        let bool = false; // 判断重复布尔值
         if (l) {
           for (let n = 0; n < l; n++) {
-            //重复则重新随机
+            // 重复则重新随机
             if (ran == randomArr[n]) {
               bool = true;
               break;
@@ -314,14 +334,14 @@ export default {
         }
       }
       let minePos = [];
-      //2.0 新增雷到棋盘数据
+      // 2.0 新增雷到棋盘数据
       randomArr.map((item) => {
         boardData[item].type = "mine";
-        //3.0 记录雷的坐标
+        // 3.0 记录雷的坐标
         minePos.push(boardData[item].pos);
       });
       this.minePos = minePos;
-      //4.0 计算每个格子雷的数量
+      // 4.0 计算每个格子雷的数量
       this.calcMineForNumber();
     },
 
@@ -333,17 +353,17 @@ export default {
     calcMineForNumber() {
       const { boardData, minePos } = this;
       boardData.map((item) => {
-        let count = 0; //记录当前格子周边雷的数量
+        let count = 0; // 记录当前格子周边雷的数量
         const sudoku = this.requestPos(item.pos);
         sudoku.map((sudo) => {
           minePos.map((mine) => {
-            //相同则记录一次雷的数量
+            // 相同则记录一次雷的数量
             if (sudo[0] == mine[0] && sudo[1] == mine[1]) {
               count++;
             }
           });
         });
-        //只有为初始值的时候才改变
+        // 只有为初始值的时候才改变
         if (item.type == "init") {
           if (count == 0) {
             item.type = "null";
@@ -398,23 +418,23 @@ export default {
      */
     clickBoard(e, item) {
       const { gameIsOver } = this;
-      //游戏结束则不执行则返回
+      // 游戏结束则不执行则返回
       if (gameIsOver) return;
       // 如果点击格子已被插旗 则不允许执行操作 立即返回
       if (item.isFlag) return;
-      //只执行鼠标左键按下事件
+      // 只执行鼠标左键按下事件
       if (e.button != 0) return;
       item.isCheck = true;
       switch (item.type) {
-        //空类型棋格
+        // 空类型棋格
         case "null":
           this.handleSpace(item.pos);
           break;
-        //数字类型棋格
+        // 数字类型棋格
         case "number":
           this.pickNumber(item);
           break;
-        //雷类型棋格
+        // 雷类型棋格
         case "mine":
           this.pickMine(item);
           break;
@@ -429,7 +449,7 @@ export default {
     pickMine({ pos, isFlag }) {
       if (isFlag) return;
       const errorArr = [pos];
-      //1.0 只传入当前点击的坐标
+      // 1.0 只传入当前点击的坐标
       this.gameOver({ errorArr });
     },
 
@@ -460,17 +480,17 @@ export default {
       let flagCount = 0;
       const mineArr = [];
       const flagArr = [];
-      //1.0 计算出九宫格的数组（二维）
+      // 1.0 计算出九宫格的数组（二维）
       const sudoku = this.requestPos(pos);
       for (let i = 0; i < sudoku.length; i++) {
-        //2.0 根据坐标拿到索引 拿到对应的item
+        // 2.0 根据坐标拿到索引 拿到对应的item
         const idx = this.calcIdx(sudoku[i]);
         const item = boardData[idx];
-        //3.0 棋格未被点击过 格子闪烁提示用户
+        // 3.0 棋格未被点击过 格子闪烁提示用户
         if (item && !item.isCheck) {
           item.isTip = true;
         }
-        //4.0 记录雷的集合与旗子集合
+        // 4.0 记录雷的集合与旗子集合
         if (item.type == "mine") {
           mineArr.push(item.pos);
         }
@@ -479,9 +499,9 @@ export default {
           flagArr.push(item.pos);
         }
       }
-      //5.0 旗子数量大于等于雷的数的时候则比较
+      // 5.0 旗子数量大于等于雷的数的时候则比较
       if (flagCount >= mineNumb) {
-        //6.0 正确则递归 错误则返回错误雷和未排雷
+        // 6.0 正确则递归 错误则返回错误雷和未排雷
         const { bool, notArr, errorArr } = this.findMine({
           mineArr,
           flagArr,
@@ -500,10 +520,10 @@ export default {
      * @returns {void}
      */
     gameOver({ notArr = [], errorArr = [] }) {
-      //1.0 记录游戏结束结束点击事件
+      // 1.0 记录游戏结束结束点击事件
       this.gameIsOver = true;
       const { boardData } = this;
-      //2.0 游戏结束显示所有格子
+      // 2.0 游戏结束显示所有格子
       boardData.map((item) => {
         item.isCheck = true;
         item.isTip = false;
@@ -533,7 +553,7 @@ export default {
       const { boardData } = this;
       const notArr = [];
       const errorArr = [];
-      //排雷正确则返回 错误则返回坐标集合
+      // 排雷正确则返回 错误则返回坐标集合
       if (JSON.stringify(flagArr) == JSON.stringify(mineArr)) {
         return {
           bool: true,
@@ -543,12 +563,12 @@ export default {
           const flagPos = flagArr[i];
           for (let j = 0; j < mineArr.length; j++) {
             const minePos = mineArr[j];
-            //1.0 旗子所在棋格没有雷则记录错误雷坐标
+            // 1.0 旗子所在棋格没有雷则记录错误雷坐标
             const falg = boardData[this.calcIdx(flagPos)];
             if (falg.type != "mine") {
               errorArr.push(flagPos);
             }
-            //2.0 雷的坐标如果没有旗子 则记录未插旗
+            // 2.0 雷的坐标如果没有旗子 则记录未插旗
             const mine = boardData[this.calcIdx(minePos)];
             if (mine.isFlag) {
               notArr.push(minePos);
@@ -570,28 +590,29 @@ export default {
      */
     handleSpace(arr) {
       const { boardData } = this;
-      //1.0 计算出九宫格的数组（二维）
+      // 1.0 计算出九宫格的数组（二维）
       const sudoku = this.requestPos(arr);
       for (let i = 0; i < sudoku.length; i++) {
-        //2.0 根据坐标拿到索引 拿到对应的item
+        // 2.0 根据坐标拿到索引 拿到对应的item
         const idx = this.calcIdx(sudoku[i]);
         const item = boardData[idx];
-        //3.0 根据索引找到的item为undefined则跳过
+        // 3.0 根据索引找到的item为undefined则跳过
         if (item == undefined) {
           continue;
         }
-        //4.0 判断是否已经递归过
+        // 4.0 判断是否已经递归过
         if (item.isRepeat === "not") {
           item.isRepeat = "is";
-          //5.0 不为雷的时候才让其显示
+          // 5.0 不为雷的时候才让其显示
           if (item.type !== "mine") {
             item.isCheck = true;
+            item.isFlag = false;
           }
-          //6.0 如果为数字则跳出当前轮循环
+          // 6.0 如果为数字则跳出当前轮循环
           if (item.type === "number") {
             continue;
           }
-          //7.0 如果为空白格则向外扩散递归
+          // 7.0 如果为空白格则向外扩散递归
           if (item.type === "null") {
             this.handleSpace(item.pos);
           }
@@ -607,17 +628,17 @@ export default {
     requestPos([x, y]) {
       const [maxX, maxY] = this.boardSize;
       const arr = [
-        //获取九宫格数据
-        [x - 1, y - 1], //左上
-        [x, y - 1], //中上
-        [x + 1, y - 1], //右上
-        [x - 1, y], //中左
-        [x + 1, y], //中右
-        [x - 1, y + 1], //左下
-        [x, y + 1], //中下
-        [x + 1, y + 1], //右下
+        // 获取九宫格数据
+        [x - 1, y - 1], // 左上
+        [x, y - 1], // 中上
+        [x + 1, y - 1], // 右上
+        [x - 1, y], // 中左
+        [x + 1, y], // 中右
+        [x - 1, y + 1], // 左下
+        [x, y + 1], // 中下
+        [x + 1, y + 1], // 右下
       ];
-      //1.0 过滤掉边界外的坐标
+      // 1.0 过滤掉边界外的坐标
       const filterArr = arr.filter(
         ([posX, posY]) =>
           !(posX < 0 || posY < 0 || posX >= maxX || posY >= maxY)

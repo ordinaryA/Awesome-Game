@@ -237,10 +237,11 @@ export default {
       successCount: 0, // 成功得分
     };
   },
-  created() {
+  mounted(){
     this.bindSpaceKey();
   },
   destroyed() {
+    document.onkeydown = null;
     clearInterval(this.pipeTimer);
     clearInterval(this.moveTimer);
   },
@@ -323,11 +324,11 @@ export default {
       document.onkeydown = ({ keyCode }) => {
         const { isStart } = this;
         if (keyCode == 32) {
-          //1.0 未开始则执行开始函数
+          // 1.0 未开始则执行开始函数
           if (!isStart) {
             this.gameRestart();
           } else {
-            //2.0 开始则执行跳跃函数
+            // 2.0 开始则执行跳跃函数
             this.birdJump();
           }
         }
@@ -342,13 +343,13 @@ export default {
     birdMove() {
       let { timerNum, birdData, TS, AS } = this;
       clearInterval(this.moveTimer);
-      //1.0 获取初始化top值
+      // 1.0 获取初始化top值
       const lastTop = birdData.top;
       this.moveTimer = setInterval(() => {
-        //2.0 时间单位转换为秒
+        // 2.0 时间单位转换为秒
         this.downTime += timerNum / 1000;
         const { downTime } = this;
-        //3.0 上一次跳跃的距离 + 当前产生的位移 (下落距离 -上抛距离 )
+        // 3.0 上一次跳跃的距离 + 当前产生的位移 (下落距离 -上抛距离 )
         const currentTop = 0.5 * AS * downTime * downTime - TS * downTime;
         const AH = lastTop + currentTop;
         if (AH > lastTop) {
@@ -356,7 +357,7 @@ export default {
         } else {
           if (birdData.sports != "jump") birdData.sports = "jump";
         }
-        //4.0 判断底边界
+        // 4.0 判断底边界
         const { birdBox, bird } = this.$refs;
         const bottomBorder = birdBox.offsetHeight;
         const birdHeight = bird.offsetHeight;
@@ -376,11 +377,11 @@ export default {
      */
     birdJump() {
       const { jumpPower } = this;
-      //1.0 初始化记录的下落时间
+      // 1.0 初始化记录的下落时间
       this.downTime = 0;
-      //2.0 设置上抛速度
+      // 2.0 设置上抛速度
       this.TS = 200 * jumpPower;
-      //3.0 重新执行运动函数
+      // 3.0 重新执行运动函数
       this.birdMove();
     },
 
@@ -395,37 +396,37 @@ export default {
       const birdWidth = birdBox.offsetWidth;
       clearInterval(this.pipeTimer);
       this.pipeTimer = setInterval(() => {
-        //1.0 第一个管道超出边界则删除
+        // 1.0 第一个管道超出边界则删除
         if (pipeArr[0].right > birdWidth) {
           pipeArr.shift();
         }
-        //2.0 最后一个管道距离右边界大于时则生成一组管道
+        // 2.0 最后一个管道距离右边界大于时则生成一组管道
         const lastPipe = pipeArr[pipeArr.length - 1];
         if (lastPipe.right > pipeDistance) {
           this.createPipe();
         }
-        //3.0 移动管道
+        // 3.0 移动管道
         for (let i = 0; i < pipeArr.length; i++) {
           const item = pipeArr[i];
           item.right += pipeMoveDistance;
         }
-        //4.0 判断小鸟是否通过管道
+        // 4.0 判断小鸟是否通过管道
         for (let i = 0; i < pipeArr.length; i++) {
           const item = pipeArr[i];
-          //找到第一个当前正在通过的管道
+          // 找到第一个当前正在通过的管道
           if (item.isCross == "no") {
             const res = this.judgeIsPassPipe(item);
             switch (res) {
-              //成功通过
+              // 成功通过
               case "isSuccess":
                 this.passPipe();
                 item.isCross = "is";
                 break;
-              //失败了
+              // 失败了
               case "isFail":
                 this.gameOver();
                 break;
-              //正在飞
+              // 正在飞
               case "isFlying":
                 break;
             }
@@ -443,17 +444,17 @@ export default {
     judgeIsPassPipe({ right, topPipeTop, bottomPipeTop }) {
       const { birdData } = this;
       const { top: birdtop, right: birdRight } = birdData;
-      const pipeWidth = 52, //管道宽度
-        pipeHeight = 420, //管道高度
-        birdHeight = 30, //鸟的高度
-        errorAllow = 5; //误差值
-      //1.0 先判断是否已经通过
+      const pipeWidth = 52, // 管道宽度
+        pipeHeight = 420, // 管道高度
+        birdHeight = 30, // 鸟的高度
+        errorAllow = 5; // 误差值
+      // 1.0 先判断是否已经通过
       if (birdRight <= right) {
         return "isSuccess";
       }
-      //2.0 未通过则判断当鸟进入管道的左右边界情况
+      // 2.0 未通过则判断当鸟进入管道的左右边界情况
       if (birdRight <= right + pipeWidth && birdRight > right) {
-        //3.0 判断鸟是否触碰到上下边界或更多
+        // 3.0 判断鸟是否触碰到上下边界或更多
         if (
           birdtop + errorAllow <= topPipeTop + pipeHeight ||
           birdtop + birdHeight - errorAllow >= bottomPipeTop
@@ -534,17 +535,17 @@ export default {
       const { birdBox } = this.$refs;
       const birdHeight = birdBox.offsetHeight;
       const topH = ~~(Math.random() * (birdHeight - pipeDist - 50));
-      //1.0 创造一组管道
-      const initRight = 300; //管道离右边的初始距离
-      const pipeW = 52; //管道图片宽度
-      const pipeH = 420; //管道图片高度
+      // 1.0 创造一组管道
+      const initRight = 300; // 管道离右边的初始距离
+      const pipeW = 52; // 管道图片宽度
+      const pipeH = 420; // 管道图片高度
       const pipe = {
         right: -pipeW,
         topPipeTop: topH - pipeH,
         topPipeSrc: require("../../assets/img/bird/pipeTop.png"),
         bottomPipeTop: topH + pipeDist,
         bottomPipeSrc: require("../../assets/img/bird/pipeBottom.png"),
-        isCross: "no", //是否已被穿过
+        isCross: "no", // 是否已被穿过
       };
       pipeArr.push(pipe);
     },

@@ -140,21 +140,21 @@ export default {
   mixins: [$animate],
   data() {
     return {
-      checkerArea: [50, 50], //棋盘横纵格子数
-      currentMode: "classicMode", //当前游戏魔模式
-      sidebar: SNAKE.sidebar, //侧边栏
-      buttonList: SNAKE.buttonList, //按钮栏
-      liStyle: {}, //棋盘样式
-      snakeLength: 4, //蛇的初始长度
-      boardBorder: false, //棋盘边框
-      snake: [], //蛇的容器
-      food: [], //食物的坐标
-      direction: undefined, //移动方向
-      moveTimer: undefined, //蛇移动的定时器
-      isStop: true, //是否暂停
-      wait: true, //等待方向更改完成才能再次修改方向
-      speed: 200, //蛇速度
-      score: 0, //当前得分
+      checkerArea: [50, 50], // 棋盘横纵格子数
+      currentMode: "classicMode", // 当前游戏魔模式
+      sidebar: SNAKE.sidebar, // 侧边栏
+      buttonList: SNAKE.buttonList, // 按钮栏
+      liStyle: {}, // 棋盘样式
+      snakeLength: 4, // 蛇的初始长度
+      boardBorder: false, // 棋盘边框
+      snake: [], // 蛇的容器
+      food: [], // 食物的坐标
+      direction: undefined, // 移动方向
+      moveTimer: undefined, // 蛇移动的定时器
+      isStop: true, // 是否暂停
+      wait: true, // 等待方向更改完成才能再次修改方向
+      speed: 200, // 蛇速度
+      score: 0, // 当前得分
     };
   },
   computed: {
@@ -189,20 +189,23 @@ export default {
     },
   },
   created() {
-    //1.0 生成蛇的二维数组
+    // 1.0 生成蛇的二维数组
     this.createSnake();
     this.$nextTick(() => {
-      //2.0 初始化棋盘样式
+      // 2.0 初始化棋盘样式
       this.initStyle();
-      //3.0 画出一条蛇
+      // 3.0 画出一条蛇
       this.drawSnake();
-      //4.0 随机生成食物
+      // 4.0 随机生成食物
       this.createFood();
-      //5.0 绑定键盘事件
-      this.bindKeycode();
     });
   },
+  mounted() {
+    // 绑定键盘事件
+    this.bindKeycode();
+  },
   destroyed() {
+    document.onkeydown = null;
     clearInterval(this.moveTimer);
   },
   methods: {
@@ -383,18 +386,18 @@ export default {
       this.score = 0;
       this.isStop = true;
       clearInterval(this.moveTimer);
-      //1.0 清空蛇和食物
+      // 1.0 清空蛇和食物
       const { layout } = this.$refs;
       const liArr = layout.querySelectorAll("li");
       for (let i = 0, l = liArr.length; i < l; i++) {
         const li = liArr[i];
         li.className = "";
       }
-      //2.0 生成蛇的二维数组
+      // 2.0 生成蛇的二维数组
       this.createSnake();
-      //3.0 画出一条蛇
+      // 3.0 画出一条蛇
       this.drawSnake();
-      //4.0 随机生成食物
+      // 4.0 随机生成食物
       this.createFood();
     },
 
@@ -420,37 +423,37 @@ export default {
     bindKeycode() {
       document.onkeydown = ({ keyCode }) => {
         const { direction, wait } = this;
-        //1.0 不等于相反方向时按键改变蛇的方向
+        // 1.0 不等于相反方向时按键改变蛇的方向
         switch (keyCode) {
-          //左
+          // 左
           case 37:
             if (direction != "right" && wait) {
               this.direction = "left";
               this.wait = false;
             }
             break;
-          //上
+          // 上
           case 38:
             if (direction != "down" && wait) {
               this.direction = "up";
               this.wait = false;
             }
             break;
-          //右
+          // 右
           case 39:
             if (direction != "left" && wait) {
               this.direction = "right";
               this.wait = false;
             }
             break;
-          //下
+          // 下
           case 40:
             if (direction != "up" && wait) {
               this.direction = "down";
               this.wait = false;
             }
             break;
-          //空格
+          // 空格
           case 32:
             this.stopGame();
             break;
@@ -465,7 +468,7 @@ export default {
      */
     snakeMove() {
       const { direction, snake, currentMode } = this;
-      let [r, c] = snake[0]; //第r行的第c个
+      let [r, c] = snake[0]; // 第r行的第c个
       let headAfter = [];
       switch (direction) {
         case "up":
@@ -481,31 +484,31 @@ export default {
           headAfter = [r, c + 1];
           break;
       }
-      //判断蛇头是否在自己身上
+      // 判断蛇头是否在自己身上
       if (this.judgeHeadInSelfBody()) {
         this.gameOver();
         return;
       }
-      //判断蛇头在当前游戏模式失败则游戏结束
+      // 判断蛇头在当前游戏模式失败则游戏结束
       const res = this[currentMode](headAfter);
       switch (currentMode) {
-        //经典模式
+        // 经典模式
         case "classicMode":
           if (!res) {
             this.gameOver();
             return;
           }
           break;
-        //自由模式
+        // 自由模式
         case "freeMode":
           headAfter = res;
           break;
       }
       if (this.isAteFood()) {
-        //吃到食物则重新生成一个食物
+        // 吃到食物则重新生成一个食物
         this.createFood();
       } else {
-        //未到食物则删除获取最后一个元素坐标
+        // 未到食物则删除获取最后一个元素坐标
         const [row, col] = snake.pop();
         const li = this.$refs[`li_${row}`][col];
         li.className = "";
@@ -538,19 +541,19 @@ export default {
       R -= 1;
       C -= 1;
       let snakeHead = [row, col];
-      //蛇头到达上边界时 蛇头坐标变为棋盘下边界
+      // 蛇头到达上边界时 蛇头坐标变为棋盘下边界
       if (row < 0) {
         snakeHead = [R, col];
       }
-      //蛇头到达左边界时 蛇头坐标变为棋盘右边界
+      // 蛇头到达左边界时 蛇头坐标变为棋盘右边界
       if (col < 0) {
         snakeHead = [row, C];
       }
-      //蛇头到达下边界时 蛇头坐标变为棋盘上边界
+      // 蛇头到达下边界时 蛇头坐标变为棋盘上边界
       if (row > R) {
         snakeHead = [0, col];
       }
-      //蛇头到达右边界时 蛇头坐标变为棋盘左边界
+      // 蛇头到达右边界时 蛇头坐标变为棋盘左边界
       if (col > C) {
         snakeHead = [row, 0];
       }
@@ -605,18 +608,18 @@ export default {
         snakeLength: l,
         checkerArea: [r, c],
       } = this;
-      //1.0 避免随机头部在边界且容的下蛇的长度
+      // 1.0 避免随机头部在边界且容的下蛇的长度
       const row = ~~(Math.random() * (r - l - 1) + 1);
       const col = ~~(Math.random() * (c - l - 1) + 1);
-      //2.0 头部坐标
+      // 2.0 头部坐标
       const head = [row, col];
       const body = [];
-      //3.0 随机生成蛇
+      // 3.0 随机生成蛇
       const ran = Math.random();
       if (ran > 0.5) {
         for (let i = row + 1; i < row + l; i++) {
           body.push([i, col]);
-          //4.0 定义蛇移动的方向
+          // 4.0 定义蛇移动的方向
           this.direction = "up";
         }
       } else {
@@ -635,9 +638,9 @@ export default {
      */
     drawSnake() {
       const { snake } = this;
-      //1.0 解构 a:横轴坐标 b:纵轴坐标
+      // 1.0 解构 a:横轴坐标 b:纵轴坐标
       snake.map(([a, b], idx) => {
-        //2.0 根据坐标获取元素
+        // 2.0 根据坐标获取元素
         const li = this.$refs[`li_${a}`][b] || undefined;
         if (!li) {
           return;
@@ -660,7 +663,7 @@ export default {
         checkerArea: [x, y],
         snake,
       } = this;
-      //1.0 食物的坐标与蛇重叠则重新随机
+      // 1.0 食物的坐标与蛇重叠则重新随机
       while (true) {
         const row = Math.floor(Math.random() * x);
         const col = Math.floor(Math.random() * y);
@@ -668,7 +671,7 @@ export default {
           const [a, b] = snake[i];
           if (row != a && col != b) {
             this.food = [row, col];
-            //2.0 修改食物坐标样式
+            // 2.0 修改食物坐标样式
             const food = this.$refs[`li_${row}`][col];
             food.className = "food";
             return;
@@ -683,9 +686,9 @@ export default {
      * @returns {void}
      */
     judgeHeadInSelfBody() {
-      //拷贝数组
+      // 拷贝数组
       const body = JSON.parse(JSON.stringify(this.snake));
-      //删除数组第一项并返回蛇头坐标
+      // 删除数组第一项并返回蛇头坐标
       const [x, y] = body.shift(1);
       for (let i = 0; i < body.length; i++) {
         const [a, b] = body[i];
