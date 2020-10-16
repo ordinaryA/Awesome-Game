@@ -89,7 +89,7 @@
                 v-first="{
                   name: 'translateTop',
                   duration: '0.5s',
-                  delay: '0.9s',
+                  delay: '0.8s',
                   offset: '0',
                 }"
               >
@@ -100,6 +100,7 @@
                   alt
                 />
               </div>
+              <div class="user-date">已用时：{{ elapsedTime }}</div>
             </div>
             <div
               class="board cl"
@@ -136,6 +137,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { SWEEP } from "@constants";
 import { $animate } from "../../mixins";
 export default {
@@ -143,7 +145,7 @@ export default {
   data() {
     return {
       // 正常 normal 困难 hard 疯狂 crazy 地狱 hell
-      defaultMode: "normal", // 默认难度
+      defaultMode: "crazy", // 默认难度
       sidebar: SWEEP.sidebar, // 侧边栏
       buttonList: SWEEP.buttonList, // 按钮列表
       boardSize: [0, 0], // 棋盘尺寸
@@ -151,6 +153,8 @@ export default {
       minePos: [], // 雷的坐标集合
       boardData: [], // 棋盘数据
       gameIsOver: false, // 记录游戏是否结束
+      elapsedTime: 0, // 开始游戏耗时
+      elapsedTimer: null, // 游戏计时器
     };
   },
   created() {
@@ -272,6 +276,8 @@ export default {
       this.boardData = afterArr;
       // 2.0 初始化雷
       this.creatMine();
+      // 3.0 初始化游戏时间
+      this.initElapsedTime();
     },
 
     /**
@@ -298,7 +304,43 @@ export default {
      */
     restartGame() {
       this.gameIsOver = false;
+      // 初始化棋盘
       this.initBoard();
+    },
+
+    /**
+     * 初始化游戏时间
+     * @param {void}
+     * @returns {void}
+     */
+    initElapsedTime() {
+      const startTime = moment();
+      // 初始化时间
+      this.elapsedTime = "00:00:00";
+      this.elapsedTimer = setInterval(() => {
+        const currentTime = moment();
+        const du = moment.duration(currentTime - startTime, "ms");
+        const hours = du.get("hours");
+        const mins = du.get("minutes");
+        const ss = du.get("seconds");
+        const formatDate =
+          this.PrefixInteger(hours, 2) +
+          ":" +
+          this.PrefixInteger(mins, 2) +
+          ":" +
+          this.PrefixInteger(ss, 2);
+        this.elapsedTime = formatDate;
+      }, 1000);
+    },
+
+    /**
+     * 数字前补 0
+     * @param {number}  num 传入的数字
+     * @param {number}  n 需要的字符长度
+     * @returns {void}
+     */
+    PrefixInteger(num, n) {
+      return (Array(n).join(0) + num).slice(-n);
     },
 
     /**
@@ -542,6 +584,9 @@ export default {
         content: "游戏失败",
       });
       this.HiImg({ type: "fail" });
+      // 3.0 清楚游戏时间定时器
+      clearInterval(this.elapsedTimer);
+      this.elapsedTimer = null;
     },
 
     /**
