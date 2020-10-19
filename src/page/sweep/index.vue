@@ -167,6 +167,7 @@ export default {
     this.bindKeyboard();
   },
   destroyed() {
+    clearInterval(this.elapsedTimer);
     document.onkeydown = null;
   },
   computed: {
@@ -316,6 +317,7 @@ export default {
     initElapsedTime() {
       const startTime = moment();
       // 初始化时间
+      clearInterval(this.elapsedTimer);
       this.elapsedTime = "00:00:00";
       this.elapsedTimer = setInterval(() => {
         const currentTime = moment();
