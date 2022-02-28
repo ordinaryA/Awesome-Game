@@ -1,15 +1,14 @@
 <template>
   <div class="gold_bg">
-    <div class="w1440 noScroll">
+    <div class="gold_bg--wrapper noScroll">
       <div class="row site">
         <div class="sm-12 md-12 col">
           <div
-            class="paper"
             v-first="{
               name: 'translateRight',
               duration: '0.4s',
               delay: '0.5s',
-              offset: '0'
+              offset: '0',
             }"
           >
             <div class="game_container" :style="gameArea">
@@ -45,8 +44,8 @@ import { $animate } from "../../mixins";
 // 绳子默认长度
 const LINE_DEFAULT_LENGTH = 30;
 // SVG的宽高
-const SVG_WIDTH = 1366;
-const SVG_HEIGHT = 700;
+const SVG_WIDTH = 1200;
+const SVG_HEIGHT = 600;
 // 接近SVG边界的临界值
 const NEAR_NUMBER = 20;
 
@@ -82,7 +81,7 @@ export default {
       hookIsRotate: true, // 钩子是否正在旋转
       hookIsGrab: false, // 钩子是否正在抓取
       hookIsBack: false, // 钩子是否正在收缩
-      isCatchItem: false // 钩子是否已经抓取到物品
+      isCatchItem: false, // 钩子是否已经抓取到物品
     };
   },
   created() {
@@ -104,7 +103,7 @@ export default {
     pathParams() {
       const {
         hookStartPos: [x1, y1],
-        hookPos: [x2, y2]
+        hookPos: [x2, y2],
       } = this;
       const path = `M${x1} ${y1} L${x2} ${y2} Z`;
       return path;
@@ -117,7 +116,7 @@ export default {
     hooksPosStyle() {
       const {
         hookPos: [left, top],
-        lineAngle
+        lineAngle,
       } = this;
 
       // 计算钩子旋转角度
@@ -131,7 +130,7 @@ export default {
       const style = {
         top: `${top - 5}px`,
         left: `${left - 11}px`,
-        transform: `rotate(${rotate}deg)`
+        transform: `rotate(${rotate}deg)`,
       };
       return style;
     },
@@ -155,14 +154,14 @@ export default {
             width: `${width}px`,
             height: `${height}px`,
             top: `${pos[1]}px`,
-            left: `${pos[0]}px`
+            left: `${pos[0]}px`,
           },
-          className
+          className,
         };
         return item;
       });
       return list;
-    }
+    },
   },
   methods: {
     /**
@@ -196,7 +195,7 @@ export default {
         const hooksArea = {
           pos: [xStart - HOOKS_AREA_ERROR, yStart],
           width: HOOKS_AREA_ERROR * 2,
-          height: HOOKS_AREA_ERROR
+          height: HOOKS_AREA_ERROR,
         };
         if (this.judgePosIsInside([x, y], hooksArea)) {
           i--;
@@ -212,7 +211,7 @@ export default {
             [x, y],
             [x + width, y],
             [x, y + height],
-            [x + width, y + height]
+            [x + width, y + height],
           ];
           const bool_1 = this.judgePosIsInside(posArr[0], c);
           const bool_2 = this.judgePosIsInside(posArr[1], c);
@@ -236,7 +235,7 @@ export default {
       }
 
       // 7.0 处理鲲的运动范围
-      const lastArr = result.map(c => {
+      const lastArr = result.map((c) => {
         // 不是鲲直接返回
         if (_.isUndefined(c.move)) return c;
 
@@ -268,7 +267,7 @@ export default {
       const {
         pos: [x, y],
         width,
-        height
+        height,
       } = items;
       //超出边界则返回false
       if (x + width > SVG_WIDTH || y + height > SVG_HEIGHT) {
@@ -288,7 +287,7 @@ export default {
       const {
         pos: [x2, y2],
         width,
-        height
+        height,
       } = items;
       // 如果传入坐标的x，大于等于目标区域的左边界且小于等于右边界
       // y大于等于目标区域的上边界且小于等于下边界
@@ -358,7 +357,7 @@ export default {
     letKunIsMoving() {
       const { itemsList } = this;
 
-      const arr = itemsList.map(c => {
+      const arr = itemsList.map((c) => {
         // 跳过不是鲲的物品
         if (_.isUndefined(c.move)) return c;
 
@@ -388,7 +387,7 @@ export default {
     hooksCatchSomething() {
       const {
         hookPos: [x, y],
-        itemsIdx
+        itemsIdx,
       } = this;
       const { width, height } = this.itemsList[itemsIdx];
       this.itemsList[itemsIdx].pos = [x - width / 2, y - height / 2];
@@ -550,7 +549,7 @@ export default {
         hookPos,
         lineAngle,
         lineLength,
-        hookStartPos: [x0, y0]
+        hookStartPos: [x0, y0],
       } = this;
       // 1.0 算出弧度
       const radian = ((2 * Math.PI) / 360) * lineAngle;
@@ -576,8 +575,8 @@ export default {
         }
       });
       return result;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -4,6 +4,15 @@
   background: url("~@image/snake/geometry.png");
   height: 100vh;
 
+  &--wrapper {
+    width: 1300px;
+    margin: 0 auto;
+  }
+
+  .game_container {
+    overflow: hidden;
+  }
+
   .sidebar_h3 {
     text-align: center;
   }
