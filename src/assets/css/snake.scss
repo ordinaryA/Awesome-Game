@@ -19,7 +19,7 @@
 }
 
 .snake_bg {
-  background: url('~@image/snake/geometry.png');
+  background: url("~@image/snake/geometry.png");
 }
 
 .content {
@@ -61,7 +61,7 @@
 }
 
 .check_ul li::before {
-  content: '';
+  content: "";
 }
 
 .snake_head {

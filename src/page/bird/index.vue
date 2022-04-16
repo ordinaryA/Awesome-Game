@@ -237,7 +237,7 @@ export default {
       successCount: 0, // 成功得分
     };
   },
-  mounted(){
+  mounted() {
     this.bindSpaceKey();
   },
   destroyed() {

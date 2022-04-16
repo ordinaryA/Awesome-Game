@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Rain />
     <router-view v-if="isRefresh" />
     <!-- 弹框 -->
     <Alert />
@@ -14,10 +15,17 @@
 import Alert from "./components/alert";
 import Awesome from "./components/awesome";
 import Fixed from "./components/fixed";
+import Rain from "./components/rain";
 import { mapState } from "vuex";
 import { DISPATCH, SET_SESSION, COMMIT } from "./utils";
 export default {
   name: "App",
+  components: {
+    Alert,
+    Awesome,
+    Fixed,
+    Rain,
+  },
   data() {
     return {
       isRefresh: true,
@@ -62,11 +70,6 @@ export default {
         SET_SESSION("store", JSON.stringify(this.$store.state));
       });
     },
-  },
-  components: {
-    Alert,
-    Awesome,
-    Fixed,
   },
 };
 </script>
