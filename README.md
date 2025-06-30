@@ -1,19 +1,19 @@
 # 用Vue写点游戏玩玩~~~（会持续更新）
 
-![awesome](http://www.almx.top/image/awesome-game/mai.jpg)
+![awesome](http://www.amzy.top/image/awesome-game/mai.jpg)
 
 ### 求个赞
 >掘金地址：[https://juejin.im/post/5d22b3ade51d4577770e73f1](https://juejin.im/post/5d22b3ade51d4577770e73f1)
   
 
 ## 在线Demo
-- 扫雷 ：[在线试玩](http://www.almx.top/awesome/#/sweep)
-- 管道小鸟 ：[在线试玩](http://www.almx.top/awesome/#/)
-- 贪吃蛇 ：[在线试玩](http://www.almx.top/awesome/#/snake)
+- 扫雷 ：[在线试玩](http://www.amzy.top/awesome/#/sweep)
+- 管道小鸟 ：[在线试玩](http://www.amzy.top/awesome/#/)
+- 贪吃蛇 ：[在线试玩](http://www.amzy.top/awesome/#/snake)
 
 # 扫雷
 
-![awesome](http://www.almx.top/image/awesome-game/sweepDemo.png)
+![awesome](http://www.amzy.top/image/awesome-game/sweepDemo.png)
 ## 思路
 1. 棋盘的每个格子分为三种类型的其中一种：
 >- 雷：emmm 就是一颗雷
@@ -24,7 +24,7 @@
 >- 数字：显示当前数字，提示用户雷的数量
 >- 空白：需要以当前点击格子为中心向外递归寻找类型为数字的格子来停止递归，如图
 
-![awesome](http://www.almx.top/image/awesome-game/sweep_ex1.png)
+![awesome](http://www.amzy.top/image/awesome-game/sweep_ex1.png)
 
 ## 递归
 1. 假设点击空白格的坐标``` [x,y] ```，则以它为中心的另八个格子坐标为：
@@ -50,14 +50,14 @@
             );
 ```
 3. 遍历坐标的集合，再去获取以每一项为中心的另八个坐标的集合，进行递归;
-![awesome](http://www.almx.top/image/awesome-game/sweep_ex2.png)
+![awesome](http://www.amzy.top/image/awesome-game/sweep_ex2.png)
 4. 当递归的途中某个坐标的类型不为空白，为数字时，则停止递归，如下图:
-![awesome](http://www.almx.top/image/awesome-game/sweep_ex3.png)
+![awesome](http://www.amzy.top/image/awesome-game/sweep_ex3.png)
 >点击红色向外遍历 => 紫色箭头 => 绿色箭头（找到数字格）=> 跳过绿色箭头的递归 => 开始黑色箭头的递归 
 5. 为避免递归的过程中重复递归某一坐标，则给每个棋格对象添加是否递归过的布尔值，通过判断则可避免重复递归
 6. 最后会得到扩展开的边界都为数字格的棋盘；
 
-![awesome](http://www.almx.top/image/awesome-game/sweep_ex4.png)
+![awesome](http://www.amzy.top/image/awesome-game/sweep_ex4.png)
 >emmmm 不要在意画风。
 
 ## 旗子
@@ -69,13 +69,13 @@
 >>排掉的雷（绿色背景的雷）
 >>错排的雷（红色背景的雷）
 
-![awesome](http://www.almx.top/image/awesome-game/sweep_ex5.png)
+![awesome](http://www.amzy.top/image/awesome-game/sweep_ex5.png)
 
 ## 完成！
 
 # 管道小鸟
 
-![awesome](http://www.almx.top/image/awesome-game/birdDemo.png)
+![awesome](http://www.amzy.top/image/awesome-game/birdDemo.png)
 ## 鸟对象与管道集合
 ``` javascript
 const bird = {
@@ -111,7 +111,7 @@ const pipe = {
 
 # 贪恰蛇
 
-![awesome](http://www.almx.top/image/awesome-game/snackDemo.png)
+![awesome](http://www.amzy.top/image/awesome-game/snackDemo.png)
 ## 生成一条贪吃的蛇 🐍与它的食物 🎂
 >首先需要定义一个二维数组来存放蛇头与蛇身的坐标
 - 蛇头：``` [~~(Math.random() * (棋盘宽度 - 蛇长 - 1) + 1),~~(Math.random() * (棋盘高度 - 蛇长 - 1) + 1)]; ```
